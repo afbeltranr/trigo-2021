@@ -1,0 +1,8 @@
+"0","names <- list.files(pattern = '.CSV')"
+"0","spectra.list <- lapply(names, read.csv, header = F)"
+"0","wavenumbers <- unlist(spectra.list[[1]][1])"
+"0","spectra.list2 <- lapply(spectra.list, '[', 2)"
+"0","spectra.df <- as.data.frame(t(as.data.frame(spectra.list2)))"
+"0","rownames(spectra.df) <- names"
+"0","colnames(spectra.df) <- wavenumbers"
+"0","# gsub('.{6}$', '', names)"
