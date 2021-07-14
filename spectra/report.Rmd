@@ -300,6 +300,16 @@ library(readxl)
 metadata <- read_excel("metadata.xlsx")
 ```
 
+
+# Leaves selection
+
+
+
+
+
+
+
+
 Then we subset the column of samples names, so we can check if these samples with info of classification and Si content have spectra:
 
 ```{r}
