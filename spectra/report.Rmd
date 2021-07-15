@@ -307,7 +307,7 @@ metadata <- metadata[-c(17),]
 which(is.na(metadata$sample))
 ```
 
-# matching samples with metadata with samples with spectra
+## matching samples that have metadata with samples with spectra
 
 ```{r}
 
@@ -369,75 +369,6 @@ for(i in 1:length(metadata$sample)) {
 # Leaves selection
 
 
-
-
-
-
-
-
-Then we subset the column of samples names, so we can check if these samples with info of classification and Si content have spectra:
-
-```{r}
-sample <- unlist(na.omit(metadata$sample))
-sample <- as.character(sample)
-```
-
-Now we found previously that samples 131,149,161,164, and 167 don't have spectra, we can certify this searching for them:
-
-* Creating an object with the query elements : `search1`
-* creating a `list` called `index1` within which we will save *where* in the `mean` matrix can we find the elements of `search1`.
-
-```{r}
-search1 <- as.character(c(131,149,161,164,167))
-index1 <- list(5)
-```
-
-Once we have created the query object and the response object, we can perform the search using a `for` loop, 
-```{r}
-
-for(i in 1:5){
-  index1[[i]] <- which(grepl(paste0('(?=.*',search1[i],')'),rownames(mean),perl = T))
-}
-
-index1
-```
-here, the function `which` tells us that for each element of the query `search1` how many matches we can find in `rownames(mean)`. The result `integer(0)` means that none of the elements of `search1` can be found in `rouwnames(mean)` in each iteration, hence, there are no spectra for these samples, so we can delete them for now.
-
-
-```{r}
-delete.index1 <- list(5)
-for(i in 1:5){
-  
-  delete.index1[i] <- which(sample == search1[i])
-}
-delete.index1 <- unlist(delete.index1)
-delete.index1
-
-sample2 <- sample[-c(delete.index1)]
-metadata2 <- metadata[-c(delete.index1),]
-```
-
-
-Also, we found samples 214 and 216 don't have classification information:
-
-```{r}
-which(rownames(mean) == '214' |rownames(mean) == '216')
-
-```
-So we can delete them for now:
-
-```{r}
-mean2 <- mean[-c(74,75),]
-```
-
-Now we can compare:
-
-```{r}
-print(rownames(mean2)[-c(96:105)])# We remove protobind
-print(sample)
-```
-
-
 prior work indicates that leave samples presented more variability thus it is worth it to subset a table with these samples:
 
 First, we ask `R` where can we find leave samples in metadata:
@@ -453,11 +384,36 @@ metadata.leaves <- metadata[leaves.index,]
 metadata.leaves
 ```
 
+# Silicon quantification
+
 Now, we can delete the rows (samples) that have no spectra, or silicon content.
 
 ```{r}
-
+which(is.na(metadata.leaves$Si))
+which(is.na(metadata.leaves$spectra))
 ```
+```{r}
+metadata.leaves$sample[11]
+```
+Now we can delete the sample `164`, since it does not have silicon content nor spectra.
+
+```{r}
+metadata.leaves.Si <- metadata.leaves[-c(11),]
+```
+
+Then, we can extrat the silicon content to a vector called `leavesSi`:
+
+```{r}
+LeavesSi <- cbind(metadata.leaves.Si$sample,metadata.leaves.Si$Si)
+```
+
+And we can create a table with corrected mean spectra for this samples:
+
+```{r}
+leavesSiSpectra <- corrected[metadata.leaves.Si$spectra.index,]
+```
+
+## Multivariate analysis
 
 
 
