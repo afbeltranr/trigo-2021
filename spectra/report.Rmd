@@ -192,100 +192,100 @@ corrected <- as.data.frame(corrected1[,1])
 ```
 
 ```{r ,echo = FALSE}
-par(mfrow = c(2,2))
-
-for(i in  1:length(rownames(spectra.df))){
-  
-  plot(wavenumbers,
-    spectra.df[i,],
-    axes = F,
-    xlab = '', 
-    ylab = '',
-    xlim = c(4000, 400),
-    ylim= c(0,0.2),
-    type = 'l',
-    col =cols[i]
-
-  )
-  par(new = T)
-}
-
-box()
-axis(1)
-axis(2)
-title(main = 'raw spectra full range',
-      xlab = expression(paste('Wave number (cm'^'-1',')')),
-      ylab ='absorbance (a.u.)')
-
-for(i in  1:length(rownames(range1))){
-  
-  plot(wavenumbers1,
-    range1[i,],
-    axes = F,
-    xlab = '', 
-    ylab = '',
-    xlim = c(1700, 400),
-    ylim= c(0,0.2),
-    type = 'l',
-    col =cols[i]
-
-  )
-  par(new = T)
-}
-
-box()
-axis(1)
-axis(2)
-title(main = 'raw spectra - ROI',
-      xlab = expression(paste('Wave number (cm'^'-1',')')),
-      ylab ='absorbance (a.u.)')
-
-
-for(i in  1:length(rownames(mean))){
-  
-  plot(wavenumbers1,
-    mean[i,],
-    axes = F,
-    xlab = '', 
-    ylab = '',
-    xlim = c(1700, 400),
-    ylim= c(0,0.2),
-    type = 'l',
-    col =cols.means[i]
-
-  )
-  par(new = T)
-}
-
-box()
-axis(1)
-axis(2)
-title(main = 'averaged spectra',
-      xlab = expression(paste('Wave number (cm'^'-1',')')),
-      ylab ='absorbance (a.u.)')
-
-for(i in  1:length(rownames(mean))){
-  
-  plot(wavenumbers1,
-    corrected[i,],
-    axes = F,
-    xlab = '', 
-    ylab = '',
-    xlim = c(1700, 400),
-    ylim= c(0,0.1),
-    type = 'l',
-    col =cols.means[i]
-
-  )
-  par(new = T)
-}
-
-box()
-axis(1)
-axis(2)
-title(main = 'corrected spectra',
-      xlab = expression(paste('Wave number (cm'^'-1',')')),
-      ylab ='absorbance (a.u.)')
+# par(mfrow = c(2,2))
+# 
+# for(i in  1:length(rownames(spectra.df))){
+#   
+#   plot(wavenumbers,
+#     spectra.df[i,],
+#     axes = F,
+#     xlab = '', 
+#     ylab = '',
+#     xlim = c(4000, 400),
+#     ylim= c(0,0.2),
+#     type = 'l',
+#     col =cols[i]
+# 
+#   )
+#   par(new = T)
+# }
+# 
+# box()
+# axis(1)
+# axis(2)
+# title(main = 'raw spectra full range',
+#       xlab = expression(paste('Wave number (cm'^'-1',')')),
+#       ylab ='absorbance (a.u.)')
+# 
+# for(i in  1:length(rownames(range1))){
+#   
+#   plot(wavenumbers1,
+#     range1[i,],
+#     axes = F,
+#     xlab = '', 
+#     ylab = '',
+#     xlim = c(1700, 400),
+#     ylim= c(0,0.2),
+#     type = 'l',
+#     col =cols[i]
+# 
+#   )
+#   par(new = T)
+# }
+# 
+# box()
+# axis(1)
+# axis(2)
+# title(main = 'raw spectra - ROI',
+#       xlab = expression(paste('Wave number (cm'^'-1',')')),
+#       ylab ='absorbance (a.u.)')
+# 
+# 
+# for(i in  1:length(rownames(mean))){
+#   
+#   plot(wavenumbers1,
+#     mean[i,],
+#     axes = F,
+#     xlab = '', 
+#     ylab = '',
+#     xlim = c(1700, 400),
+#     ylim= c(0,0.2),
+#     type = 'l',
+#     col =cols.means[i]
+# 
+#   )
+#   par(new = T)
+# }
+# 
+# box()
+# axis(1)
+# axis(2)
+# title(main = 'averaged spectra',
+#       xlab = expression(paste('Wave number (cm'^'-1',')')),
+#       ylab ='absorbance (a.u.)')
+# 
+# for(i in  1:length(rownames(mean))){
+#   
+#   plot(wavenumbers1,
+#     corrected[i,],
+#     axes = F,
+#     xlab = '', 
+#     ylab = '',
+#     xlim = c(1700, 400),
+#     ylim= c(0,0.1),
+#     type = 'l',
+#     col =cols.means[i]
+# 
+#   )
+#   par(new = T)
+# }
+# 
+# box()
+# axis(1)
+# axis(2)
+# title(main = 'corrected spectra',
+#       xlab = expression(paste('Wave number (cm'^'-1',')')),
+#       ylab ='absorbance (a.u.)')
 
 ```
 
@@ -298,8 +298,73 @@ First, we load the metadata table, created from the data table 'Datos_para_colom
 ```{r}
 library(readxl)
 metadata <- read_excel("metadata.xlsx")
+which(is.na(metadata$sample))
 ```
 
+
+```{r}
+metadata <- metadata[-c(17),]
+which(is.na(metadata$sample))
+```
+
+# matching samples with metadata with samples with spectra
+
+```{r}
+
+positions <- vector('list', 87) # the same sizeas metadata$sample
+
+for (i in 1:87){
+  
+positions[[i]] <- which(grepl(paste0('(?=.*',as.character(metadata$sample[i]),')'),rownames(corrected), perl=T)) 
+}
+
+
+```
+
+In the list `positions` we know where can we find the corrected mean spectra for each sample identified in `metadata$sample`. For instance, for `metadata$sample[1]`:
+
+```{r}
+metadata$sample[1]
+```
+we have in `positions`, where can we find the spectra for sample 125:
+
+```{r}
+rownames(corrected)[positions[[1]]]
+```
+Now, we can create a new column in metadata, to state which sample has spectra:
+
+```{r}
+for(i in 1:length(metadata$sample)) {
+  
+  if(length(positions[[i]]) == 1){
+    
+    metadata$spectra[i] <- rownames(corrected)[positions[[i]]]
+  }else{
+    metadata$spectra[i] <- NA
+  }
+  
+}
+
+data.frame(metadata = metadata$sample, spectra = metadata$spectra)
+```
+
+Also we can add an index column for when we need to call spectra from `corrected`
+Now we know what we have of each sample, as far as composition and spectra are concerned.
+
+```{r}
+for(i in 1:length(metadata$sample)) {
+  
+  if(length(positions[[i]]) == 1){
+    
+    metadata$spectra.index[i] <- positions[[i]]
+  }else{
+    metadata$spectra.index[i] <- NA
+  }
+  
+}
+
+
+```
 
 # Leaves selection
 
@@ -372,65 +437,89 @@ print(rownames(mean2)[-c(96:105)])# We remove protobind
 print(sample)
 ```
 
-#class
 
-Now, we can search for the elements of `sample`, in the `mean` matrix:
+prior work indicates that leave samples presented more variability thus it is worth it to subset a table with these samples:
 
-* First, we extract
-```{r}
-
-class <- unlist((metadata$class))
-
-which(is.na(class))
-
-metadata$sample[which(is.na(class))]
-
-metadata2 <- metadata[-c(which(is.na(class))),]
-
-ask<-list(81)
-
-for(i in 1:81){
-  
-  ask[[i]] <- which(
-                   grepl(
-                          paste0('(?=.*',
-                                 as.character(metadata$sample)[i],
-                                 ')'
-                                 ),
-                          rownames(mean),
-                          perl = T
-                          )
-                   )
-}
-ask <- unlist(ask)
-meta.means <- mean[ask,]
-rownames(meta.means)
-as.character(metadata$sample)
-```
-SAmples 131 and 159 don't have classification information
+First, we ask `R` where can we find leave samples in metadata:
 
 ```{r}
-ask2 <- list(74)
-
-for(i in 1:74){
-  
-  ask2[[i]] <- which(
-                   grepl(
-                          paste0('(?=.*',
-                                 as.character(rownames(meta.means))[i],
-                                 ')'
-                                 ),
-                          metadata$sample,
-                          perl = T
-                          )
-                   )
-}
-ask2 <- unlist(ask2)
-
-metadata.class <- metadata[ask2,]
-str(metadata.class$sample)
-str(rownames(meta.means))
-compare <- data.frame(means =  rownames(meta.means),class=metadata.class$sample)
-compare
+leaves.index <- which(grepl(paste0('(?=.*','L',')'),metadata$class,perl = T))
+leaves.index
 ```
-Now, that we can ensure which samples with spectra have classification, we can merge them
+Now that we know, we can separate these samples in a nwe data set
+
+```{r}
+metadata.leaves <- metadata[leaves.index,]
+metadata.leaves
+```
+
+Now, we can delete the rows (samples) that have no spectra, or silicon content.
+
+```{r}
+
+```
+
+
+
+<!-- #class -->
+
+<!-- Now, we can search for the elements of `sample`, in the `mean` matrix: -->
+
+<!-- * First, we extract -->
+<!-- ```{r} -->
+
+<!-- class <- unlist((metadata$class)) -->
+
+<!-- which(is.na(class)) -->
+
+<!-- metadata$sample[which(is.na(class))] -->
+
+<!-- metadata2 <- metadata[-c(which(is.na(class))),] -->
+
+<!-- ask<-list(81) -->
+
+<!-- for(i in 1:81){ -->
+
+<!--   ask[[i]] <- which( -->
+<!--                    grepl( -->
+<!--                           paste0('(?=.*', -->
+<!--                                  as.character(metadata$sample)[i], -->
+<!--                                  ')' -->
+<!--                                  ), -->
+<!--                           rownames(mean), -->
+<!--                           perl = T -->
+<!--                           ) -->
+<!--                    ) -->
+<!-- } -->
+<!-- ask <- unlist(ask) -->
+<!-- meta.means <- mean[ask,] -->
+<!-- rownames(meta.means) -->
+<!-- as.character(metadata$sample) -->
+<!-- ``` -->
+<!-- SAmples 131 and 159 don't have classification information -->
+
+<!-- ```{r} -->
+<!-- ask2 <- list(74) -->
+
+<!-- for(i in 1:74){ -->
+
+<!--   ask2[[i]] <- which( -->
+<!--                    grepl( -->
+<!--                           paste0('(?=.*', -->
+<!--                                  as.character(rownames(meta.means))[i], -->
+<!--                                  ')' -->
+<!--                                  ), -->
+<!--                           metadata$sample, -->
+<!--                           perl = T -->
+<!--                           ) -->
+<!--                    ) -->
+<!-- } -->
+<!-- ask2 <- unlist(ask2) -->
+
+<!-- metadata.class <- metadata[ask2,] -->
+<!-- str(metadata.class$sample) -->
+<!-- str(rownames(meta.means)) -->
+<!-- compare <- data.frame(means =  rownames(meta.means),class=metadata.class$sample) -->
+<!-- compare -->
+<!-- ``` -->
+<!-- Now, that we can ensure which samples with spectra have classification, we can merge them -->
