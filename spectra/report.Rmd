@@ -411,6 +411,66 @@ And we can create a table with corrected mean spectra for this samples:
 
 ```{r}
 leavesSiSpectra <- corrected[metadata.leaves.Si$spectra.index,]
+
+for (i in 1:length(rownames(leavesSiSpectra))){
+  
+  plot(as.numeric(colnames(leavesSiSpectra)), 
+     leavesSiSpectra[i,],
+     xlab = '',
+     ylab = '',
+     axes = F,
+     type = 'l',
+     xlim = c(1700,400),
+     ylim = c(0,0.06))
+  par(new = T)
+}
+box()
+axis(1)
+axis(2)
+title(main = '',
+      xlab = expression(paste('Wave number (cm'^'-1',')')),
+      ylab = 'Absorbance (a.u.)')
+
+```
+
+## Silicon concentration
+
+we have to create a `data.frame` in order to use the `plsr` function available in the `pls` package.
+
+```{r}
+
+leavesSiSpectra <- as.matrix(leavesSiSpectra)
+SiTable <- data.frame(Si = I(metadata.leaves.Si$Si),spectra = I(leavesSiSpectra) )
+
+```
+
+## model
+
+```{r}
+library(pls)
+SiPLS <- plsr(SiTable$Si~SiTable$spectra, 
+              ncomp = 10,
+              data = SiTable,
+              validation = 'LOO')
+```
+
+
+```{r}
+plot(RMSEP(SiPLS),type="b",legendpos="topright")
+```
+
+
+
+```{r}
+plot(SiPLS,ncomp=5,line=TRUE)
+```
+```{r}
+plot(SiPLS,plottype="scores",comps=1:4)
+```
+
+
+```{r}
+barplot(explvar(SiPLS)[1:4]) 
 ```
 
 ## Multivariate analysis
