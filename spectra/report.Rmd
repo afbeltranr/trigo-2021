@@ -448,7 +448,7 @@ SiTable <- data.frame(Si = I(metadata.leaves.Si$Si),spectra = I(leavesSiSpectra)
 
 ```{r}
 library(pls)
-SiPLS <- plsr(SiTable$Si~SiTable$spectra, 
+SiPLS <- plsr(SiTable$Si~ leavesSiSpectra, 
               ncomp = 10,
               data = SiTable,
               validation = 'LOO')
@@ -462,7 +462,7 @@ plot(RMSEP(SiPLS),type="b",legendpos="topright")
 
 
 ```{r}
-plot(SiPLS,ncomp=5,line=TRUE)
+plot(SiPLS,ncomp=3,line=TRUE)
 ```
 ```{r}
 plot(SiPLS,plottype="scores",comps=1:4)
@@ -472,6 +472,57 @@ plot(SiPLS,plottype="scores",comps=1:4)
 ```{r}
 barplot(explvar(SiPLS)[1:4]) 
 ```
+
+
+## Variable selection
+
+```{r}
+library(subselect)
+Hmat <- lmHmat(leavesSiSpectra,metadata.leaves.Si$Si)
+gen <- genetic(Hmat$mat, kmin =4, kmax = 15, H= Hmat$H, r =1, crit = 'CCR12', force = T)
+```
+  
+  
+```{r}
+colnames(leavesSiSpectra)[gen$bestsets[12,]]
+
+```
+# Multiple OLS with new variables 
+```{r}
+mols <- lm(metadata.leaves.Si$Si ~ leavesSiSpectra[,gen$bestsets[12,]], y = T, x = T)
+```
+
+```{r}
+#                     
+```
+```{r}
+
+
+library(pls)
+SiPLSgen <- plsr(SiTable$Si~ leavesSiSpectra[,gen$bestsets[12,]], ncomp = 10,
+              data = SiTable,
+              validation = 'LOO')
+
+
+```
+
+```{r}
+plot(RMSEP(SiPLSgen),type="b",legendpos="topright")
+```
+
+
+```{r}
+plot(SiPLS,ncomp=10,line=TRUE)
+```
+
+```{r}
+# library(lmvar)
+# cv.lm(mols,
+#      k = nrow(leav)
+#       )
+```
+
+
 
 ## Multivariate analysis
 
