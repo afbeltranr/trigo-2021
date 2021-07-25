@@ -490,22 +490,7 @@ as if we inspect the content of the variables selected with:
 View(leavesSiSpectra[,gen$bestsets[12,]])
 ```
   
-There are some variables with negative values, which, due to lambert burger beer law has no phisical meaning. hence, we can search for these variables in each subset by the following code.
 
-```{r}
-
-negatives <- vector('list', nrow(gen$bestsets))
-for(i in 1:nrow(gen$bestsets)){
-  
-  
-  df <- data.frame(leavesSiSpectra[, gen$bestsets[i,]])
-  
-  has.neg <- apply(df, 2, function(col) any(col < 0))
-  
-  negatives[[i]] <- which(has.neg)
-}
-negatives
-```
 
   
 ```{r}
@@ -542,6 +527,33 @@ plot(RMSEP(SiPLSgen),type="b",legendpos="topright")
 ```{r}
 plot(SiPLS,ncomp=10,line=TRUE)
 ```
+
+```{r}
+par(mfrow=c(3,4))
+for(j in 1:nrow(gen$bestsets)){
+for (i in 1:length(rownames(leavesSiSpectra))){
+plot(as.numeric(colnames(leavesSiSpectra)),
+leavesSiSpectra[i,],
+xlab = '',
+ylab = '',
+axes = F,
+type = 'l',
+xlim = c(1700,400),
+ylim = c(0,0.06))
+par(new = T)
+}
+box()
+axis(1)
+axis(2)
+title(main = paste(as.character(c(4:15)[j]),'variables'),
+xlab = expression(paste('Wave number (cm'^'-1',')')),
+ylab = 'Absorbance (a.u.)')
+abline(v = as.numeric(colnames(leavesSiSpectra)[gen$bestsets[j,]]),
+col = 2,
+lty = 2)
+}
+```
+
 
 ```{r}
 # library(lmvar)
