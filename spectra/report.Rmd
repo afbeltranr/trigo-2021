@@ -169,6 +169,7 @@ title(main = 'averaged spectra',
 ```{r}
 library(hyperSpec)
 
+
 spc <- new('hyperSpec',
            spc= mean, 
            wavelength = wavenumbers1)
@@ -189,6 +190,7 @@ plot(spc3,wl.reverse = TRUE)
 
 corrected1  <- as.data.frame(spc3[1:106])
 corrected <- as.data.frame(corrected1[,1])
+corrected <- corrected + (min(corrected)*-1) # shifting upwards to prevent negative values
 ```
 
 ```{r ,echo = FALSE}
@@ -345,7 +347,7 @@ for(i in 1:length(metadata$sample)) {
   
 }
 
-data.frame(metadata = metadata$sample, spectra = metadata$spectra)
+compare <- data.frame(metadata = metadata$sample, spectra = metadata$spectra)
 ```
 
 Also we can add an index column for when we need to call spectra from `corrected`
@@ -381,7 +383,7 @@ Now that we know, we can separate these samples in a nwe data set
 
 ```{r}
 metadata.leaves <- metadata[leaves.index,]
-metadata.leaves
+head(metadata.leaves)
 ```
 
 # Silicon quantification
@@ -462,7 +464,7 @@ plot(RMSEP(SiPLS),type="b",legendpos="topright")
 
 
 ```{r}
-plot(SiPLS,ncomp=3,line=TRUE)
+plot(SiPLS,ncomp=5,line=TRUE)
 ```
 ```{r}
 plot(SiPLS,plottype="scores",comps=1:4)
@@ -482,19 +484,45 @@ Hmat <- lmHmat(leavesSiSpectra,metadata.leaves.Si$Si)
 gen <- genetic(Hmat$mat, kmin =4, kmax = 15, H= Hmat$H, r =1, crit = 'CCR12', force = T)
 ```
   
+as if we inspect the content of the variables selected with:
+
+```{r}
+View(leavesSiSpectra[,gen$bestsets[12,]])
+```
+  
+There are some variables with negative values, which, due to lambert burger beer law has no phisical meaning. hence, we can search for these variables in each subset by the following code.
+
+```{r}
+
+negatives <- vector('list', nrow(gen$bestsets))
+for(i in 1:nrow(gen$bestsets)){
+  
+  
+  df <- data.frame(leavesSiSpectra[, gen$bestsets[i,]])
+  
+  has.neg <- apply(df, 2, function(col) any(col < 0))
+  
+  negatives[[i]] <- which(has.neg)
+}
+negatives
+```
+
   
 ```{r}
-colnames(leavesSiSpectra)[gen$bestsets[12,]]
+colnames(leavesSiSpectra)[gen$bestsets[1,]]
 
 ```
 # Multiple OLS with new variables 
 ```{r}
-mols <- lm(metadata.leaves.Si$Si ~ leavesSiSpectra[,gen$bestsets[12,]], y = T, x = T)
+mols <- lm(metadata.leaves.Si$Si ~ leavesSiSpectra[,gen$bestsets[1,]], y = T, x = T)
 ```
 
+
 ```{r}
-#                     
+summary(mols)
 ```
+
+
 ```{r}
 
 
@@ -526,67 +554,3 @@ plot(SiPLS,ncomp=10,line=TRUE)
 
 ## Multivariate analysis
 
-
-
-<!-- #class -->
-
-<!-- Now, we can search for the elements of `sample`, in the `mean` matrix: -->
-
-<!-- * First, we extract -->
-<!-- ```{r} -->
-
-<!-- class <- unlist((metadata$class)) -->
-
-<!-- which(is.na(class)) -->
-
-<!-- metadata$sample[which(is.na(class))] -->
-
-<!-- metadata2 <- metadata[-c(which(is.na(class))),] -->
-
-<!-- ask<-list(81) -->
-
-<!-- for(i in 1:81){ -->
-
-<!--   ask[[i]] <- which( -->
-<!--                    grepl( -->
-<!--                           paste0('(?=.*', -->
-<!--                                  as.character(metadata$sample)[i], -->
-<!--                                  ')' -->
-<!--                                  ), -->
-<!--                           rownames(mean), -->
-<!--                           perl = T -->
-<!--                           ) -->
-<!--                    ) -->
-<!-- } -->
-<!-- ask <- unlist(ask) -->
-<!-- meta.means <- mean[ask,] -->
-<!-- rownames(meta.means) -->
-<!-- as.character(metadata$sample) -->
-<!-- ``` -->
-<!-- SAmples 131 and 159 don't have classification information -->
-
-<!-- ```{r} -->
-<!-- ask2 <- list(74) -->
-
-<!-- for(i in 1:74){ -->
-
-<!--   ask2[[i]] <- which( -->
-<!--                    grepl( -->
-<!--                           paste0('(?=.*', -->
-<!--                                  as.character(rownames(meta.means))[i], -->
-<!--                                  ')' -->
-<!--                                  ), -->
-<!--                           metadata$sample, -->
-<!--                           perl = T -->
-<!--                           ) -->
-<!--                    ) -->
-<!-- } -->
-<!-- ask2 <- unlist(ask2) -->
-
-<!-- metadata.class <- metadata[ask2,] -->
-<!-- str(metadata.class$sample) -->
-<!-- str(rownames(meta.means)) -->
-<!-- compare <- data.frame(means =  rownames(meta.means),class=metadata.class$sample) -->
-<!-- compare -->
-<!-- ``` -->
-<!-- Now, that we can ensure which samples with spectra have classification, we can merge them -->
