@@ -443,6 +443,7 @@ we have to create a `data.frame` in order to use the `plsr` function available i
 
 leavesSiSpectra <- as.matrix(leavesSiSpectra)
 SiTable <- data.frame(Si = I(metadata.leaves.Si$Si),spectra = I(leavesSiSpectra) )
+nuevoRango <-   leavesSiSpectra[,c(261:676)]
 
 ```
 
@@ -450,7 +451,7 @@ SiTable <- data.frame(Si = I(metadata.leaves.Si$Si),spectra = I(leavesSiSpectra)
 
 ```{r}
 library(pls)
-SiPLS <- plsr(SiTable$Si~ leavesSiSpectra, 
+SiPLS <- plsr(SiTable$Si~ nuevoRango, 
               ncomp = 10,
               data = SiTable,
               validation = 'LOO')
@@ -464,7 +465,7 @@ plot(RMSEP(SiPLS),type="b",legendpos="topright")
 
 
 ```{r}
-plot(SiPLS,ncomp=5,line=TRUE)
+plot(SiPLS,ncomp=4,line=TRUE)
 ```
 ```{r}
 plot(SiPLS,plottype="scores",comps=1:4)
@@ -494,25 +495,48 @@ View(leavesSiSpectra[,gen$bestsets[12,]])
 
   
 ```{r}
-colnames(leavesSiSpectra)[gen$bestsets[1,]]
+colnames(leavesSiSpectra)[gen$bestsets[3,]]
 
 ```
 # Multiple OLS with new variables 
 ```{r}
-mols <- lm(metadata.leaves.Si$Si ~ leavesSiSpectra[,gen$bestsets[1,]], y = T, x = T)
+mols <- lm(metadata.leaves.Si$Si ~ leavesSiSpectra[,gen$bestsets[3,]], y = T, x = T)
 ```
 
 
 ```{r}
 summary(mols)
+
 ```
 
+```{r}
+predictions8Var <- predict(mols,  newdata = SiTable)
+predX8Var <- SiTable$Si
+predY8var <- predictions8Var
+
+table8bar <- data.frame(I( predX8Var),I(predY8var))
+
+lm.C <- lm(predX8Var~predY8var)
+
+plot(predX8Var,
+	 predY8var,
+	 xlab="Si real (ppm)" ,
+ 	 ylab="Si predicho (ppm)",
+ 	 pch=17,
+ 	 cex=1.2,
+ 	 col="darkorchid4",
+ 	 cex.lab=1
+ 	 )
+abline(a=-5.856e-10  , b=1, col=1, lty=1, lwd=2)
+# legend("topleft", recta.restado, pch=pch ,col=colfin, cex=1)
+
+```
 
 ```{r}
 
 
 library(pls)
-SiPLSgen <- plsr(SiTable$Si~ leavesSiSpectra[,gen$bestsets[12,]], ncomp = 10,
+SiPLSgen <- plsr(SiTable$Si~ leavesSiSpectra[,gen$bestsets[12,]], 
               data = SiTable,
               validation = 'LOO')
 
