@@ -1,0 +1,12 @@
+---
+title: "paper"
+author: "Felipe Beltran - Yohana Cabrera - Andres Cabrera"
+date: "7/28/2021"
+output:
+    rmdformats::downcute
+---
+# Introduction
+# Materials & methods
+# Results & discussion
+# Conclussion
+# References
