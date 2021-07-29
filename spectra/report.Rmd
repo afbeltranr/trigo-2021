@@ -444,7 +444,7 @@ we have to create a `data.frame` in order to use the `plsr` function available i
 leavesSiSpectra <- as.matrix(leavesSiSpectra)
 SiTable <- data.frame(Si = I(metadata.leaves.Si$Si),spectra = I(leavesSiSpectra) )
 nuevoRango <-   leavesSiSpectra[,c(261:676)]
-
+colnames( leavesSiSpectra[,c(261,676)])
 ```
 
 ## model
@@ -456,6 +456,7 @@ SiPLS <- plsr(SiTable$Si~ nuevoRango,
               data = SiTable,
               validation = 'LOO')
 ```
+
 
 
 ```{r}
@@ -492,13 +493,13 @@ View(leavesSiSpectra[,gen$bestsets[12,]])
 ```
   
 
-
   
 ```{r}
 colnames(leavesSiSpectra)[gen$bestsets[3,]]
 
 ```
 # Multiple OLS with new variables 
+
 ```{r}
 mols <- lm(metadata.leaves.Si$Si ~ leavesSiSpectra[,gen$bestsets[3,]], y = T, x = T)
 ```
@@ -510,7 +511,7 @@ summary(mols)
 ```
 
 ```{r}
-predictions8Var <- predict(mols,  newdata = SiTable)
+predictions8Var <- predict(mols,  newdata = as.data.frame(leavesSiSpectra[,gen$bestsets[3,]]))
 predX8Var <- SiTable$Si
 predY8var <- predictions8Var
 
@@ -531,6 +532,30 @@ abline(a=-5.856e-10  , b=1, col=1, lty=1, lwd=2)
 # legend("topleft", recta.restado, pch=pch ,col=colfin, cex=1)
 
 ```
+## cross validation for MOLS and selected variables
+
+```{r}
+library(DAAG)
+SiTablegen <- data.frame(cbind(metadata.leaves.Si$Si,
+                    leavesSiSpectra[,gen$bestsets[3,]]))
+colnames(SiTablegen)[1] <- 'Si'
+
+SiCVgenmols <-  cv.lm(data = SiTablegen,
+                form.lm = formula(Si~.),
+                m = 23,
+                seed = 1)
+```
+
+```{r}
+library(lmvar)
+cv.lm(mols,
+      k=23)
+
+```
+
+
+
+## PLS with new variables
 
 ```{r}
 
@@ -549,7 +574,7 @@ plot(RMSEP(SiPLSgen),type="b",legendpos="topright")
 
 
 ```{r}
-plot(SiPLS,ncomp=10,line=TRUE)
+plot(SiPLS,ncomp=4,line=TRUE)
 ```
 
 ```{r}
