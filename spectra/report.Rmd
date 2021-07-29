@@ -193,6 +193,33 @@ corrected <- as.data.frame(corrected1[,1])
 corrected <- corrected + (min(corrected)*-1) # shifting upwards to prevent negative values
 ```
 
+# multiplicative scatter correction (MSC)
+```{r}
+library(pls)
+correctedMSC <- msc(as.matrix(corrected))
+
+
+
+for (i in 1:length(rownames(correctedMSC))){
+  
+  plot(as.numeric(colnames(correctedMSC)), 
+     correctedMSC[i,],
+     xlab = '',
+     ylab = '',
+     axes = F,
+     type = 'l',
+     xlim = c(1700,400),
+     ylim = c(0,0.06))
+  par(new = T)
+}
+box()
+axis(1)
+axis(2)
+title(main = '',
+      xlab = expression(paste('Wave number (cm'^'-1',')')),
+      ylab = 'Absorbance (a.u.)')
+```
+
 ```{r ,echo = FALSE}
 # par(mfrow = c(2,2))
 # 
@@ -435,6 +462,9 @@ title(main = '',
 
 ```
 
+
+
+
 ## Silicon concentration
 
 we have to create a `data.frame` in order to use the `plsr` function available in the `pls` package.
@@ -451,7 +481,7 @@ colnames( leavesSiSpectra[,c(261,676)])
 
 ```{r}
 library(pls)
-SiPLS <- plsr(SiTable$Si~ nuevoRango, 
+SiPLS <- plsr(SiTable$Si~ msc(nuevoRango), 
               ncomp = 10,
               data = SiTable,
               validation = 'LOO')
