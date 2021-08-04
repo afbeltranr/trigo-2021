@@ -513,7 +513,7 @@ barplot(explvar(SiPLS)[1:4])
 ```{r}
 library(subselect)
 Hmat <- lmHmat(leavesSiSpectra,metadata.leaves.Si$Si)
-gen <- genetic(Hmat$mat, kmin =4, kmax = 15, H= Hmat$H, r =1, crit = 'CCR12', force = T)
+gen <- genetic(Hmat$mat, kmin =4, kmax = 12, H= Hmat$H, r =1, crit = 'CCR12', force = T)
 ```
   
 as if we inspect the content of the variables selected with:
@@ -537,7 +537,6 @@ mols <- lm(metadata.leaves.Si$Si ~ leavesSiSpectra[,gen$bestsets[3,]], y = T, x 
 
 ```{r}
 summary(mols)
-
 ```
 
 ```{r}
@@ -564,10 +563,110 @@ abline(a=-5.856e-10  , b=1, col=1, lty=1, lwd=2)
 ```
 ## cross validation for MOLS and selected variables
 
+
+
+
+```{r}
+library(tidyverse)
+library(caret)
+
+# First we create a list of tables with the best subsets selected by the genetic algorithm
+
+listOfTables <- vector('list', nrow(gen$bestsets))
+
+listOfModels <- vector('list', nrow(gen$bestsets))
+
+listOfRMSEP <- vector('list', nrow(gen$bestsets))
+
+system.time(
+for(i in 1:nrow(gen$bestsets)){
+  
+ listOfTables[[i]] <- cbind(Si  = metadata.leaves.Si$Si, as.data.frame(leavesSiSpectra[,gen$bestsets[i,]]))
+  
+ 
+ # setting seed to generate a
+# reproducible random sampling
+set.seed(125)
+ 
+# defining training control as
+# repeated cross-validation and
+# value of K is 10 and repetation is 3 times
+
+train_control <- trainControl(method = "repeatedcv",
+                            number = 10, repeats = 100)
+ 
+# training the model by assigning sales column
+# as target variable and rest other column
+# as independent variable
+
+listOfModels[[i]] <- train(Si ~., 
+                       data = listOfTables[[i]],
+                       method = "lm",
+                      trControl = train_control)
+
+
+listOfRMSEP[[i]] <- listOfModels[[i]]$resample$RMSE
+ 
+}
+
+)
+  
+RMSEP <- c(listOfRMSEP[[1]],listOfRMSEP[[2]],listOfRMSEP[[3]],listOfRMSEP[[4]],listOfRMSEP[[5]],listOfRMSEP[[6]],listOfRMSEP[[7]],listOfRMSEP[[8]],listOfRMSEP[[9]])
+
+
+
+RMSEPTable <- data.frame(RMSEP = RMSEP, variables = c(rep(4,1000),rep(5,1000),rep(6,1000),rep(7,1000),rep(8,1000),rep(9,1000),rep(10,1000),rep(11,1000),rep(12,1000)))
+
+RMSEPTable$variables <- as.factor(RMSEPTable$variables)
+library(ggplot2)
+
+
+# # R program to implement
+# # repeated K-fold cross-validation
+#  
+# # setting seed to generate a
+# # reproducible random sampling
+# set.seed(125)
+#  
+# # defining training control as
+# # repeated cross-validation and
+# # value of K is 10 and repetation is 3 times
+# train_control <- trainControl(method = "repeatedcv",
+#                             number = 10, repeats = 3)
+#  
+# # training the model by assigning sales column
+# # as target variable and rest other column
+# # as independent variable
+# model <- train(Si ~., data = marketing,
+#                method = "lm",
+#                trControl = train_control)
+#  
+# # printing model performance metrics
+# # along with other details
+# print(model)
+```
+
+
+
+```{r}
+
+
+dp <- ggplot(RMSEPTable, aes(x=variables, y=RMSEP, fill=variables)) + 
+  geom_violin(trim=FALSE)+
+  geom_boxplot(width=0.1, fill='white')+
+  labs(title="CVRMSE vs # of variables ",x="# of variables selected", y = "RMSE (n = 1000)")
+dp + scale_fill_brewer(palette="Blues") + theme_minimal()
+
+
+
+```
+
+
+
 ```{r}
 library(DAAG)
 SiTablegen <- data.frame(cbind(metadata.leaves.Si$Si,
-                    leavesSiSpectra[,gen$bestsets[3,]]))
+                    leavesSiSpectra[,gen$bestsets[12,]]))
 colnames(SiTablegen)[1] <- 'Si'
 
 SiCVgenmols <-  cv.lm(data = SiTablegen,
