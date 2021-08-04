@@ -1,12 +1,60 @@
 ---
-title: "paper"
+title: "Determination of Silica in Wheat Leaves with ATR-FTIR-Chemometry"
 author: "Felipe Beltran - Yohana Cabrera - Andres Cabrera"
 date: "7/28/2021"
 output:
     rmdformats::downcute
 ---
 # Introduction
+The presence of silicon (Si) in plants contributes to the response of stress-relief mechanisms for environmental events such as drought and pathogen attack. Because of the importance of crops such as wheat, barley, rice, and other grasses that accumulate Si, the understanding of the relationship between this element and plant science is the focus of numerous scientific efforts. Additionally, a new scientific quest is emerging for the study of Si accumulation in grasses: the huge amounts of agricultural waste that these crops generate have to be used in circular economies, but its full potential is hindered by Si presence in the residues. 
+Silicon is a major soil constituent, therefore plants invariably grow in Si-rich-environments 2. In soil, Si is available in the form of silicic acid solutions. Some plants accumulate so much silicic acid that Si precipitates as silica, e.g., phytoliths. The accumulation occurs mainly in root endodermis, epidermal cells of both leaf and inflorescence bracts 3, as well as awns and leaf macrohairs 4. 
+The molecular forms of Si that are transported through the xylem are known: only monomers and dimers of silicic acid have been found in the shoots of wheat and rice and no organo-silicon structures have been identified 5. Remarkably, the hemicellulose callose may be templating Si deposition in horsetails (Equisetum) 6, and may also play a role in Si deposition of algae and plants in general 7. 
+Si accumulation seems to be an ancient mechanism because it is present in early divergent plant lineages, and was lost in the course of evolution as silica is less present in later-evolving plants 8. In ancient silica - accumulators such as Equisetum species, silica may play a major structural role 9. This structural role was taken later in evolution by lignin. As a general tendency, later-evolving plants have more lignin and less silica 8. Lignin may fulfill a stronger mechanical role because, unlike silica, it can crosslink with cell wall polysaccharides 9. 
+However, the presence of Si and lignin is not mutually exclusively, and they relationship (if any) unknown. For example, in rice Si deposition starts when the plant cell synthesize and accumulate lignin in the secondary wall 10,11, while Si surplus is positively correlated with lignin content and mechanical strength 12. In Brachypodium, Si surplus induces changes in lignin composition 4.
+
+
 # Materials & methods
+
+Greenhouse experiment to test Si interactions with lignin
+A greenhouse experiment was set up to compare the effects of Si deficiency and surplus in both total lignin content, lignin monomeric composition, as well as its crosslinking with cell wall polysaccharides, specifically with arabinoxylans –the major hemicelluloses in grass cell walls 13 . 
+The experimental design was inspired by an article published in 1999 14. In that experiment, four wheat plants were grown in a 100 ml tank containing 0.5 mM Na2SiO3. Si was absorbed by the plants until it was depleted in ca. 80 days. Another set of plants was grown in a Si free environment with the same conditions; as there were not stressors, the Si-free plants grew normally. At day 80, the mature Si-free plants were transferred into a solution containing 0.5 mM Na2SiO3. The mature plants absorbed the same amount of Si in three days, as did plants grown in solutions to which Si had been added during their whole life. The experiment was set-up both in a greenhouse and in a controlled growing chamber yielding the same result: plants deprived from Si avidly absorbed the element at maturity, when all lignin was in place. We wondered if there was any difference in lignin content, quantity, and quality between these treatments. Thus, in our experimental design we included the same treatments: (1) A group grown for 90 days in a solution containing 1.5 mM Na2SiO3; this group was called Si+; (2) a group (Si++)  grown without Si until day 85, then 1.5 mM Na2SiO3 added to the tank: (3) a control group without silicon (Si-). 
+Nutrient solution: The rest of the nutrient solution was prepared according to a Standard Operational Procedure of the greenhouse at the University of Copenhagen in Rolighedsvej. In this procedure, commercial fertilizers are mixed in three different 250 L tanks with the formulations in Table 1. Then, an automatized pumping system mixes different ratios of the solutions in the tanks. The solutions are mixed with tap water which contained Si levels of 0.24±0.08 mM SiO2. For the purpose of the experiment, ca.150 L of this nutrient solution was used weekly. The Si content was measured in every occasion with the method described below. Then 1.5 mM Na2SiO3 was added to 50 or 100 L of solution (depending on the time line) from a 30 mM stock solution diluted in dm-water, while the same amount of dm-water was added to the controls. The measured Si content after dilution was between 1.5±0.16 mM. At the end of the week another Si sampling was performed, and the concentrations was always above 0.6 mM, which ensure that there was always Si surplus. 
+pH was adjusted to 6 using HCl or NaOH solutions. 
+Table 1. Nutrient solution
+ 
+Silicon measurements: Dissolved silica was measured by heteropoly blue method using the Hach protocol 8186 and a DR/1900 spectrophotometer (HACH Company, Loveland, USA)  as described by the manufacturer. A Si standard solution of 1.0 mg/L also from Hach (cat 110649) was used for calibration. Polypropylene volumetric flasks were used for dilution of samples to avoid Si contamination. 
+Plant production: Wheat seeds (JB Asano) were surface sterilized as follows. The seeds were immersed in 2.7% sodium hypochlorite solution (v/v) and a drop of Tween 80 for 30 minutes with constant stirring, then rinsed with MilliQ water five times (10 min each). The seeds were vernalized in the dark at 5°C in MilliQ water for 4 days. Thereafter, the seeds were placed in Si-free oasis horticubes (Smithers-Oasis, Kent, Ohio). The cubes were soaked in 1/10 strength nutrient solution (adjusted to pH 5.5) and excess water drained. Each seed was placed directly into a wet cube. Once seeds started rooted and started to actively grow (4-7 days), they were put it in the cold room for a vernalization period of 50 days.
+After vernalization the plants were cultured using the RainForest 72 aeroponic culture system (GHE, Fleurance, France), and placed in a greenhouse, mean temperature 20°C, under 9 h/15 h light (80–100 μE m−2 s−1)/dark regime. (Figure 1).
+
+Elemental analysis: Multi-elemental analyses of the solid samples was performed using inductively coupled plasma-optical emission spectroscopy (ICP-OES). A sample (10–50 mg) was mixed with 500–2500 μL 70% HNO3, 250–1000 μL 15% H2O2 and 40–200 μL 49% HF, and then digested in a pressurized microwave oven for 10 minutes with a starting pressure of 40 bar and a temperature of 240°C. After digestion, samples were diluted to a final 3.5% acid concentration with Milli-Q water before measurement on an ICP-OES (Model Optima 5300 DV, PerkinElmer) equipped with a HF-resistant sample introduction kit. For quantification, an external 10-point calibration standard P/N 4400-132565 and P/N 4400-ICP-MSCS (CPI International, Amsterdam) was used. A certified reference material (CRM) NCS 73013 Spinach leaf was analyzed together with the samples to evaluate the accuracy and precision of the analysis.
+
 # Results & discussion
 # Conclussion
 # References
+
+1.	Cabrera, Y., Cabrera, A., Larsen, F. H. & Felby, C. Solid-state 29Si NMR and FTIR analyses of lignin-silica coprecipitates. Holzforschung 2016, (2016).
+2.	Epstein, E. The anomaly of silicon in plant biology. Proc Natl Acad Sci USA 91, (1994).
+3.	Kumar, S., Soukup, M. & Elbaum, R. Silicification in Grasses: Variation between Different Cell Types. Frontiers in Plant Science 8, 438 (2017).
+4.	Głazowska, S., Murozuka, E., Persson, D. P., Castro, P. H. & Schjoerring, J. K. Silicon affects seed development and leaf macrohair formation in Brachypodium distachyon. Physiologia Plantarum 163, 231–246 (2018).
+5.	Casey, W., Kinrade, S., Knight, C., Rains, D. & Epstein, E. Aqueous silicate complexes in wheat, Triticum aestivum L. Plant, Cell & Environment 27, 51–54 (2004).
+6.	Law, C. & Exley, C. New insight into silica deposition in horsetail (Equisetum arvense). BMC Plant Biology 11, 1–9 (2011).
+7.	Brugiére, T. & Exley, C. Callose-associated silica deposition in Arabidopsis. Journal of Trace Elements in Medicine and Biology 39, 86–90 (2017).
+8.	Trembath-Reichert, E., Wilson, J. P., McGlynn, S. E. & Fischer, W. W. Four hundred million years of silica biomineralization in land plants. Proceedings of the National Academy of Sciences 112, 5449–5454 (2015).
+9.	Yamanaka, S. et al. Roles of silica and lignin in horsetail (Equisetum hyemale), with special reference to mechanical properties. Journal of Applied Physics 111, 044703 (2012).
+10.	Fang, J.-Y. & Ma, X.-L. In vitro simulation studies of silica deposition induced by lignin from rice. Journal of Zhejiang University. Science. B 7, 267–271 (2006).
+11.	Zhang, C., Wang, L., Zhang, W. & Zhang, F. Do lignification and silicification of the cell wall precede silicon deposition in the silica cell of the rice (Oryza sativa L.) leaf epidermis? Plant and soil 372, 137–149 (2013).
+12.	Zhang, J. et al. Silica distinctively affects cell wall features and lignocellulosic saccharification with large enhancement on biomass production in rice. Plant Science 239, 84–91 (2015).
+13.	Lapierre, C., Voxeur, A., Karlen, S. D., Helm, R. F. & Ralph, J. Evaluation of Feruloylated and p-Coumaroylated Arabinosyl Units in Grass Arabinoxylans by Acidolysis in Dioxane/Methanol. J. Agric. Food Chem. 66, 5418–5424 (2018).
+14.	Rafi, M. M. & Epstein, E. Silicon absorption by wheat (Triticum aestivum L.). Plant and Soil 211, 223–230 (1999).
+15.	Swedlund, P. J., Miskelly, G. M. & McQuillan, A. J. An attenuated total reflectance IR study of silicic acid adsorbed onto a ferric oxyhydroxide surface. Geochimica et Cosmochimica Acta 73, 4199–4214 (2009).
+16.	Mansfield, S. D., Kim, H., Lu, F. & Ralph, J. Whole plant cell wall characterization using solution-state 2D NMR. Nat. Protocols 7, 1579–1589 (2012).
+17.	Sluiter, A. et al. Determination of structural carbohydrates and lignin in biomass. Laboratory analytical procedure 1617, 1–16 (2008).
+18.	Inanaga, S., Okasaka, A. & Tanaka, S. Does silicon exist in association with organic compounds in rice plant? Soil Science and Plant Nutrition 41, 111–117 (1995).
+19.	Fleck, A. T. et al. Silicon enhances suberization and lignification in roots of rice (Oryza sativa). Journal of Experimental Botany 62, 2001–2011 (2011).
+20.	Perry, C. C. & Lu, Y. Preparation of silicas from silicon complexes: Role of cellulose in polymerisation and aggregation control. J Chem Soc Faraday Trans 88, (1992).
+21.	Kroger, N., Sumper, M. & Baeuerlein, E. 9 The Molecular Basis of Diatom Biosilica Formation. Biomineralization: Progress in biology, molecular biology and application 135–158 (2004).
+22.	Preari, M., Spinde, K., Lazic, J., Brunner, E. & Demadis, K. D. Bioinspired Insights into Silicic Acid Stabilization Mechanisms: The Dominant Role of Polyethylene Glycol-Induced Hydrogen Bonding. J. Am. Chem. Soc. 136, 4236–4244 (2014).
+23.	Spinde, K. et al. Influence of Polyamines and Related Macromolecules on Silicic Acid Polycondensation: Relevance to “Soluble Silicon Pools”? Chem. Mater. 23, 4676–4687 (2011).
+24.	Exley, C. A possible mechanism of biological silicification in plants. Frontiers in plant science 6, (2015).
+25.	Coradin, T., Eglin, D. & Livage, J. The silicomolybdic acid spectrophotometric method and its application to silicate/biopolymer interaction studies. Journal of Spectroscopy 18, 567–576 (2004).
+
