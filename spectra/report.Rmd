@@ -531,7 +531,7 @@ colnames(leavesSiSpectra)[gen$bestsets[3,]]
 # Multiple OLS with new variables 
 
 ```{r}
-mols <- lm(metadata.leaves.Si$Si ~ leavesSiSpectra[,gen$bestsets[3,]], y = T, x = T)
+mols <- lm(metadata.leaves.Si$Si ~ leavesSiSpectra[,gen$bestsets[4,]], y = T, x = T)
 ```
 
 
@@ -540,7 +540,7 @@ summary(mols)
 ```
 
 ```{r}
-predictions8Var <- predict(mols,  newdata = as.data.frame(leavesSiSpectra[,gen$bestsets[3,]]))
+predictions8Var <- predict(mols,  newdata = as.data.frame(leavesSiSpectra[,gen$bestsets[4,]]))
 predX8Var <- SiTable$Si
 predY8var <- predictions8Var
 
@@ -618,7 +618,6 @@ RMSEP <- c(listOfRMSEP[[1]],listOfRMSEP[[2]],listOfRMSEP[[3]],listOfRMSEP[[4]],l
 RMSEPTable <- data.frame(RMSEP = RMSEP, variables = c(rep(4,1000),rep(5,1000),rep(6,1000),rep(7,1000),rep(8,1000),rep(9,1000),rep(10,1000),rep(11,1000),rep(12,1000)))
 
 RMSEPTable$variables <- as.factor(RMSEPTable$variables)
-library(ggplot2)
 
 
 # # R program to implement
@@ -648,7 +647,7 @@ library(ggplot2)
 
 
 
-```{r}
+```{r cross validation graph}
 
 
 dp <- ggplot(RMSEPTable, aes(x=variables, y=RMSEP, fill=variables)) + 
@@ -661,27 +660,134 @@ dp + scale_fill_brewer(palette="Blues") + theme_minimal()
 
 ```
 
+# NIST Apple Leaves Reference material infrared spectra
+
+
+## Importing data
+
+```{r}
+namesNIST <- list.files(path = "./AppleLeaves",pattern = '.CSV')
+spectra.listNIST <- lapply(paste0('./AppleLeaves/',namesNIST), read.csv, header = F)
+wavenumbersNIST <- unlist(spectra.listNIST[[1]][1])
+spectra.list2NIST <- lapply(spectra.listNIST, '[', 2)
+spectra.dfNIST <- as.data.frame(t(as.data.frame(spectra.list2NIST)))
+rownames(spectra.dfNIST) <- namesNIST
+colnames(spectra.dfNIST) <- wavenumbersNIST
+
+
+ 
+```
+
+
+## plotting initial data for NIST samples
+
+```{r}
+for(i in  1:length(rownames(spectra.dfNIST))){
+  
+  plot(wavenumbersNIST,
+    spectra.dfNIST[i,],
+    axes = F,
+    xlab = '', 
+    ylab = '',
+    xlim = c(4000, 400),
+    ylim= c(0,0.2),
+    type = 'l',
+    col ='black'
+
+  )
+  par(new = T)
+}
+
+box()
+axis(1)
+axis(2)
+title(main = 'raw spectra full range',
+      xlab = expression(paste('Wave number (cm'^'-1',')')),
+      ylab ='absorbance (a.u.)')
+```
+
+## range selection for NIST samples
+
+```{r}
+colnames(spectra.df)[c(1,676)]
+```
+```{r}
+range1NIST <- spectra.dfNIST[,c(1:676)]
+wavenumbers1NIST <- wavenumbersNIST[c(1:676)]
+for(i in  1:length(rownames(range1NIST))){
+  
+  plot(wavenumbers1NIST,
+    range1NIST[i,],
+    axes = F,
+    xlab = '', 
+    ylab = '',
+    xlim = c(1700, 400),
+    ylim= c(0,0.1),
+    type = 'l',
+    col ="black"
+
+  )
+  par(new = T)
+}
+
+box()
+axis(1)
+axis(2)
+title(main = 'raw spectra - ROI',
+      xlab = expression(paste('Wave number (cm'^'-1',')')),
+      ylab ='absorbance (a.u.)')
+```
+
+# baseline correction for NIST samples
 
 
 ```{r}
-library(DAAG)
-SiTablegen <- data.frame(cbind(metadata.leaves.Si$Si,
-                    leavesSiSpectra[,gen$bestsets[12,]]))
-colnames(SiTablegen)[1] <- 'Si'
+library(hyperSpec)
 
-SiCVgenmols <-  cv.lm(data = SiTablegen,
-                form.lm = formula(Si~.),
-                m = 23,
-                seed = 1)
+
+spcNIST <- new('hyperSpec',
+           spc= range1NIST, 
+           wavelength = wavenumbers1NIST)
+
+bendNIST <- 0.1 * wl.eval(spcNIST,
+                      function (x) x^6+x^5+x^4+x^3+x^2,
+                      normalize.wl = normalize01)
+
+blNIST <- spc.rubberband(spcNIST+bendNIST, noise = 1e-4, df = 20)-bendNIST
+sumaNIST <- spcNIST+bendNIST
+spc3NIST <- spcNIST - blNIST
+
+plot(spcNIST, wl.reverse = TRUE)
+plot(blNIST, add=TRUE, col=2,wl.reverse = TRUE)
+plot(sumaNIST,wl.reverse = TRUE)
+plot(bendNIST, add=TRUE, col=2,wl.reverse = TRUE)
+plot(spc3NIST,wl.reverse = TRUE)
+
+corrected1NIST  <- as.data.frame(spc3NIST[1:5])
+correctedNIST <- as.data.frame(corrected1NIST[,1])
+correctedNIST <- correctedNIST + (min(correctedNIST)*-1) # shifting upwards to prevent negative values
 ```
+
+# prediction of Si content using MOLS with variables selected by genetic algorithms
 
 ```{r}
-library(lmvar)
-cv.lm(mols,
-      k=23)
 
+listOfNISTPredictions <- vector('list', length = length(listOfModels))
+for(i in 1:length(listOfModels)){
+  
+ listOfNISTPredictions[[i]] <- predict(listOfModels[[i]], newdata = as.data.frame(correctedNIST)) 
+  
+}
 ```
 
+In the list called `listOfNISTPredictions` we have the prediction fo Si content for each NIST sample. If whe reference value is 400 mg/Kg. we can calculate a relative error:
+
+```{r}
+
+listOfNISTErrors <- vector('list', length = length(listOfModels))
+for(i in 1:length(listOfNISTPredictions))
+listOfNISTErrors[[i]] <- (abs(listOfNISTPredictions[[i]]-400)/400)*100
+```
 
 
 ## PLS with new variables
@@ -690,7 +796,7 @@ cv.lm(mols,
 
 
 library(pls)
-SiPLSgen <- plsr(SiTable$Si~ leavesSiSpectra[,gen$bestsets[12,]], 
+SiPLSgen <- plsr(SiTable$Si~ leavesSiSpectra[,gen$bestsets[3,]], 
               data = SiTable,
               validation = 'LOO')
 
