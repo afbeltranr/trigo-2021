@@ -29,7 +29,11 @@ After vernalization the plants were cultured using the RainForest 72 aeroponic c
 Elemental analysis: Multi-elemental analyses of the solid samples was performed using inductively coupled plasma-optical emission spectroscopy (ICP-OES). A sample (10–50 mg) was mixed with 500–2500 μL 70% HNO3, 250–1000 μL 15% H2O2 and 40–200 μL 49% HF, and then digested in a pressurized microwave oven for 10 minutes with a starting pressure of 40 bar and a temperature of 240°C. After digestion, samples were diluted to a final 3.5% acid concentration with Milli-Q water before measurement on an ICP-OES (Model Optima 5300 DV, PerkinElmer) equipped with a HF-resistant sample introduction kit. For quantification, an external 10-point calibration standard P/N 4400-132565 and P/N 4400-ICP-MSCS (CPI International, Amsterdam) was used. A certified reference material (CRM) NCS 73013 Spinach leaf was analyzed together with the samples to evaluate the accuracy and precision of the analysis.
 
 # Results & discussion
+
+
 # Conclussion
+
+
 # References
 
 1.	Cabrera, Y., Cabrera, A., Larsen, F. H. & Felby, C. Solid-state 29Si NMR and FTIR analyses of lignin-silica coprecipitates. Holzforschung 2016, (2016).

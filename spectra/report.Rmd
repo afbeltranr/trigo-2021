@@ -391,8 +391,6 @@ for(i in 1:length(metadata$sample)) {
   }
   
 }
-
-
 ```
 
 # Leaves selection
@@ -406,7 +404,7 @@ First, we ask `R` where can we find leave samples in metadata:
 leaves.index <- which(grepl(paste0('(?=.*','L',')'),metadata$class,perl = T))
 leaves.index
 ```
-Now that we know, we can separate these samples in a nwe data set
+Now that we know, we can separate these samples in a new  data set
 
 ```{r}
 metadata.leaves <- metadata[leaves.index,]
@@ -519,7 +517,7 @@ gen <- genetic(Hmat$mat, kmin =4, kmax = 12, H= Hmat$H, r =1, crit = 'CCR12', fo
 as if we inspect the content of the variables selected with:
 
 ```{r}
-View(leavesSiSpectra[,gen$bestsets[12,]])
+View(leavesSiSpectra[,gen$bestsets[1,]])
 ```
   
 
@@ -849,4 +847,11 @@ lty = 2)
 
 
 ## Multivariate analysis
+
+
+
+
+
+# Predicting silicon in other tissues
+
 
