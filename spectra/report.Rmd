@@ -1065,4 +1065,113 @@ dp + scale_fill_brewer(palette="Blues") + theme_minimal() + geom_hline(yintercep
 
 
 
+# zero with ludox silica
+
+## Importing data
+
+```{r}
+namesludox <- list.files(path = "./AppleLeaves",pattern = '.CSV')
+spectra.listludox <- lapply(paste0('./AppleLeaves/',namesludox), read.csv, header = F)
+wavenumbersludox <- unlist(spectra.listludox[[1]][1])
+spectra.list2ludox <- lapply(spectra.listludox, '[', 2)
+spectra.dfludox <- as.data.frame(t(as.data.frame(spectra.list2ludox)))
+rownames(spectra.dfludox) <- namesludox
+colnames(spectra.dfludox) <- wavenumbersludox
+```
+
+## plotting initial data for ludox samples
+
+```{r}
+for(i in  1:length(rownames(spectra.dfludox))){
+  
+  plot(wavenumbersludox,
+    spectra.dfludox[i,],
+    axes = F,
+    xlab = '', 
+    ylab = '',
+    xlim = c(4000, 400),
+    ylim= c(0,0.2),
+    type = 'l',
+    col ='black'
+
+  )
+  par(new = T)
+}
+
+box()
+axis(1)
+axis(2)
+title(main = 'raw spectra full range',
+      xlab = expression(paste('Wave number (cm'^'-1',')')),
+      ylab ='absorbance (a.u.)')
+```
+
+
+## range selection for ludox samples
+
+```{r}
+colnames(spectra.df)[c(1,676)]
+```
+```{r}
+range1ludox <- spectra.dfludox[,c(1:676)]
+wavenumbers1ludox <- wavenumbersludox[c(1:676)]
+for(i in  1:length(rownames(range1ludox))){
+  
+  plot(wavenumbers1ludox,
+    range1ludox[i,],
+    axes = F,
+    xlab = '', 
+    ylab = '',
+    xlim = c(1700, 400),
+    ylim= c(0,0.1),
+    type = 'l',
+    col ="black"
+
+  )
+  par(new = T)
+}
+
+box()
+axis(1)
+axis(2)
+title(main = 'raw spectra - ROI',
+      xlab = expression(paste('Wave number (cm'^'-1',')')),
+      ylab ='absorbance (a.u.)')
+```
+
+
+
+# baseline correction for ludox samples
+
+
+```{r}
+library(hyperSpec)
+
+
+spcludox <- new('hyperSpec',
+           spc= range1ludox, 
+           wavelength = wavenumbers1ludox)
+
+bendludox <- 0.1 * wl.eval(spcludox,
+                      function (x) x^6+x^5+x^4+x^3+x^2,
+                      normalize.wl = normalize01)
+
+blludox <- spc.rubberband(spcludox+bendludox, noise = 1e-4, df = 20)-bendludox
+sumaludox <- spcludox+bendludox
+spc3ludox <- spcludox - blludox
+
+plot(spcludox, wl.reverse = TRUE)
+plot(blludox, add=TRUE, col=2,wl.reverse = TRUE)
+plot(sumaludox,wl.reverse = TRUE)
+plot(bendludox, add=TRUE, col=2,wl.reverse = TRUE)
+plot(spc3ludox,wl.reverse = TRUE)
+
+corrected1ludox  <- as.data.frame(spc3ludox[1:5])
+correctedludox <- as.data.frame(corrected1ludox[,1])
+correctedludox <- correctedludox + (min(correctedludox)*-1) # shifting upwards to prevent negative values
+```
+
+
+
+
 
