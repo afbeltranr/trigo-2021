@@ -12,6 +12,7 @@ The molecular forms of Si that are transported through the xylem are known: only
 Si accumulation seems to be an ancient mechanism because it is present in early divergent plant lineages, and was lost in the course of evolution as silica is less present in later-evolving plants 8. In ancient silica - accumulators such as Equisetum species, silica may play a major structural role 9. This structural role was taken later in evolution by lignin. As a general tendency, later-evolving plants have more lignin and less silica 8. Lignin may fulfill a stronger mechanical role because, unlike silica, it can crosslink with cell wall polysaccharides 9. 
 However, the presence of Si and lignin is not mutually exclusively, and they relationship (if any) unknown. For example, in rice Si deposition starts when the plant cell synthesize and accumulate lignin in the secondary wall 10,11, while Si surplus is positively correlated with lignin content and mechanical strength 12. In Brachypodium, Si surplus induces changes in lignin composition 4.
 
+XXXXX
 
 # Materials & methods
 
