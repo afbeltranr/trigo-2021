@@ -411,6 +411,7 @@ metadata.leaves <- metadata[leaves.index,]
 head(metadata.leaves)
 ```
 
+
 # Silicon quantification in leaves samples
 
 Now, we can delete the rows (samples) that have no spectra, or silicon content.
@@ -461,6 +462,51 @@ title(main = '',
 ```
 
 
+## Covariance matrix
+
+
+```{r}
+
+library(colorRamps)
+library(colorspace)
+library(viridis)
+corleaves <- cov(leavesSiSpectra)
+
+image(as.numeric(colnames(leavesSiSpectra)),
+	   as.numeric(colnames(leavesSiSpectra)),
+	  corleaves,
+	  col=viridis(100),
+	  axes=FALSE,
+	  xlab="",
+	  ylab="",
+	  xlim=c(1700,400),
+	   ylim=c(1700,400))
+contour(as.numeric(colnames(leavesSiSpectra)),
+	    as.numeric(colnames(leavesSiSpectra)),
+	    corleaves,
+	    add=TRUE,
+	    col="black",
+	    xlab="",
+	    ylab="",
+	    labcex=1.1,
+	    ylim=c(1700,400),
+	    labels=""
+	)
+contour(as.numeric(colnames(leavesSiSpectra)),
+	     as.numeric(colnames(leavesSiSpectra)),
+	    corleaves,
+	    lty=0,
+	    labcex=1.3,
+	    add=TRUE,
+	    col="black",
+	    vfont=c("sans serif", "bold italic"),
+	    nlevels=2
+	)
+
+axis(1)
+axis(2)
+box()
+```
 
 
 ## Silicon concentration
@@ -914,12 +960,14 @@ title(main = '',
 
 ### quantification using each of the models built with leaves data
 
+pendiente, hacer matriz de correlacion con los espectros de hojas que se usaron para construir los modelos, para ver lignina - silica
+
 ```{r}
 listOfStrawPredictions <-  vector('list', length = length(listOfModels))
 
 for(i in 1:length(listOfModels)){
   
- listOfStrawPredictions[[i]] <- predict(listOfModels[[i]], newdata = as.data.frame(StrawSiSpectra)) 
+ listOfStrawPredictions[[i]] <- predict(listOfModels[[i]], newdata = as.data.frame(StrawSiSpectra[,gen$bestsets[i,]])) 
   
 }
 ```
@@ -952,6 +1000,7 @@ dp <- ggplot(StrawErrorsdf, aes(x= model, y=error, fill=model)) +
 dp + scale_fill_brewer(palette="Blues") + theme_minimal() + geom_hline(yintercept=100) 
 
 ```
+
 
 
 
@@ -1170,6 +1219,9 @@ corrected1ludox  <- as.data.frame(spc3ludox[1:5])
 correctedludox <- as.data.frame(corrected1ludox[,1])
 correctedludox <- correctedludox + (min(correctedludox)*-1) # shifting upwards to prevent negative values
 ```
+
+
+
 
 
 
