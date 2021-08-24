@@ -1,0 +1,86 @@
+---
+title: "Structuring your articule correctly"
+author: "Felipe Beltran - Yohana Cabrera - Andres Cabrera"
+date: "8/21/2021"
+output: rmdformats::downcute
+---
+
+# General structure of a research article
+
+* Title
+* Abstract
+* Keywords
+
+* Introduction
+* Methods
+* Results and Discussion
+
+* Conclusion
+* Acknowledgements
+* References
+* [Supporting Materials]()
+
+Let us look at each section and what it contains, starting with title.
+
+*There are certain characteristics of effective titles. They should:*
+
+1. Attract the reader's attention.
+2. Contain the fewest possible words.
+3. Adequately describe content.
+4. Be informative but concise.
+5. Identify the main issue.
+6. Not use technical jargon and abbreviations, but use formal language.
+
+It is advisable to discuss the title with your co-authors.
+
+**Remember :** Editors and Reviewers do *NOT* like titles that make no sense or fail to represent the subject matter adequately.
+
+And maybe even more important, you want the apporpiate audience to read your paper. If the title is not accurate, the rigt people may not read it and the community might be unaware of your work. This could even lead to *lower citations than the paper deserves*.
+
+# Authorship 
+
+1. Determining the order of authors on a paper can vary by discipline and culture, but the general rule is that the **first author** is the person who conducts or supervises: **the data collection, analysis, presentation, and interpretation f the results** and also puts together the paper for submission. The **corresponding author** can be the first author, or sometimes is a senior author from the institution.
+
+2. **You should always avoid ghost authorship** which means excluding authors who participated in the work, and **gift authorship**, which means including authors who did not contribute to the work. Also, always be consistent in how you write the authors' names.
+
+
+# Keywords 
+
+1. **Keywords** are the labels or tags for your manuscript and are used by indexing and abstracting services, **Avoid** Words that have broad meaning. Keywords should be specific enough to give someone a very quick idea about the content og your paper.
+
+2. Only use abbreviations that are firmly established in the field of study, e.g. DNA.
+
+3. Check the[ guide for authors](https://www.elsevier.com/journals/learning-and-instruction/0959-4752/guide-for-authors) for specifics on which keywords should be used.
+
+* Are the labels of the manuscript
+* Are used by indexing and abstracting services
+* Should be specific
+* Should use only established abbreviations (e.g. DNA)
+
+```{r , echo= F}
+df1 <- data.frame(a = 'An experimental study on evacuated tube solar collector using supercritical CO2',
+                  b = 'Solar Collector; Supercritical CO2; solar energy; solar thermal utilization')
+colnames(df1) <- c('Article title', 'keywords')
+knitr::kable(df1)
+```
+
+The table contains actual examples of keywords that are associated with an article taken from scienceDirect.com.
+
+# Abstract
+
+If the title cathces a reader's attention, the next thing they check is the **Abstract**. The Abstract is freely available in electronic abstracting and indexing services, such as Scopus, PubMed, Medline, and Embase.
+
+1. The abstract should be a single paragraph summarizing the problem, the methods, the results and the conclusions.
+
+2. The abstract acts as an advertisement for your article since it is freely available via online searching and indexing. You want to make it as catchy as possible to have the greatest impact.
+
+3. An Abstract written clearly will strongly encourage the reader to read the rest of your paper.
+
+4. The Abstract shoud be as brief as possible.
+
+Take the time to write the Abstract very carefully. Many authors write the abstract last to it accurately reflects the content of the paper.
+
+
+
+
+

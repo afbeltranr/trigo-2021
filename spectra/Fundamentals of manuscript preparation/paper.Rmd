@@ -2,19 +2,30 @@
 title: "Determination of Silica in Wheat Leaves with ATR-FTIR-Chemometrics"
 author: "Felipe Beltran - Yohana Cabrera - Andres Cabrera"
 date: "7/28/2021"
-output:
-    rmdformats::downcute
+output: pdf_document
+classoption:
+- twocolumn
 ---
+
+# Title
+# Abstract
+# Keywords
+
+
+
 # Introduction
 The presence of silicon (Si) in plants contributes to the response of stress-relief mechanisms for environmental events such as drought and pathogen attack. Because of the importance of crops such as wheat, barley, rice, and other grasses that accumulate Si, the understanding of the relationship between this element and plant science is the focus of numerous scientific efforts. Additionally, a new scientific quest is emerging for the study of Si accumulation in grasses: the huge amounts of agricultural waste that these crops generate have to be used in circular economies, but its full potential is hindered by Si presence in the residues. 
-Silicon is a major soil constituent, therefore plants invariably grow in Si-rich-environments 2. In soil, Si is available in the form of silicic acid solutions. Some plants accumulate so much silicic acid that Si precipitates as silica, e.g., phytoliths. The accumulation occurs mainly in root endodermis, epidermal cells of both leaf and inflorescence bracts 3, as well as awns and leaf macrohairs 4. 
-The molecular forms of Si that are transported through the xylem are known: only monomers and dimers of silicic acid have been found in the shoots of wheat and rice and no organo-silicon structures have been identified 5. Remarkably, the hemicellulose callose may be templating Si deposition in horsetails (Equisetum) 6, and may also play a role in Si deposition of algae and plants in general 7. 
+
+Silicon is a major soil constituent, therefore plants invariably grow in Si-rich-environments [2]. In soil, Si is available in the form of silicic acid solutions. Some plants accumulate so much silicic acid that Si precipitates as silica, e.g., phytoliths. The accumulation occurs mainly in root endodermis, epidermal cells of both leaf and inflorescence bracts [3], as well as awns and leaf macrohairs [4]. 
+
+The molecular forms of Si that are transported through the xylem are known: only monomers and dimers of silicic acid have been found in the shoots of wheat and rice and no organo-silicon structures have be en identified 5. Remarkably, the hemicellulose callose may be templating Si deposition in horsetails (Equisetum) 6, and may also play a role in Si deposition of algae and plants in general 7. 
 Si accumulation seems to be an ancient mechanism because it is present in early divergent plant lineages, and was lost in the course of evolution as silica is less present in later-evolving plants 8. In ancient silica - accumulators such as Equisetum species, silica may play a major structural role 9. This structural role was taken later in evolution by lignin. As a general tendency, later-evolving plants have more lignin and less silica 8. Lignin may fulfill a stronger mechanical role because, unlike silica, it can crosslink with cell wall polysaccharides 9. 
 However, the presence of Si and lignin is not mutually exclusively, and they relationship (if any) unknown. For example, in rice Si deposition starts when the plant cell synthesize and accumulate lignin in the secondary wall 10,11, while Si surplus is positively correlated with lignin content and mechanical strength 12. In Brachypodium, Si surplus induces changes in lignin composition 4.
 
 XXXXX
 
-# Materials & methods
+#  Methods
+
 
 Greenhouse experiment to test Si interactions with lignin
 A greenhouse experiment was set up to compare the effects of Si deficiency and surplus in both total lignin content, lignin monomeric composition, as well as its crosslinking with cell wall polysaccharides, specifically with arabinoxylans –the major hemicelluloses in grass cell walls 13 . 
@@ -23,19 +34,33 @@ Nutrient solution: The rest of the nutrient solution was prepared according to a
 pH was adjusted to 6 using HCl or NaOH solutions. 
 Table 1. Nutrient solution
  
-Silicon measurements: Dissolved silica was measured by heteropoly blue method using the Hach protocol 8186 and a DR/1900 spectrophotometer (HACH Company, Loveland, USA)  as described by the manufacturer. A Si standard solution of 1.0 mg/L also from Hach (cat 110649) was used for calibration. Polypropylene volumetric flasks were used for dilution of samples to avoid Si contamination. 
+## Silicon measurements: 
+
+Dissolved silica was measured by heteropoly blue method using the Hach protocol 8186 and a DR/1900 spectrophotometer (HACH Company, Loveland, USA)  as described by the manufacturer. A Si standard solution of 1.0 mg/L also from Hach (cat 110649) was used for calibration. Polypropylene volumetric flasks were used for dilution of samples to avoid Si contamination. 
 Plant production: Wheat seeds (JB Asano) were surface sterilized as follows. The seeds were immersed in 2.7% sodium hypochlorite solution (v/v) and a drop of Tween 80 for 30 minutes with constant stirring, then rinsed with MilliQ water five times (10 min each). The seeds were vernalized in the dark at 5°C in MilliQ water for 4 days. Thereafter, the seeds were placed in Si-free oasis horticubes (Smithers-Oasis, Kent, Ohio). The cubes were soaked in 1/10 strength nutrient solution (adjusted to pH 5.5) and excess water drained. Each seed was placed directly into a wet cube. Once seeds started rooted and started to actively grow (4-7 days), they were put it in the cold room for a vernalization period of 50 days.
-After vernalization the plants were cultured using the RainForest 72 aeroponic culture system (GHE, Fleurance, France), and placed in a greenhouse, mean temperature 20°C, under 9 h/15 h light (80–100 μE m−2 s−1)/dark regime. (Figure 1).
+After vernalization the plants were cultured using the RainForest 72 aeroponic culture system (GHE, Fleurance, France), and placed in a greenhouse, mean temperature 20°C, under 9h/15h light (80–100uEm-2s-1)/dark regime. (Figure 1).
 
-Elemental analysis: Multi-elemental analyses of the solid samples was performed using inductively coupled plasma-optical emission spectroscopy (ICP-OES). A sample (10–50 mg) was mixed with 500–2500 μL 70% HNO3, 250–1000 μL 15% H2O2 and 40–200 μL 49% HF, and then digested in a pressurized microwave oven for 10 minutes with a starting pressure of 40 bar and a temperature of 240°C. After digestion, samples were diluted to a final 3.5% acid concentration with Milli-Q water before measurement on an ICP-OES (Model Optima 5300 DV, PerkinElmer) equipped with a HF-resistant sample introduction kit. For quantification, an external 10-point calibration standard P/N 4400-132565 and P/N 4400-ICP-MSCS (CPI International, Amsterdam) was used. A certified reference material (CRM) NCS 73013 Spinach leaf was analyzed together with the samples to evaluate the accuracy and precision of the analysis.
+## Elemental analysis:
 
-# Results & discussion
+Multi-elemental analyses of the solid samples was performed using inductively coupled plasma-optical emission spectroscopy (ICP-OES). A sample (10–50 mg) was mixed with 500–2500 uL 70% HNO3, 250–1000 uL 15% H2O2 and 40–200 uL 49% HF, and then digested in a pressurized microwave oven for 10 minutes with a starting pressure of 40 bar and a temperature of 240°C. After digestion, samples were diluted to a final 3.5% acid concentration with Milli-Q water before measurement on an ICP-OES (Model Optima 5300 DV, PerkinElmer) equipped with a HF-resistant sample introduction kit. For quantification, an external 10-point calibration standard P/N 4400-132565 and P/N 4400-ICP-MSCS (CPI International, Amsterdam) was used. A certified reference material (CRM) NCS 73013 Spinach leaf was analyzed together with the samples to evaluate the accuracy and precision of the analysis.
+
+## Data analysis
 
 
-# Conclussion
+
+# Results and Discussion
+
+
+
+# Conclusion
+
+
+# Acknowledgements
 
 
 # References
+
+
 
 1.	Cabrera, Y., Cabrera, A., Larsen, F. H. & Felby, C. Solid-state 29Si NMR and FTIR analyses of lignin-silica coprecipitates. Holzforschung 2016, (2016).
 2.	Epstein, E. The anomaly of silicon in plant biology. Proc Natl Acad Sci USA 91, (1994).
