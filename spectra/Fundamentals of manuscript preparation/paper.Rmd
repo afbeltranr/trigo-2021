@@ -27,6 +27,7 @@ Silicon quantification....
 
 #  Methods
 
+## Greenhouse experiments
 
 Greenhouse experiment to test Si interactions with lignin
 A greenhouse experiment was set up to compare the effects of Si deficiency and surplus in both total lignin content, lignin monomeric composition, as well as its crosslinking with cell wall polysaccharides, specifically with arabinoxylans –the major hemicelluloses in grass cell walls 13 . 
@@ -35,18 +36,24 @@ Nutrient solution: The rest of the nutrient solution was prepared according to a
 pH was adjusted to 6 using HCl or NaOH solutions. 
 Table 1. Nutrient solution
  
-## Silicon measurements: 
+## Silicon measurements
 
 Dissolved silica was measured by heteropoly blue method using the Hach protocol 8186 and a DR/1900 spectrophotometer (HACH Company, Loveland, USA)  as described by the manufacturer. A Si standard solution of 1.0 mg/L also from Hach (cat 110649) was used for calibration. Polypropylene volumetric flasks were used for dilution of samples to avoid Si contamination. 
 Plant production: Wheat seeds (JB Asano) were surface sterilized as follows. The seeds were immersed in 2.7% sodium hypochlorite solution (v/v) and a drop of Tween 80 for 30 minutes with constant stirring, then rinsed with MilliQ water five times (10 min each). The seeds were vernalized in the dark at 5°C in MilliQ water for 4 days. Thereafter, the seeds were placed in Si-free oasis horticubes (Smithers-Oasis, Kent, Ohio). The cubes were soaked in 1/10 strength nutrient solution (adjusted to pH 5.5) and excess water drained. Each seed was placed directly into a wet cube. Once seeds started rooted and started to actively grow (4-7 days), they were put it in the cold room for a vernalization period of 50 days.
 After vernalization the plants were cultured using the RainForest 72 aeroponic culture system (GHE, Fleurance, France), and placed in a greenhouse, mean temperature 20°C, under 9h/15h light (80–100uEm-2s-1)/dark regime. (Figure 1).
 
-## Elemental analysis:
+## Elemental analysis
 
 Multi-elemental analyses of the solid samples was performed using inductively coupled plasma-optical emission spectroscopy (ICP-OES). A sample (10–50 mg) was mixed with 500–2500 uL 70% HNO3, 250–1000 uL 15% H2O2 and 40–200 uL 49% HF, and then digested in a pressurized microwave oven for 10 minutes with a starting pressure of 40 bar and a temperature of 240°C. After digestion, samples were diluted to a final 3.5% acid concentration with Milli-Q water before measurement on an ICP-OES (Model Optima 5300 DV, PerkinElmer) equipped with a HF-resistant sample introduction kit. For quantification, an external 10-point calibration standard P/N 4400-132565 and P/N 4400-ICP-MSCS (CPI International, Amsterdam) was used. A certified reference material (CRM) NCS 73013 Spinach leaf was analyzed together with the samples to evaluate the accuracy and precision of the analysis.
 
-## Data analysis
+## Spectral Acquisition
 
+The FTIR spectra of wheat samples were colected using a ### infrared spectrometer (brand and model). Each spectrum was acquired (...) over the range of 4000 to 400 $cm^{-1}$
+## Spectra pre processing method
+
+## Selection of Range of Interest and Baseline correction
+
+The selection of the range of interest for infrared spectra was made taking into account that silicon bands appear (Frost 2006)
 
 
 # Results and Discussion
@@ -89,3 +96,6 @@ Multi-elemental analyses of the solid samples was performed using inductively co
 24.	Exley, C. A possible mechanism of biological silicification in plants. Frontiers in plant science 6, (2015).
 25.	Coradin, T., Eglin, D. & Livage, J. The silicomolybdic acid spectrophotometric method and its application to silicate/biopolymer interaction studies. Journal of Spectroscopy 18, 567–576 (2004).
 
+* Frost, R. L., & Mendelovici, E. (2006). Modification of fibrous silicates surfaces with organic derivatives: An infrared spectroscopic study. Journal of Colloid and Interface Science, 294(1), 47–52. doi:10.1016/j.jcis.2005.07.014 
+
+# Supporting Materials

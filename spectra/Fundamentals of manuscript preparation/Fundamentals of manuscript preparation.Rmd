@@ -39,7 +39,7 @@ And maybe even more important, you want the apporpiate audience to read your pap
 
 # Authorship 
 
-1. Determining the order of authors on a paper can vary by discipline and culture, but the general rule is that the **first author** is the person who conducts or supervises: **the data collection, analysis, presentation, and interpretation f the results** and also puts together the paper for submission. The **corresponding author** can be the first author, or sometimes is a senior author from the institution.
+1. Determining the order of authors on a paper can vary by discipline and culture, but the general rule is that the **first author** is the person who conducts or supervises: **the data collection, analysis, presentation, and interpretation of the results** and also puts together the paper for submission. The **corresponding author** can be the first author, or sometimes is a senior author from the institution.
 
 2. **You should always avoid ghost authorship** which means excluding authors who participated in the work, and **gift authorship**, which means including authors who did not contribute to the work. Also, always be consistent in how you write the authors' names.
 
@@ -72,15 +72,37 @@ If the title cathces a reader's attention, the next thing they check is the **Ab
 
 1. The abstract should be a single paragraph summarizing the problem, the methods, the results and the conclusions.
 
-2. The abstract acts as an advertisement for your article since it is freely available via online searching and indexing. You want to make it as catchy as possible to have the greatest impact.
+2. The abstract acts as an advertisement for your article since it is freely available via online searching and indexing. You want to make it as catchy and accurate as possible to have the greatest impact.
 
 3. An Abstract written clearly will strongly encourage the reader to read the rest of your paper.
 
-4. The Abstract shoud be as brief as possible.
+4. The Abstract should be as brief as possible.
 
 Take the time to write the Abstract very carefully. Many authors write the abstract last to it accurately reflects the content of the paper.
 
+**A clear abstract will strongly influence whether or not your work is considered**
+
+
+# The process of writing - bulidng the article 
+
+The sequence of writing the article is not the same as reading it. For most scientific fields, the most efficient way is to regard the manuscript as a wall and build it brick by brick.
+
+1. You start with producing your tables and figures, with captions/legends.
+
+2. Then describe the *Methods* used, the *Results* found, and the Discussion around these results.
+
+3. The conclusion should flow on from this fairly easily
+
+4. Then you write the introduction, s to where you work fits into the field as a whole.
+
+5. Finally, you write the Title, Abstract and Keywords.
+
+
+This process of building the article is easier, more logical, and more effective than trying to write an article in the sequence it is read. 
 
 
 
+![](img/building.jpg)
+
+# Introduction
 

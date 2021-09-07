@@ -1,4 +1,4 @@
- b n---
+---
 title: "The structure and interaction of silica in plant cell walls: Data analysis report"
 author: "Felipe Beltran"
 date: "6/16/2021"
@@ -1222,8 +1222,38 @@ correctedludox <- correctedludox + (min(correctedludox)*-1) # shifting upwards t
 
 
 
+# Classification
 
+In order to use classification algorithms, we can create a new dataset without missing values in `metadata$spectra`, `metadata$class`, and `metadata$Si` 
 
+```{r}
+which(is.na(metadata$spectra))
+```
+```{r}
+which(is.na(metadata$class))
+```
+```{r}
+which(is.na(metadata$Si))
+```
 
+```{r}
+unique(
+          c( which(is.na(metadata$spectra)),
+             which(is.na(metadata$class)),
+             which(is.na(metadata$Si)))
+       )
+
+missing <- unique(
+          c( which(is.na(metadata$spectra)),
+             which(is.na(metadata$class)),
+             which(is.na(metadata$Si)))
+       )
+```
+
+```{r}
+metadata.class <- metadata[-missing,]
+```
+
+## Hierarchical clustering and k-means
 
 
