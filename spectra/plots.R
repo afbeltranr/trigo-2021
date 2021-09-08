@@ -1,4 +1,7 @@
 dev.off()
+
+## Grafica de los espectros y el cambio de rango
+
 win.graph()
 par(mfrow = c(2,2))
 
@@ -96,3 +99,159 @@ axis(2)
 title(main = 'corrected spectra',
       xlab = expression(paste('Wave number (cm'^'-1',')')),
       ylab ='absorbance (a.u.)')
+
+
+## Grafica comparando antes y despues de correccion de linea base
+
+win.graph()
+leavesSiSpectra <- corrected[metadata.leaves.Si$spectra.index,]
+leavesSiSpectraRaw <- mean[metadata.leaves.Si$spectra.index,] 
+
+par(mfrow = c(1,2))
+
+for (i in 1:length(rownames(leavesSiSpectraRaw ))){
+  
+  plot(as.numeric(colnames(leavesSiSpectraRaw )), 
+       leavesSiSpectraRaw [i,],
+       xlab = '',
+       ylab = '',
+       axes = F,
+       type = 'l',
+       xlim = c(1700,400),
+       ylim = c(0,0.1))
+  par(new = T)
+}
+box()
+axis(1)
+axis(2)
+title(main = '',
+      xlab = expression(paste('Wave number (cm'^'-1',')')),
+      ylab = 'Absorbance (a.u.)')
+
+par(new = F)
+
+for (i in 1:length(rownames(leavesSiSpectra))){
+  
+  plot(as.numeric(colnames(leavesSiSpectra)), 
+       leavesSiSpectra[i,],
+       xlab = '',
+       ylab = '',
+       axes = F,
+       type = 'l',
+       xlim = c(1700,400),
+       ylim = c(0,0.1))
+  par(new = T)
+}
+box()
+axis(1)
+axis(2)
+title(main = '',
+      xlab = expression(paste('Wave number (cm'^'-1',')')),
+      ylab = 'Absorbance (a.u.)')
+
+
+## Matriz de covarianza
+
+win.graph()
+library(colorRamps)
+library(colorspace)
+library(viridis)
+corleaves <- cov(leavesSiSpectra)
+
+image(as.numeric(colnames(leavesSiSpectra)),
+      as.numeric(colnames(leavesSiSpectra)),
+      corleaves,
+      col=viridis(100),
+      axes=FALSE,
+      xlab=expression(paste('Wave number (cm'^'-1',')')),
+      ylab=expression(paste('Wave number (cm'^'-1',')')),
+      xlim=c(1700,400),
+      ylim=c(1700,400))
+contour(as.numeric(colnames(leavesSiSpectra)),
+        as.numeric(colnames(leavesSiSpectra)),
+        corleaves,
+        add=TRUE,
+        col="black",
+        xlab="",
+        ylab="",
+        labcex=1.1,
+        ylim=c(1700,400),
+        labels=""
+)
+contour(as.numeric(colnames(leavesSiSpectra)),
+        as.numeric(colnames(leavesSiSpectra)),
+        corleaves,
+        lty=0,
+        labcex=1.3,
+        add=TRUE,
+        col="black",
+        vfont=c("sans serif", "bold italic"),
+        nlevels=2
+)
+
+axis(1)
+axis(2)
+box(main = '',
+    xlab = expression(paste('Wave number (cm'^'-1',')')),
+    ylab = expression(paste('Wave number (cm'^'-1',')')))
+
+
+## Seleccion de variables
+
+win.graph()
+par(mfrow=c(3,3))
+for(j in 1:nrow(gen$bestsets)){
+  for (i in 1:length(rownames(leavesSiSpectra))){
+    plot(as.numeric(colnames(leavesSiSpectra)),
+         leavesSiSpectra[i,],
+         xlab = '',
+         ylab = '',
+         axes = F,
+         type = 'l',
+         xlim = c(1700,400),
+         ylim = c(0,0.06),
+         col = cols[i])
+    par(new = T)
+  }
+  box()
+  axis(1)
+  axis(2)
+  title(main = paste(as.character(c(4:15)[j]),'variables'),
+        xlab = expression(paste('Wave number (cm'^'-1',')')),
+        ylab = 'Absorbance (a.u.)')
+  abline(v = as.numeric(colnames(leavesSiSpectra)[gen$bestsets[j,]]),
+         col = 1,
+         lty = 2)
+}
+
+## Curvas de calibracion
+
+win.graph()
+par(mfrow = c(3,3))
+for(i in 1:nrow(gen$bestsets)){
+  plot(predX8Var,
+       listOfPredictions1[[i]],
+       xlab="Actual Si (ppm)" ,
+       ylab="Predicted Si (ppm)",
+       pch=17,
+       cex=1.2,
+       col="darkorchid4",
+       cex.lab=1
+  )
+  abline(a=0  , b=1, col=1, lty=1, lwd=2)
+}
+
+
+
+
+
+## Cross validation RMSEP
+
+library(ggplot2)
+win.graph()
+dp <- ggplot(RMSEPTable, aes(x=variables, y=RMSEP, fill=variables)) + 
+  geom_violin(trim=FALSE)+
+  geom_boxplot(width=0.1, fill='white')+
+  labs(title="CVRMSE vs # of variables ",x="# of variables selected", y = "RMSE (n = 1000)")
+dp + scale_fill_brewer(palette="Blues") + theme_minimal()
+
