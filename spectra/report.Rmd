@@ -12,7 +12,7 @@ In this document we will save all data manipulation and analysis related to the 
 
 # Loading data into `R`
 
-```{r}
+```{r }
 names <- list.files(pattern = '.CSV')
 spectra.list <- lapply(names, read.csv, header = F)
 wavenumbers <- unlist(spectra.list[[1]][1])
@@ -25,7 +25,7 @@ colnames(spectra.df) <- wavenumbers
 
 # Plotting intial data
 
-```{r}
+```{r }
 
 names2 <- gsub('.{4}$', '', rownames(spectra.df))
 names2[292:318] <- gsub('.{41}$', '', rownames(spectra.df)[292:318])
@@ -58,7 +58,7 @@ title(main = 'raw spectra full range',
 
 # range selection
 
-```{r}
+```{r revision of the column position for }
 colnames(spectra.df)[c(1,676)]
 ```
 ```{r}
@@ -146,7 +146,7 @@ for(i in  1:length(rownames(mean))){
     xlab = '', 
     ylab = '',
     xlim = c(1700, 400),
-    ylim= c(0,0.2),
+    ylim= c(0,0.135309),
     type = 'l',
     col =cols.means[i]
 
@@ -157,7 +157,7 @@ for(i in  1:length(rownames(mean))){
 box()
 axis(1)
 axis(2)
-title(main = 'averaged spectra',
+title(main = '',
       xlab = expression(paste('Wave number (cm'^'-1',')')),
       ylab ='absorbance (a.u.)')
 ```
@@ -181,7 +181,13 @@ bend <- 0.1 * wl.eval(spc,
 bl <- spc.rubberband(spc+bend, noise = 1e-4, df = 20)-bend
 suma <- spc+bend
 spc3 <- spc - bl
+spc3 <- spc3 + (min(spc3)*-1)
 
+labels (spc, ".wavelength") <- expression(paste('Wave number (cm'^'-1',')'))
+labels (spc, "spc") <- expression(paste('Absorbance (a.u.)'))
+
+labels (spc3, ".wavelength") <- expression(paste('Wave number (cm'^'-1',')'))
+labels (spc3, "spc") <- expression(paste('Absorbance (a.u.)'))
 plot(spc, wl.reverse = TRUE)
 plot(bl, add=TRUE, col=2,wl.reverse = TRUE)
 plot(suma,wl.reverse = TRUE)
@@ -193,7 +199,7 @@ corrected <- as.data.frame(corrected1[,1])
 corrected <- corrected + (min(corrected)*-1) # shifting upwards to prevent negative values
 ```
 
-# multiplicative scatter correction (MSC)
+# multiplicative scatter correction (MSCF)
 ```{r}
 library(pls)
 correctedMSC <- msc(as.matrix(corrected))
@@ -394,7 +400,7 @@ for(i in 1:length(metadata$sample)) {
 ```
 
 # Leaves selection
-
+## Selection of samples
 
 prior work indicates that leave samples presented more variability thus it is worth it to subset a table with these samples:
 
@@ -412,7 +418,7 @@ head(metadata.leaves)
 ```
 
 
-# Silicon quantification in leaves samples
+## Silicon quantification in leaves samples
 
 Now, we can delete the rows (samples) that have no spectra, or silicon content.
 
@@ -438,7 +444,33 @@ LeavesSi <- cbind(metadata.leaves.Si$sample,metadata.leaves.Si$Si)
 And we can create a table with corrected mean spectra for this samples:
 
 ```{r}
+
+win.graph()
 leavesSiSpectra <- corrected[metadata.leaves.Si$spectra.index,]
+leavesSiSpectraRaw <- mean[metadata.leaves.Si$spectra.index,] 
+
+par(mfrow = c(1,2))
+
+for (i in 1:length(rownames(leavesSiSpectraRaw ))){
+  
+  plot(as.numeric(colnames(leavesSiSpectraRaw )), 
+     leavesSiSpectraRaw [i,],
+     xlab = '',
+     ylab = '',
+     axes = F,
+     type = 'l',
+     xlim = c(1700,400),
+     ylim = c(0,0.1))
+  par(new = T)
+}
+box()
+axis(1)
+axis(2)
+title(main = '',
+      xlab = expression(paste('Wave number (cm'^'-1',')')),
+      ylab = 'Absorbance (a.u.)')
+
+par(new = F)
 
 for (i in 1:length(rownames(leavesSiSpectra))){
   
@@ -449,7 +481,7 @@ for (i in 1:length(rownames(leavesSiSpectra))){
      axes = F,
      type = 'l',
      xlim = c(1700,400),
-     ylim = c(0,0.06))
+     ylim = c(0,0.1))
   par(new = T)
 }
 box()
@@ -559,23 +591,98 @@ library(subselect)
 Hmat <- lmHmat(leavesSiSpectra,metadata.leaves.Si$Si)
 gen <- genetic(Hmat$mat, kmin =4, kmax = 12, H= Hmat$H, r =1, crit = 'CCR12', force = T)
 ```
+
   
-as if we inspect the content of the variables selected with:
+  
 
 ```{r}
-View(leavesSiSpectra[,gen$bestsets[1,]])
-```
+win.graph()
+par(mfrow=c(3,3))
+for(j in 1:nrow(gen$bestsets)){
+for (i in 1:length(rownames(leavesSiSpectra))){
+plot(as.numeric(colnames(leavesSiSpectra)),
+leavesSiSpectra[i,],
+xlab = '',
+ylab = '',
+axes = F,
+type = 'l',
+xlim = c(1700,400),
+ylim = c(0,0.06))
+par(new = T)
+}
+box()
+axis(1)
+axis(2)
+title(main = paste(as.character(c(4:15)[j]),'variables'),
+xlab = expression(paste('Wave number (cm'^'-1',')')),
+ylab = 'Absorbance (a.u.)')
+abline(v = as.numeric(colnames(leavesSiSpectra)[gen$bestsets[j,]]),
+col = 2,
+lty = 2)
+}
+```  
   
 
-  
-```{r}
-colnames(leavesSiSpectra)[gen$bestsets[3,]]
-
-```
 # Multiple OLS with new variables 
 
+We can try and predict the silicon content in each sample using each of the models created by using que X matrix as the selected frequencies by the genetic algorithm:
+
 ```{r}
-mols <- lm(metadata.leaves.Si$Si ~ leavesSiSpectra[,gen$bestsets[4,]], y = T, x = T)
+listOfPredictions1 <- vector('list', length = nrow(gen$bestsets))
+
+listOfModels1 <- vector('list', length = nrow(gen$bestsets)) 
+```
+
+
+```{r}
+
+for(i in 1:nrow(gen$bestsets)){
+
+  
+  listOfModels1[[i]] <- lm(metadata.leaves.Si$Si ~ leavesSiSpectra[,gen$bestsets[i,]], y = T, x = T)
+  
+}
+```
+
+
+```{r}
+
+
+for(i in 1:nrow(gen$bestsets)){
+
+  
+  listOfPredictions1[[i]] <- predict(listOfModels1[[i]],  newdata = as.data.frame(leavesSiSpectra[,gen$bestsets[i,]]))
+  
+}
+```
+
+
+
+```{r}
+
+for(i in 1:nrow(gen$bestsets)){
+
+  
+  listOfPredictions1[[i]] <- predict(listOfModels1[[i]],  newdata = as.data.frame(leavesSiSpectra[,gen$bestsets[i,]]))
+  
+}
+```
+
+
+```{r}
+par(mfrow = c(3,3))
+for(i in 1:nrow(gen$bestsets)){
+plot(predX8Var,
+	 listOfPredictions1[[i]],
+	 xlab="Actual Si (ppm)" ,
+ 	 ylab="Predicted Si (ppm)",
+ 	 pch=17,
+ 	 cex=1.2,
+ 	 col="darkorchid4",
+ 	 cex.lab=1
+ 	 )
+abline(a=0  , b=1, col=1, lty=1, lwd=2)
+}
 ```
 
 
@@ -585,7 +692,7 @@ summary(mols)
 
 ```{r}
 predictions8Var <- predict(mols,  newdata = as.data.frame(leavesSiSpectra[,gen$bestsets[4,]]))
-predX8Var <- SiTable$Si
+ n
 predY8var <- predictions8Var
 
 table8bar <- data.frame(I( predX8Var),I(predY8var))
@@ -594,14 +701,14 @@ lm.C <- lm(predX8Var~predY8var)
 
 plot(predX8Var,
 	 predY8var,
-	 xlab="Si real (ppm)" ,
- 	 ylab="Si predicho (ppm)",
+	 xlab="Actual Si (ppm)" ,
+ 	 ylab="Predicted Si (ppm)",
  	 pch=17,
  	 cex=1.2,
  	 col="darkorchid4",
  	 cex.lab=1
  	 )
-abline(a=-5.856e-10  , b=1, col=1, lty=1, lwd=2)
+abline(a=0  , b=1, col=1, lty=1, lwd=2)
 # legend("topleft", recta.restado, pch=pch ,col=colfin, cex=1)
 
 ```
@@ -634,7 +741,7 @@ set.seed(125)
  
 # defining training control as
 # repeated cross-validation and
-# value of K is 10 and repetation is 3 times
+# value of K is 10 and repetition is 100 times
 
 train_control <- trainControl(method = "repeatedcv",
                             number = 10, repeats = 100)
@@ -858,31 +965,6 @@ plot(RMSEP(SiPLSgen),type="b",legendpos="topright")
 plot(SiPLS,ncomp=4,line=TRUE)
 ```
 
-```{r}
-par(mfrow=c(3,4))
-for(j in 1:nrow(gen$bestsets)){
-for (i in 1:length(rownames(leavesSiSpectra))){
-plot(as.numeric(colnames(leavesSiSpectra)),
-leavesSiSpectra[i,],
-xlab = '',
-ylab = '',
-axes = F,
-type = 'l',
-xlim = c(1700,400),
-ylim = c(0,0.06))
-par(new = T)
-}
-box()
-axis(1)
-axis(2)
-title(main = paste(as.character(c(4:15)[j]),'variables'),
-xlab = expression(paste('Wave number (cm'^'-1',')')),
-ylab = 'Absorbance (a.u.)')
-abline(v = as.numeric(colnames(leavesSiSpectra)[gen$bestsets[j,]]),
-col = 2,
-lty = 2)
-}
-```
 
 
 

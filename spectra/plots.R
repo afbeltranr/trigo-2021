@@ -101,6 +101,39 @@ title(main = 'corrected spectra',
       ylab ='absorbance (a.u.)')
 
 
+
+## Promedios
+tiff('./plots/means.tiff',
+     width = 4320,
+     height = 3240, 
+     res = 800
+)
+
+for(i in  1:length(rownames(mean))){
+  
+  plot(wavenumbers1,
+       mean[i,],
+       axes = F,
+       xlab = '', 
+       ylab = '',
+       xlim = c(1700, 400),
+       ylim= c(0,0.135309),
+       type = 'l',
+       col =cols.means[i]
+       
+  )
+  par(new = T)
+}
+
+
+axis(1, at = c(1700, 1500, 1300, 1100, 900, 700, 500))
+axis(2)
+title(main = '',
+      xlab = expression(paste('Wave number (cm'^'-1',')')),
+      ylab ='absorbance (a.u.)')
+  
+dev.off()
+
 ## Grafica comparando antes y despues de correccion de linea base
 
 win.graph()
@@ -199,8 +232,14 @@ box(main = '',
 ## Seleccion de variables
 
 win.graph()
-par(mfrow=c(3,3))
-for(j in 1:nrow(gen$bestsets)){
+tiff('./plots/VarSelection.tiff',
+     width = 5000,
+     height = 12960, 
+     res = 1500
+)
+
+par(mfrow=c(3,1))
+for(j in c(1,5,9)){
   for (i in 1:length(rownames(leavesSiSpectra))){
     plot(as.numeric(colnames(leavesSiSpectra)),
          leavesSiSpectra[i,],
@@ -223,12 +262,20 @@ for(j in 1:nrow(gen$bestsets)){
          col = 1,
          lty = 2)
 }
+dev.off()
 
 ## Curvas de calibracion
 
 win.graph()
-par(mfrow = c(3,3))
-for(i in 1:nrow(gen$bestsets)){
+
+win.graph()
+tiff('./plots/CalLines.tiff',
+     width = 5000,
+     height = 12960, 
+     res = 1500
+)
+par(mfrow = c(3,1))
+for(i in c(1,5,9)){
   plot(predX8Var,
        listOfPredictions1[[i]],
        xlab="Actual Si (ppm)" ,
@@ -240,18 +287,40 @@ for(i in 1:nrow(gen$bestsets)){
   )
   abline(a=0  , b=1, col=1, lty=1, lwd=2)
 }
+dev.off()
 
+## baseline correction
+tiff('./plots/baseline.tiff',
+     width = 4320,
+     height = 3240, 
+     res = 800
+)
+plot(spc, 
+     wl.reverse = TRUE)
+plot(bl, add=TRUE, col=2,wl.reverse = TRUE)
+dev.off()
 
+tiff('./plots/baseline2.tiff',
+     width = 4320,
+     height = 3240, 
+     res = 800
+)
+plot(spc3,wl.reverse = TRUE)
 
-
+dev.off()
 
 ## Cross validation RMSEP
 
 library(ggplot2)
-win.graph()
+tiff('./plots/CVRMSEP.tiff',
+     width = 5760,
+     height = 3240, 
+     res = 800
+     )
 dp <- ggplot(RMSEPTable, aes(x=variables, y=RMSEP, fill=variables)) + 
   geom_violin(trim=FALSE)+
   geom_boxplot(width=0.1, fill='white')+
-  labs(title="CVRMSE vs # of variables ",x="# of variables selected", y = "RMSE (n = 1000)")
+  labs(title="CVRMSE vs # of variables ",x="# of variables selected", y = "RMSE (n = 1000, ppm)")
 dp + scale_fill_brewer(palette="Blues") + theme_minimal()
 
+dev.off()
