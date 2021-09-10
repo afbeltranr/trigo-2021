@@ -106,3 +106,16 @@ This process of building the article is easier, more logical, and more effective
 
 # Introduction
 
+The introduction is used to provide context for your manuscript and convince readers why your work advances a field of study.
+
+1. Be concise in the introduction but give the reader enough information to understand why the work is important, Introductions of letters can be shorter, sometimes one paragraph.
+
+  This section should not be  a history lesson but you do need to introduce the main research publications on which you work is based. Cite a couple of *original and important works* including recent review articles, to give the reader a sense of how your work fits into the literature. However, take care to not make citations to irrelevant references including your own.
+  
+Make sure you clearly address the following: What is the problem you are ultimately trying to solve?
+
+Identify the solutions and limitations: Are there any solutions? If so, what us the best solution and what are its limitations? what is your work trying to achieve?
+
+Provide a perspective that is consistent with the journal where you are submitting.
+
+Although it can be tempting to re-use introductions from your previous papers or similar studies, every paper should present a new result and the work should be specifically motivated. This requires a unique introduction every time.
