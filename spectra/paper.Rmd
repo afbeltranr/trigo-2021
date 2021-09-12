@@ -6,13 +6,25 @@ output:
     rmdformats::downcute
 ---
 # Introduction
-The presence of silicon (Si) in plants contributes to the response of stress-relief mechanisms for environmental events such as drought and pathogen attack. Because of the importance of crops such as wheat, barley, rice, and other grasses that accumulate Si, the understanding of the relationship between this element and plant science is the focus of numerous scientific efforts. Additionally, a new scientific quest is emerging for the study of Si accumulation in grasses: the huge amounts of agricultural waste that these crops generate have to be used in circular economies, but its full potential is hindered by Si presence in the residues. 
-Silicon is a major soil constituent, therefore plants invariably grow in Si-rich-environments 2. In soil, Si is available in the form of silicic acid solutions. Some plants accumulate so much silicic acid that Si precipitates as silica, e.g., phytoliths. The accumulation occurs mainly in root endodermis, epidermal cells of both leaf and inflorescence bracts 3, as well as awns and leaf macrohairs 4. 
-The molecular forms of Si that are transported through the xylem are known: only monomers and dimers of silicic acid have been found in the shoots of wheat and rice and no organo-silicon structures have been identified 5. Remarkably, the hemicellulose callose may be templating Si deposition in horsetails (Equisetum) 6, and may also play a role in Si deposition of algae and plants in general 7. 
-Si accumulation seems to be an ancient mechanism because it is present in early divergent plant lineages, and was lost in the course of evolution as silica is less present in later-evolving plants 8. In ancient silica - accumulators such as Equisetum species, silica may play a major structural role 9. This structural role was taken later in evolution by lignin. As a general tendency, later-evolving plants have more lignin and less silica 8. Lignin may fulfill a stronger mechanical role because, unlike silica, it can crosslink with cell wall polysaccharides 9. 
-However, the presence of Si and lignin is not mutually exclusively, and they relationship (if any) unknown. For example, in rice Si deposition starts when the plant cell synthesize and accumulate lignin in the secondary wall 10,11, while Si surplus is positively correlated with lignin content and mechanical strength 12. In Brachypodium, Si surplus induces changes in lignin composition 4.
 
-XXXXX
+**Provide a brief context to the readers**
+
+**Address the problem**
+ 
+ What is the problem we are trying to resolve?
+ 
+**Identify the solutions and limitations**
+
+ Let us identify the solutions and limitations:
+
+Are there any solutions? If so, what is the best solution and what are its limitations? What is your work trying to achieve?
+**Identify what the work is trying to achieve**
+
+
+**Provide a perspective consistent with the nature of the journal**
+
+
+
 
 # Materials & methods
 

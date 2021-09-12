@@ -119,3 +119,36 @@ Identify the solutions and limitations: Are there any solutions? If so, what us 
 Provide a perspective that is consistent with the journal where you are submitting.
 
 Although it can be tempting to re-use introductions from your previous papers or similar studies, every paper should present a new result and the work should be specifically motivated. This requires a unique introduction every time.
+
+An introduction should:
+
+* Provide a brief context to the readers
+* Address the problem
+* Identify the solutions and limitations
+* Identify what the work is trying to achieve
+* Provide a perspective consistent with the nature of the journal
+
+# Methods
+
+The methods section describes how you studied the problem.
+
+It is important to be detailed - a knowledgeable reader should be able to reproduce the experiment.
+
+Any previously published procedures should not be re-written in detail. Those can be noted in references or described in the supporting materials section.
+
+The equipment and materials used in experiments should be identified, along with their sources if there is the chance for variability of quality of these items. If the work is computational or theoretical, code, computational, or analytical methods should be described.
+
+A methods section should :
+
+* Describe how the problem was studied
+
+* Include detailed information
+
+* Do not describe previously published procedures.
+
+* Identify the equipment and materials used.
+
+
+
+
+
