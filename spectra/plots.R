@@ -325,16 +325,17 @@ dev.off()
 ## Cross validation RMSEP
 
 library(ggplot2)
-tiff('./plots/CVRMSEP.tiff',
-     width = 5760,
-     height = 3240, 
-     res = 800
-     )
-library(ggplot2)
-dp <- ggplot(RMSEPTable, aes(x=variables, y=RMSEP, fill=variables)) + 
-  geom_violin(trim=FALSE)+
-  geom_boxplot(width=0.1, fill='white')+
-  labs(title="CVRMSE vs # of variables ",x="# of variables selected", y = "RMSE (n = 1000, mg/kg)")
-dp + scale_fill_brewer(palette="Blues") + theme_minimal()
-
-dev.off()
+  tiff('./plots/CVRMSEP.tiff',
+       width = 8640,
+       height = 4860, 
+       res = 1200
+       )
+  
+  library(ggplot2)
+  dp <- ggplot(RMSEPTable, aes(x=variables, y=RMSEP, fill=variables)) + 
+    geom_violin(trim=FALSE)+
+    geom_boxplot(width=0.1, fill='white')+
+    labs(title=" ",x="# of variables selected", y = "RMSE (n = 1000, mg/kg)")
+  dp + scale_fill_brewer(palette="Blues") + theme_light()
+  
+  dev.off()

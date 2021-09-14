@@ -722,6 +722,11 @@ dp1 + scale_fill_brewer(palette="Greens") + theme_minimal()
 
 ```{r}
 win.graph()
+
+pValTable <- data.frame(matrix(nrow = 9, nrow = 12))
+
+
+summary(listOfModels1[[1]])$coefficients[,4]
 par(mfrow = c(3,3))
 for(i in 1:9){
    barplot(summary(listOfModels1[[i]])$coefficients[,4],
