@@ -330,7 +330,9 @@ library(ggplot2)
        height = 4860, 
        res = 1200
        )
-  
+  svg('./plots/CVRMSEP.svg',
+      width = 8640,
+      height = 4860)
   library(ggplot2)
   dp <- ggplot(RMSEPTable, aes(x=variables, y=RMSEP, fill=variables)) + 
     geom_violin(trim=FALSE)+
