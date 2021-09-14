@@ -278,8 +278,8 @@ par(mfrow = c(3,1))
 for(i in c(1,5,9)){
   plot(predX8Var,
        listOfPredictions1[[i]],
-       xlab="Actual Si (ppm)" ,
-       ylab="Predicted Si (ppm)",
+       xlab="Actual Si (mg/kg)" ,
+       ylab="Predicted Si (mg/kg)",
        pch=17,
        cex=1.2,
        col="darkorchid4",
@@ -309,6 +309,19 @@ plot(spc3,wl.reverse = TRUE)
 
 dev.off()
 
+
+## Model residuals
+tiff('./plots/REsiduals.tiff',
+     width = 5760,
+     height = 3240, 
+     res = 800
+)
+dp1 <- ggplot(ResidualsTable, aes(x=Variables, y= Residuals, fill=Variables)) + 
+  geom_violin(trim=FALSE)+
+  geom_boxplot(width=0.1, fill='white')+
+  labs(title="",x="# of variables selected", y = "Residuals (mg/kg)")
+dp1 + scale_fill_brewer(palette="Greens") + theme_minimal()
+dev.off()
 ## Cross validation RMSEP
 
 library(ggplot2)
@@ -317,10 +330,11 @@ tiff('./plots/CVRMSEP.tiff',
      height = 3240, 
      res = 800
      )
+library(ggplot2)
 dp <- ggplot(RMSEPTable, aes(x=variables, y=RMSEP, fill=variables)) + 
   geom_violin(trim=FALSE)+
   geom_boxplot(width=0.1, fill='white')+
-  labs(title="CVRMSE vs # of variables ",x="# of variables selected", y = "RMSE (n = 1000, ppm)")
+  labs(title="CVRMSE vs # of variables ",x="# of variables selected", y = "RMSE (n = 1000, mg/kg)")
 dp + scale_fill_brewer(palette="Blues") + theme_minimal()
 
 dev.off()
