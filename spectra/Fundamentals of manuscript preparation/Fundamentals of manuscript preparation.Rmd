@@ -149,6 +149,41 @@ A methods section should :
 * Identify the equipment and materials used.
 
 
+# Results
+
+Moving on to the results section. This is where you describe the important results of your research.
+
+1. You should **present the results that are essential to the discussion**, which means that only the data of primary importance should be shared. Data of secondary importance should be put in the supporting or supplementary materials section. However, do not attempt to 'hide data' in the hope of saving it for a later paper, or split the results of one project into many papers. This dilutes the effect of the work and results in lower quality papers. You may also lose evidence that re-enforces yous conclusions.
+
+2. **Use sub-headings to keep results of the same type together**. - This will make the results easier to review an read. Number these sub-sections for the convenience of internal cross-referencing. Decide on a logical order of the data that tells a clear story.
+
+3. Highlight findings that further understanding in the field, or those that differ from previous finding an explain any unexpected results.
+
+Illustrations, including figures and tables, are the most efficient way to present the results. Your data are the 'driving force of the paper' Therefore your figures and illustrations are critical and they should be used for ESSENTIAL data only. The legend of a figure should be brief and it should contain sufficient explanatory details to explain the figure without the need to refer to the text. Use color ONLY when necessary. In different line styles can clarify the meaning, don use colors or other effects than can distract from the content and may not appear when printed in black and white.
+
+A. Graphs are often used to compare experimental results with those of previous works, or with calculated/theoretical values. Graphs should not appear crowded; try to present at most 3 to 4 data sets per figure, Use well-selected scales, label the axes clearly, and use different symbols so that one can quickly discriminate between the data sets. 
+
+B. Often, tables give the actual experimental results. Do not include long boring tables unless absolutely necessary (otherwise put them in the supplementary materials section) and make them a easy to read as possible.
+
+C. Every photograph or image should be presented with a scale marker and the resolution should be clear.
+
+The results section should:
+
+*Include only data of primary importance
+
+*Use sub-headings to keep results of the same type together
+
+*Be clear an easy to understand
+
+*Highlight the main findings
+
+*Feature unexpected findings
+
+*Provide statistical analysis
+
+*Include illustrations and figures
+
+*Include only data of primary importance
 
 
 
