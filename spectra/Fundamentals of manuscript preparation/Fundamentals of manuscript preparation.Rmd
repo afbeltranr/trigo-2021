@@ -185,5 +185,6 @@ The results section should:
 
 *Include only data of primary importance
 
+# Discussion
 
-
+The discussion section is where you interpret what your results mean.
