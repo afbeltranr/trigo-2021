@@ -1,6 +1,6 @@
 ---
 title: "Structuring your articule correctly"
-author: "Felipe Beltran - Yohana Cabrera - Andres Cabrera"
+author: "Felipe Beltran"
 date: "8/21/2021"
 output: rmdformats::downcute
 ---
@@ -188,3 +188,71 @@ The results section should:
 # Discussion
 
 The discussion section is where you interpret what your results mean.
+
+This is the most important section fo the article. This is where you get the chance to SELL your data! A judge number if manuscripts are rejected because the discussion is weak or only includes mere description of the results.
+
+Make sure the discussion corresponds and complements the Results, but do not simply repeat the results here.
+
+Compare other published results with your own and DO NOT ignore work in disagreement with yours - confront it and convince the reader that you are correct or better.
+
+### Be careful not to use the following
+
+- Statements that go beyond what the results can support
+- Non-specific expressions such as 'higher temperature' or 'at a lower rate'; use quantitative descriptions instead. 
+- New terms not already defined or mentioned in your paper
+- Speculations on possible interpretations that are based on imagination, rather than rooted in fact and carefully explained in the article.
+
+If you need to revise the results or Discussion, this may involve a lot of work and require further experiments, derivations, or simulations. Sometimes, you may not be able to clarify your idea just in words because some critical items have not been substantially - make sure your message is complete before your start writing or submit your article.
+
+# Conclusion
+
+The conclusion is used to show how your work advances your field of study. 
+
+Be clear in the conclusion to help the reviewers and editors judge your work and its impact.
+
+Provide clear justification for how your work advances the field. This can be achieved by indicating uses, extensions, or applications of the work. Do not just repeat the Abstract here. 
+
+The Abstract and conclusion serve different purposes, although some of the same messages may be mentioned. Also don't list the experimental results here - trivial restatements of your results are unacceptable in this section.
+
+Suggest future experiments that build on your work and point out any relevant experiments that may already be underway.
+
+A conclusion should 
+
+* Be clear 
+* Provide justification for the work
+* Explain how your work advances the present state of knowledge
+* Suggest future experiments
+
+# Acknowledgments 
+
+The acknowledgements section includes the names of important entities you want to acknowledge such as:
+
+* Advisors
+* Financial supporters and funders
+* Proof readers and typists
+* Suppliers who may have donated materials
+
+# References
+
+The reference list is where you cite the main scientific publications on which you based your work. Take note than there are now some society published journals that also require a 'conflict of interest statement' to be placed before the references section. 
+
+### Some tips for having a proper reference list are:
+
+1. Do not include too many references, especially if they are only tangentially related to your work.
+2.. Always ensure that you have fully absorbed and understood the material you are referencing. Do not just rely on reading excerpts or isolated sentences. Know what you're referencing!
+3. Avoid excessive self-citations of your own work or from a single region or institute.
+4. check the guide for authors to ensure the proper format. Presentation in the correct format is the responsibility of the author, not the editor. Make the editors' work easier and they will appreciate the effort.
+
+
+# Help with your article
+
+* Writing an article is hard work - finding and sorting research preparing references, sourcing feedback...
+
+* You can get help from Medeley [www.mendeley.com](www.mendeley.com), a free reference manager and academic social network.
+* The mendeley reference Manager generates citations and bibliographies in Word, OpenOffice, and LaTeX.
+* You can also use Mendeley:
+
+* To connect with colleagues and securely share papers, notes, and annotations.
+
+* AS a social network to identify potential collaborators.
+
