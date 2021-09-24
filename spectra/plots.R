@@ -1,106 +1,5 @@
-dev.off()
 
-## Grafica de los espectros y el cambio de rango
-
-win.graph()
-par(mfrow = c(2,2))
-
-for(i in  1:length(rownames(spectra.df))){
-  
-  plot(wavenumbers,
-       spectra.df[i,],
-       axes = F,
-       xlab = '', 
-       ylab = '',
-       xlim = c(4000, 400),
-       ylim= c(0,0.2),
-       type = 'l',
-       col =cols[i]
-       
-  )
-  par(new = T)
-}
-
-box()
-axis(1)
-axis(2)
-title(main = 'raw spectra full range',
-      xlab = expression(paste('Wave number (cm'^'-1',')')),
-      ylab ='absorbance (a.u.)')
-
-par(new = F)
-
-for(i in  1:length(rownames(range1))){
-  
-  plot(wavenumbers1,
-       range1[i,],
-       axes = F,
-       xlab = '', 
-       ylab = '',
-       xlim = c(1700, 400),
-       ylim= c(0,0.2),
-       type = 'l',
-       col =cols[i]
-       
-  )
-  par(new = T)
-}
-
-box()
-axis(1)
-axis(2)
-title(main = 'raw spectra - ROI',
-      xlab = expression(paste('Wave number (cm'^'-1',')')),
-      ylab ='absorbance (a.u.)')
-
-par(new = F)
-for(i in  1:length(rownames(mean))){
-  
-  plot(wavenumbers1,
-       mean[i,],
-       axes = F,
-       xlab = '', 
-       ylab = '',
-       xlim = c(1700, 400),
-       ylim= c(0,0.2),
-       type = 'l',
-       col =cols.means[i]
-       
-  )
-  par(new = T)
-}
-par(new = F)
-box()
-axis(1)
-axis(2)
-title(main = 'averaged spectra',
-      xlab = expression(paste('Wave number (cm'^'-1',')')),
-      ylab ='absorbance (a.u.)')
-
-for(i in  1:length(rownames(mean))){
-  
-  plot(wavenumbers1,
-       corrected[i,],
-       axes = F,
-       xlab = '', 
-       ylab = '',
-       xlim = c(1700, 400),
-       ylim= c(0,0.2),
-       type = 'l',
-       col =cols.means[i]
-       
-  )
-  par(new = T)
-}
-
-box()
-axis(1)
-axis(2)
-title(main = 'corrected spectra',
-      xlab = expression(paste('Wave number (cm'^'-1',')')),
-      ylab ='absorbance (a.u.)')
-
-
+means1 <- mean[metadata.leaves.Si$spectra.index,]
 
 ## Promedios
 tiff('./plots/means.tiff',
@@ -108,16 +7,23 @@ tiff('./plots/means.tiff',
      height = 3240, 
      res = 800
 )
+win.graph()
 
-for(i in  1:length(rownames(mean))){
+tiff('./plots/baselineCorrection.tiff',
+     width = 12960,
+     height = 3240, 
+     res = 800)
+
+par(mfrow = c(1,3))
+for(i in  1:length(rownames(means1))){
   
   plot(wavenumbers1,
-       mean[i,],
+       means1[i,],
        axes = F,
        xlab = '', 
        ylab = '',
-       xlim = c(1700, 400),
-       ylim= c(0,0.135309),
+       xlim = c(1700, 445),
+       ylim= c(0,0.105),
        type = 'l',
        col =cols.means[i]
        
@@ -128,10 +34,19 @@ for(i in  1:length(rownames(mean))){
 
 axis(1, at = c(1700, 1500, 1300, 1100, 900, 700, 500))
 axis(2)
+box()
 title(main = '',
       xlab = expression(paste('Wave number (cm'^'-1',')')),
-      ylab ='absorbance (a.u.)')
+      ylab ='Absorbance (a.u.)')
   
+
+plot(spc[metadata.leaves.Si$spectra.index], 
+     wl.reverse = TRUE)
+plot(bl[metadata.leaves.Si$spectra.index], add=TRUE, col=2,wl.reverse = TRUE)
+box()
+
+plot(spc3[metadata.leaves.Si$spectra.index],wl.reverse = TRUE)
+box()
 dev.off()
 
 ## Grafica comparando antes y despues de correccion de linea base
@@ -231,14 +146,19 @@ box(main = '',
 
 ## Seleccion de variables
 
-win.graph()
-tiff('./plots/VarSelection.tiff',
-     width = 5000,
-     height = 12960, 
-     res = 1500
-)
 
-par(mfrow=c(3,1))
+# tiff('./plots/VarSelectionCalLines.tiff',
+
+#      width = 10000,
+#      height = 12960, 
+#      res = 1500
+# )
+
+ win.graph()
+
+
+par(mfcol=c(3,2))
+
 for(j in c(1,5,9)){
   for (i in 1:length(rownames(leavesSiSpectra))){
     plot(as.numeric(colnames(leavesSiSpectra)),
@@ -261,20 +181,17 @@ for(j in c(1,5,9)){
   abline(v = as.numeric(colnames(leavesSiSpectra)[gen$bestsets[j,]]),
          col = 1,
          lty = 2)
+  legend('topleft',
+         c('4 ', '8 ', '12 ')[i],
+         lty = 2, 
+         col = 'black',
+         cex = 1
+        )
 }
-dev.off()
 
 ## Curvas de calibracion
 
-win.graph()
 
-win.graph()
-tiff('./plots/CalLines.tiff',
-     width = 5000,
-     height = 12960, 
-     res = 1500
-)
-par(mfrow = c(3,1))
 for(i in c(1,5,9)){
   plot(predX8Var,
        listOfPredictions1[[i]],
@@ -287,27 +204,11 @@ for(i in c(1,5,9)){
   )
   abline(a=0  , b=1, col=1, lty=1, lwd=2)
 }
-dev.off()
 
-## baseline correction
-tiff('./plots/baseline.tiff',
-     width = 4320,
-     height = 3240, 
-     res = 800
-)
-plot(spc, 
-     wl.reverse = TRUE)
-plot(bl, add=TRUE, col=2,wl.reverse = TRUE)
-dev.off()
-
-tiff('./plots/baseline2.tiff',
-     width = 4320,
-     height = 3240, 
-     res = 800
-)
-plot(spc3,wl.reverse = TRUE)
 
 dev.off()
+
+
 
 
 ## Model residuals
@@ -330,9 +231,10 @@ library(ggplot2)
        height = 4860, 
        res = 1200
        )
-  svg('./plots/CVRMSEP.svg',
-      width = 8640,
-      height = 4860)
+  # svg('./plots/CVRMSEP.svg',
+  #     width = 11.88,
+  #     height = 6.37,
+  #     pointsize = 15)
   library(ggplot2)
   dp <- ggplot(RMSEPTable, aes(x=variables, y=RMSEP, fill=variables)) + 
     geom_violin(trim=FALSE)+

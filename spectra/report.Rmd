@@ -670,7 +670,7 @@ for(i in 1:nrow(gen$bestsets)){
 
 
 ```{r}
-par(mfrow = c(3,3))
+win.graph()
 for(i in 1:nrow(gen$bestsets)){
 plot(predX8Var,
 	 listOfPredictions1[[i]],
@@ -680,8 +680,12 @@ plot(predX8Var,
  	 cex=1.2,
  	 col="darkorchid4",
  	 cex.lab=1
+
  	 )
 abline(a=0  , b=1, col=1, lty=1, lwd=2)
+
+readline('dale')
+par(new = F)
 }
 ```
 ## Residuals
@@ -727,10 +731,11 @@ pValTable <- data.frame(matrix(nrow = 9, nrow = 12))
 
 
 summary(listOfModels1[[1]])$coefficients[,4]
+win.graph()
 par(mfrow = c(3,3))
 for(i in 1:9){
    barplot(summary(listOfModels1[[i]])$coefficients[,4],
-          xlim = c(0,0.06) , 
+        
           horiz = T,
           names.arg = c('intercept', colnames(leavesSiSpectra[,gen$bestsets[i,]])))
   abline(v = 0.05, lty =2)
