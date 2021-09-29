@@ -147,19 +147,19 @@ box(main = '',
 ## Seleccion de variables
 
 
-# tiff('./plots/VarSelectionCalLines.tiff',
-
-#      width = 10000,
-#      height = 12960, 
-#      res = 1500
-# )
+ # tiff('./plots/VarSelectionCalLines.tiff',
+ # 
+ #      width = 10000,
+ #      height = 12960,
+ #      res = 1500
+ # )
 
  win.graph()
 
 
 par(mfcol=c(3,2))
 
-for(j in c(1,5,9)){
+for(j in c(0,1,2)){
   for (i in 1:length(rownames(leavesSiSpectra))){
     plot(as.numeric(colnames(leavesSiSpectra)),
          leavesSiSpectra[i,],
@@ -175,14 +175,15 @@ for(j in c(1,5,9)){
   box()
   axis(1)
   axis(2)
-  title(main = paste(as.character(c(4:15)[j]),'variables'),
+  title(main = '',
         xlab = expression(paste('Wave number (cm'^'-1',')')),
         ylab = 'Absorbance (a.u.)')
-  abline(v = as.numeric(colnames(leavesSiSpectra)[gen$bestsets[j,]]),
+  abline(v = as.numeric(colnames(leavesSiSpectra)[gen$bestsets[(4*j)+1,]]),
          col = 1,
          lty = 2)
-  legend('topleft',
-         c('4 ', '8 ', '12 ')[i],
+  text(1580,
+       0.055,
+         c('4 variables', '8 variables', '12 variables')[j+1],
          lty = 2, 
          col = 'black',
          cex = 1
@@ -191,10 +192,9 @@ for(j in c(1,5,9)){
 
 ## Curvas de calibracion
 
-
-for(i in c(1,5,9)){
+for(i in c(0,1,2)){
   plot(predX8Var,
-       listOfPredictions1[[i]],
+       listOfPredictions1[[(4*i)+1]],
        xlab="Actual Si (mg/kg)" ,
        ylab="Predicted Si (mg/kg)",
        pch=17,
@@ -203,6 +203,11 @@ for(i in c(1,5,9)){
        cex.lab=1
   )
   abline(a=0  , b=1, col=1, lty=1, lwd=2)
+  text(rep(10000,3)[i+1],
+       rep(62000,3)[i+1],
+       c('4 variables', '8 variables', '12 variables')[i+1],
+       col = 'black'
+  )
 }
 
 
