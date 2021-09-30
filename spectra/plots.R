@@ -147,14 +147,14 @@ box(main = '',
 ## Seleccion de variables
 
 
- # tiff('./plots/VarSelectionCalLines.tiff',
- # 
- #      width = 10000,
- #      height = 12960,
- #      res = 1500
- # )
+ tiff('./plots/VarSelectionCalLines.tiff',
 
- win.graph()
+      width = 10000,
+      height = 12960,
+      res = 1500
+ )
+
+# win.graph()
 
 
 par(mfcol=c(3,2))
@@ -181,12 +181,13 @@ for(j in c(0,1,2)){
   abline(v = as.numeric(colnames(leavesSiSpectra)[gen$bestsets[(4*j)+1,]]),
          col = 1,
          lty = 2)
-  text(1580,
+  text(1560,
        0.055,
          c('4 variables', '8 variables', '12 variables')[j+1],
          lty = 2, 
          col = 'black',
-         cex = 1
+         cex = 1,
+         font = 4
         )
 }
 
@@ -203,11 +204,25 @@ for(i in c(0,1,2)){
        cex.lab=1
   )
   abline(a=0  , b=1, col=1, lty=1, lwd=2)
-  text(rep(10000,3)[i+1],
+  text(rep(15000,3)[i+1],
        rep(62000,3)[i+1],
-       c('4 variables', '8 variables', '12 variables')[i+1],
-       col = 'black'
+       c(expression(paste('R'['adj']^'2','= 0.7823')),
+         expression(paste('R'['adj']^'2','= 0.9782')),
+         expression(paste('R'['adj']^'2','= 0.9965')))[i+1],
+       col = 'black',
+       cex= 1.2,
+       font = 4
   )
+  text(rep(55000,3)[i+1],
+       rep(5000,3)[i+1],
+       c(expression(paste('p'['model'],'= 1.51e+06')),
+         expression(paste('p'['model'],'= 1.14e-11')),
+         expression(paste('p'['model'],'= 2.42e-12')))[i+1],
+       col = 'black',
+       cex= 1.2,
+       font = 4
+  )
+  
 }
 
 
