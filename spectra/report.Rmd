@@ -114,6 +114,7 @@ If we use the factor `cols`, we can plot three replicas of one sample using the 
 Now, we can use a loop to plot each one of the rows of our `data.frame`: 
 
 ```{r raw data plot, fig.cap="\\label{fig:figs}raw spectra of triplicated samples"}
+
 for(i in  1:length(rownames(spectra.df))){
   
   plot(wavenumbers,
@@ -154,7 +155,7 @@ range1 <- spectra.df[,c(1:676)]
 wavenumbers1 <- wavenumbers[c(1:676)]
 ```
 
-```{r ROI plot}
+```{r ROI plot, fig.cap="\\label{fig:figs}ROI spectra of triplicated samples"}
 for(i in  1:length(rownames(range1))){
 
   plot(wavenumbers1,
@@ -225,7 +226,7 @@ The search will tell us the positions in `rownames(spectra.df)` where where we c
 ```
 Then we can confirm:
 
-```{r}
+```{r checking regex for means}
 rownames(spectra.df)[c(1, 2, 3)]
 ```
 
@@ -245,7 +246,7 @@ for (i in 1:106){
 }
 ```
 
-```{r}
+```{r checking for results of regex search}
 search.vector[2]
 rownames(spectra.df)[c(index[[2]])]
 ```
@@ -255,13 +256,14 @@ Once we know where each triplicate is, we can proceed to calculate the means:
 
 * First, we create a matrix to save the mean spectra that will result from the calculation. 
 
-```{r}
+```{r creation of mean matrix}
 mean <- matrix(ncol= ncol(range1),
                nrow = nrow(range1)/3)
 ```
 
-*Then, we asign to this empty matrix, `mean`, its corresponding column and row names:
-```{r}
+*Then, we assign to this empty matrix, `mean`, its corresponding column and row names:
+
+```{r asigning dimnames to mean}
 # mean <- as.data.frame(mean)
 
 colnames(mean) <- colnames(range1)
@@ -279,13 +281,13 @@ In order to calculate this mean estimator from a sample of 3 replicates, we inde
 
 In this step of the calculation, the first value of absorbance for the sample 125 at wave number 399.1, is empty, as are all the other slots of this matrix.
 
-```{r}
+```{r checking initial state of mean}
 mean[1,1]
 ```
 
 for example, for the first sample, and the first wave number, we will save the result of the calculation of the mean of three replicas of sample 125, and at a wave number of 399.1, `mean[1,1]`.In order to accomplish this, we select the first position of the list `index[[1]]`:
 
-```{r}
+```{r showing where the 3 replicas for 125 are}
 index[[1]]
 
 ```
@@ -312,13 +314,13 @@ mean[i,j] <- mean(c(range1[index[[i]][1],j],
 
 then we turn this matrix into a data.frame: 
 
-```{r}
+```{r making mean a data frame}
 mean <- as.data.frame(mean)
 ```
 
 Once we have calculated the mean for each sample, we can plot the resulting mean spectra using the same factor used before, `cols` to color each sample of the same color of their triplicates.
 
-```{r plotting the mean}
+```{r plotting the mean, fig.cap="\\label{fig:figs}Calculated mean spectra"}
 
 cols.means <- as.factor(search.vector)
 
@@ -353,7 +355,7 @@ Once we have calculated the mean estimator for each multivariate spectra, we can
 
 In this experiment we have performed an analogue to the the baseline correction described by [beleites et al. 2020](https://cran.r-project.org/web/packages/hyperSpec/vignettes/baseline.pdf):
 
-```{r loading hyperspec}
+```{r loading hyperspec, message= FALSE}
 library(hyperSpec) 
 # hyperSpec package functions and 
 #data is charged in this session
@@ -361,55 +363,82 @@ library(hyperSpec)
 
 We create an object that can be identified and manipulated by the functions of `hyperSpec` package.
 
-```{r}
+```{r saving spectra into hyperSpec object }
 spc <- new('hyperSpec', # The class of the object
            spc= mean, # the spectra matrix
-           wavelength = wavenumbers1) # independent varialble, whether wave number or wave length
+           wavelength = wavenumbers1) # independent variable, whether wave number 
+#or wave length
 
 ```
 
 then in an object called `bend`,  we can save the result of `wl.eval` applied to `spc`. This function generates a baseline 'reference spectra':
 
-```{r}
+```{r calculation of bend reference spectra}
 bend <- 0.1 * wl.eval(spc,
                       function (x) x^6+x^5+x^4+x^3+x^2,
                       normalize.wl = normalize01)
 
 ```
+
+*   `function (x) x^6+x^5+x^4+x^3+x^2` defines a polynomial that is used to fit the baselines to the supporting points in the lower region of the spectra contained in 'spc', using this functions the baseline 'reference spectra' is calculated 
      
 * `normalize.wl=normalize01` is a function used to transform the wave numbers before evaluating the polynomial. using `normalize01` we map the range of each wave number to the interval $[0,1]$ 
 
-* the multiplication by $0.1$ is the normalization for this spectra.
-Now we can use the `rubberband` method, and setting the noise to $1\cdot10^{-4}$ allows us to take advantage of the low noise presented for this spectra. (a noise of `noise=4` sets an interval of 2 times standard deviations).
+* the multiplication by $0.1$ is the normalization chosen for these spectra.
 
+Now we can use the `rubberband` method to estimate the baseline. Setting the noise to $1\cdot10^{-4}$ allows us to take advantage of the low noise presented for this spectra. (a noise of `noise=4` sets an interval of 2 times standard deviations).
+
+```{r baseline calculation}
 bl <- spc.rubberband(spc+bend, noise = 1e-4, df = 20)-bend
-
-
-* 
-suma <- spc+bend
-spc3 <- spc - bl
-spc3 <- spc3 + (min(spc3)*-1)
-```{r}
-
 ```
 
+The base-line correction method selected for this work is one of many, and tuning the correction parameters can be subject to a design of experiments, using as a response variable a quality measure of the analysis that is going to be performed after the correction. For example $Q^2$ for PCA, or $R_{adj}$ and $RMSEP_{CV}$ for multiple linear regression models as suggested by [hovde 2010](https://doi.org/10.1366/000370210792434350). 
+
+Now, we can visualize the results of these baseline corrections.
+
+First, the spectra before correction and the estimated baseline 'reference spectra':
+
+```{r baseline plot 1, fig.cap="\\label{fig:figs}Mean spectra and rubberband baseline"}
 labels (spc, ".wavelength") <- expression(paste('Wave number (cm'^'-1',')'))
 labels (spc, "spc") <- expression(paste('Absorbance (a.u.)'))
 
-labels (spc3, ".wavelength") <- expression(paste('Wave number (cm'^'-1',')'))
-labels (spc3, "spc") <- expression(paste('Absorbance (a.u.)'))
 plot(spc, wl.reverse = TRUE)
 plot(bl, add=TRUE, col=2,wl.reverse = TRUE)
-plot(suma,wl.reverse = TRUE)
+``` 
+
+And the hearth of the rubberband method, the bending of the spectra to add support points in the convex part of the spectra:
+
+```{r baseline plot 2 bend, fig.cap="\\label{fig:figs}bent mean spectra and bent baseline"}
+
+sum <- spc+bend
+plot(sum,wl.reverse = TRUE)
 plot(bend, add=TRUE, col=2,wl.reverse = TRUE)
+```
+
+Then, the corrected spectra, which is calculated by substracting the baseline `bl` from the spectra `spc`:
+
+
+```{r baseline plot 3 corrected, fig.cap="\\label{fig:figs}baseline corrected mean spectra"}
+spc3 <- spc - bl
+spc3 <- spc3 + (min(spc3)*-1)# We add the minimum value
+#which is negative to have only positive values
 plot(spc3,wl.reverse = TRUE)
 
+```
+
+Now, we can extract the corrected spectra from the `hyperSpec` object and save it as a `data.frame` to handle the information in an easier way later.
+```{r}
 corrected1  <- as.data.frame(spc3[1:106])
 corrected <- as.data.frame(corrected1[,1])
 corrected <- corrected + (min(corrected)*-1) # shifting upwards to prevent negative values
 ```
 
-<!-- # multiplicative scatter correction (MSCF) -->
+Up to this point, we have calculated the mean spectra and corrected the base-line of each spectrum. 
+
+
+# multiplicative scatter correction (MSC)
+
+Since This is a popular pre-treatment [Rinnan 2009]()                       
 <!-- ```{r} -->
 <!-- library(pls) -->
 <!-- correctedMSC <- msc(as.matrix(corrected)) -->
@@ -1176,12 +1205,12 @@ corrected <- corrected + (min(corrected)*-1) # shifting upwards to prevent negat
 <!--                       normalize.wl = normalize01) -->
 
 <!-- blNIST <- spc.rubberband(spcNIST+bendNIST, noise = 1e-4, df = 20)-bendNIST -->
-<!-- sumaNIST <- spcNIST+bendNIST -->
+<!-- sumNIST <- spcNIST+bendNIST -->
 <!-- spc3NIST <- spcNIST - blNIST -->
 
 <!-- plot(spcNIST, wl.reverse = TRUE) -->
 <!-- plot(blNIST, add=TRUE, col=2,wl.reverse = TRUE) -->
-<!-- plot(sumaNIST,wl.reverse = TRUE) -->
+<!-- plot(sumNIST,wl.reverse = TRUE) -->
 <!-- plot(bendNIST, add=TRUE, col=2,wl.reverse = TRUE) -->
 <!-- plot(spc3NIST,wl.reverse = TRUE) -->
 
@@ -1557,12 +1586,12 @@ corrected <- corrected + (min(corrected)*-1) # shifting upwards to prevent negat
 <!--                       normalize.wl = normalize01) -->
 
 <!-- blludox <- spc.rubberband(spcludox+bendludox, noise = 1e-4, df = 20)-bendludox -->
-<!-- sumaludox <- spcludox+bendludox -->
+<!-- sumludox <- spcludox+bendludox -->
 <!-- spc3ludox <- spcludox - blludox -->
 
 <!-- plot(spcludox, wl.reverse = TRUE) -->
 <!-- plot(blludox, add=TRUE, col=2,wl.reverse = TRUE) -->
-<!-- plot(sumaludox,wl.reverse = TRUE) -->
+<!-- plot(sumludox,wl.reverse = TRUE) -->
 <!-- plot(bendludox, add=TRUE, col=2,wl.reverse = TRUE) -->
 <!-- plot(spc3ludox,wl.reverse = TRUE) -->
 
