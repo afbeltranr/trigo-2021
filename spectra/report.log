@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2021/W32TeX) (preloaded format=pdflatex 2021.8.24)  4 OCT 2021 14:49
+This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2021/W32TeX) (preloaded format=pdflatex 2021.8.24)  4 OCT 2021 16:06
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -429,6 +429,9 @@ LaTeX Warning: Label `fig:figs' multiply defined.
 
 LaTeX Warning: Label `fig:figs' multiply defined.
 
+
+LaTeX Warning: Label `fig:figs' multiply defined.
+
 )
 \openout1 = `report.aux'.
 
@@ -506,14 +509,14 @@ LaTeX Info: Redefining \nameref on input line 111.
 * \headsep=25.0pt
 * \topskip=10.0pt
 * \footskip=30.0pt
-* \marginparwidth=65.0pt
-* \marginparsep=11.0pt
+* \marginparwidth=4.0pt
+* \marginparsep=10.0pt
 * \columnsep=10.0pt
 * \skip\footins=9.0pt plus 4.0pt minus 2.0pt
 * \hoffset=0.0pt
 * \voffset=0.0pt
 * \mag=1000
-* \@twocolumnfalse
+* \@twocolumntrue
 * \@twosidefalse
 * \@mparswitchfalse
 * \@reversemarginfalse
@@ -569,100 +572,202 @@ LaTeX Font Info:    Trying to load font information for TS1+lmtt on input line
 (c:/Users/USUARIO/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/ts1lmtt.fd
 File: ts1lmtt.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
-Underfull \hbox (badness 1292) in paragraph at lines 147--153
-[]\T1/lmr/m/n/10 Now, se can save the fre-quen-cies of in-ci-dent light as a ve
-c-tor called \T1/lmtt/m/n/10 wavenumbers\T1/lmr/m/n/10 . The code
+Underfull \hbox (badness 3179) in paragraph at lines 149--155
+[]\T1/lmr/m/n/10 Now, se can save the fre-quen-cies of in-ci-dent
  []
 
-[1
-
-{c:/Users/USUARIO/AppData/Roaming/TinyTeX/texmf-var/fonts/map/pdftex/updmap/pdf
-tex.map}]
 LaTeX Font Info:    Font shape `T1/lmtt/bx/n' in size <12> not available
-(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 201.
+(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 205.
 LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 2
-26.
+30.
 (c:/Users/USUARIO/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/ts1lmr.fd
 File: ts1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
-) [2]
+) [1{c:/Users/USUARIO/AppData/Roaming/TinyTeX/texmf-var/fonts/map/pdftex/updmap
+/pdftex.map}
+
+
+]
+Overfull \hbox (32.62173pt too wide) in paragraph at lines 271--271
+[]\T1/lmtt/m/n/10 ## [1] "P1-1_Thu May 09 07-26-09 2019 (GMT+02-00)"[] 
+ []
+
+
+Overfull \hbox (32.62173pt too wide) in paragraph at lines 271--271
+[]\T1/lmtt/m/n/10 ## [2] "P1-2_Thu May 09 07-26-09 2019 (GMT+02-00)"[] 
+ []
+
+
+Overfull \hbox (32.62173pt too wide) in paragraph at lines 271--271
+[]\T1/lmtt/m/n/10 ## [3] "P1-3_Thu May 09 07-26-09 2019 (GMT+02-00)"[] 
+ []
+
+
+Overfull \hbox (32.62173pt too wide) in paragraph at lines 271--271
+[]\T1/lmtt/m/n/10 ## [4] "P2-1_Thu May 09 07-26-09 2019 (GMT+02-00)"[] 
+ []
+
+
+Overfull \hbox (32.62173pt too wide) in paragraph at lines 271--271
+[]\T1/lmtt/m/n/10 ## [5] "P2-2_Thu May 09 07-26-09 2019 (GMT+02-00)"[] 
+ []
+
+
+Overfull \hbox (32.62173pt too wide) in paragraph at lines 271--271
+[]\T1/lmtt/m/n/10 ## [6] "P2-3_Thu May 09 07-26-09 2019 (GMT+02-00)"[] 
+ []
+
+
+Overfull \hbox (137.62143pt too wide) in paragraph at lines 319--319
+[]\T1/lmtt/m/n/10 ##  Factor w/ 106 levels "125","126","127",..: 1 1 1 2 2 2 3 
+3 3 4 ...[] 
+ []
+
 LaTeX Font Info:    Font shape `T1/lmtt/bx/n' in size <10> not available
-(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 320.
-<report_files/figure-latex/raw data plot-1.pdf, id=56, 469.755pt x 325.215pt>
+(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 329.
+<report_files/figure-latex/raw data plot-1.pdf, id=55, 469.755pt x 325.215pt>
 File: report_files/figure-latex/raw data plot-1.pdf Graphic file (type pdf)
 <use report_files/figure-latex/raw data plot-1.pdf>
 Package pdftex.def Info: report_files/figure-latex/raw data plot-1.pdf  used on
- input line 347.
-(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
+ input line 359.
+(pdftex.def)             Requested size: 229.87375pt x 159.14336pt.
+[2]
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10> on input line 364.
+(Font)              <10> on input line 376.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <7> on input line 364.
+(Font)              <7> on input line 376.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <5> on input line 364.
-[3] [4 <./report_files/figure-latex/raw data plot-1.pdf>]
-<report_files/figure-latex/ROI plot-1.pdf, id=75, 469.755pt x 325.215pt>
+(Font)              <5> on input line 376.
+<report_files/figure-latex/ROI plot-1.pdf, id=64, 469.755pt x 325.215pt>
 File: report_files/figure-latex/ROI plot-1.pdf Graphic file (type pdf)
 <use report_files/figure-latex/ROI plot-1.pdf>
 Package pdftex.def Info: report_files/figure-latex/ROI plot-1.pdf  used on inpu
-t line 416.
-(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
-[5] [6 <./report_files/figure-latex/ROI plot-1.pdf>] [7]
-Underfull \hbox (badness 1917) in paragraph at lines 638--642
-[]\T1/lmr/m/n/10 So the cal-cu-la-tion will be ap-plied to \T1/lmtt/m/n/10 rang
-e1[index[[1]][1],1]\T1/lmr/m/n/10 , \T1/lmtt/m/n/10 range1[index[[1]][2],1] \T1
-/lmr/m/n/10 and
+t line 431.
+(pdftex.def)             Requested size: 229.87375pt x 159.14336pt.
+
+Overfull \hbox (195.37126pt too wide) in paragraph at lines 459--459
+[]\T1/lmtt/m/n/10 ## 106 Levels: 125 126 127 128 129 130 132 133 134 135 136 13
+7 138 139 140 ... P9[] 
  []
 
-[8]
-<report_files/figure-latex/plotting the mean-1.pdf, id=105, 469.755pt x 325.215
-pt>
+[3 <./report_files/figure-latex/raw data plot-1.pdf> <./report_files/figure-lat
+ex/ROI plot-1.pdf>]
+Underfull \hbox (badness 10000) in paragraph at lines 484--488
+[]\T1/lmr/m/n/10 This will find any el-e-ment for the vec-tor
+ []
+
+
+Underfull \hbox (badness 4981) in paragraph at lines 484--488
+\T1/lmtt/m/n/10 rownames(spectra.df) \T1/lmr/m/n/10 that matches with the
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 505--508
+[]\T1/lmr/m/n/10 The search will tell us the po-si-tions in
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 505--508
+\T1/lmtt/m/n/10 rownames(spectra.df) \T1/lmr/m/n/10 where where we can
+ []
+
+
+Overfull \hbox (195.37126pt too wide) in paragraph at lines 568--568
+[]\T1/lmtt/m/n/10 ## 106 Levels: 125 126 127 128 129 130 132 133 134 135 136 13
+7 138 139 140 ... P9[] 
+ []
+
+
+Underfull \hbox (badness 1715) in paragraph at lines 609--615
+\T1/lmr/m/n/10 wave num-ber, one af-ter an-other, in each it-er-
+ []
+
+
+Underfull \hbox (badness 1406) in paragraph at lines 609--615
+\T1/lmr/m/n/10 a-tion of the loop, or each time \T1/lmtt/m/n/10 j \T1/lmr/m/n/1
+0 changes its
+ []
+
+[4]
+Underfull \hbox (badness 10000) in paragraph at lines 664--668
+[]\T1/lmr/m/n/10 So the cal-cu-la-tion will be ap-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 664--668
+\T1/lmr/m/n/10 plied to \T1/lmtt/m/n/10 range1[index[[1]][1],1]\T1/lmr/m/n/10 ,
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 664--668
+\T1/lmtt/m/n/10 range1[index[[1]][2],1] \T1/lmr/m/n/10 and
+ []
+
+
+Underfull \hbox (badness 2846) in paragraph at lines 664--668
+\T1/lmtt/m/n/10 range1[index[[1]][2],1]\T1/lmr/m/n/10 , or rows 1, 2, and
+ []
+
+<report_files/figure-latex/plotting the mean-1.pdf, id=92, 469.755pt x 325.215p
+t>
 File: report_files/figure-latex/plotting the mean-1.pdf Graphic file (type pdf)
 
 <use report_files/figure-latex/plotting the mean-1.pdf>
 Package pdftex.def Info: report_files/figure-latex/plotting the mean-1.pdf  use
-d on input line 704.
-(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
-[9] [10 <./report_files/figure-latex/plotting the mean-1.pdf>]
-<report_files/figure-latex/baseline plot 1-1.pdf, id=123, 469.755pt x 325.215pt
+d on input line 733.
+(pdftex.def)             Requested size: 229.87375pt x 159.14336pt.
+[5]
+<report_files/figure-latex/baseline plot 1-1.pdf, id=101, 469.755pt x 325.215pt
 >
 File: report_files/figure-latex/baseline plot 1-1.pdf Graphic file (type pdf)
 <use report_files/figure-latex/baseline plot 1-1.pdf>
 Package pdftex.def Info: report_files/figure-latex/baseline plot 1-1.pdf  used 
-on input line 804.
-(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
-[11] [12 <./report_files/figure-latex/baseline plot 1-1.pdf>]
-<report_files/figure-latex/baseline plot 2 bend-1.pdf, id=141, 469.755pt x 325.
+on input line 843.
+(pdftex.def)             Requested size: 229.87375pt x 159.14336pt.
+[6 <./report_files/figure-latex/plotting the mean-1.pdf> <./report_files/figure
+-latex/baseline plot 1-1.pdf>]
+<report_files/figure-latex/baseline plot 2 bend-1.pdf, id=120, 469.755pt x 325.
 215pt>
 File: report_files/figure-latex/baseline plot 2 bend-1.pdf Graphic file (type p
 df)
 <use report_files/figure-latex/baseline plot 2 bend-1.pdf>
 Package pdftex.def Info: report_files/figure-latex/baseline plot 2 bend-1.pdf  
-used on input line 821.
-(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
-<report_files/figure-latex/baseline plot 3 corrected-1.pdf, id=142, 469.755pt x
+used on input line 860.
+(pdftex.def)             Requested size: 229.87375pt x 159.14336pt.
+<report_files/figure-latex/baseline plot 3 corrected-1.pdf, id=121, 469.755pt x
  325.215pt>
 File: report_files/figure-latex/baseline plot 3 corrected-1.pdf Graphic file (t
 ype pdf)
 <use report_files/figure-latex/baseline plot 3 corrected-1.pdf>
 Package pdftex.def Info: report_files/figure-latex/baseline plot 3 corrected-1.
-pdf  used on input line 839.
-(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
-[13 <./report_files/figure-latex/baseline plot 2 bend-1.pdf>] [14 <./report_fil
-es/figure-latex/baseline plot 3 corrected-1.pdf>] (./report.aux)
+pdf  used on input line 880.
+(pdftex.def)             Requested size: 229.87375pt x 159.14336pt.
+<report_files/figure-latex/MSC correction plot-1.pdf, id=124, 469.755pt x 325.2
+15pt>
+File: report_files/figure-latex/MSC correction plot-1.pdf Graphic file (type pd
+f)
+<use report_files/figure-latex/MSC correction plot-1.pdf>
+Package pdftex.def Info: report_files/figure-latex/MSC correction plot-1.pdf  u
+sed on input line 944.
+(pdftex.def)             Requested size: 229.87375pt x 159.14336pt.
+[7 <./report_files/figure-latex/baseline plot 2 bend-1.pdf> <./report_files/fig
+ure-latex/baseline plot 3 corrected-1.pdf>] [8
+
+ <./report_files/figure-latex/MSC correction plot-1.pdf>] (./report.aux)
 
 LaTeX Warning: There were multiply-defined labels.
 
 Package rerunfilecheck Info: File `report.out' has not changed.
-(rerunfilecheck)             Checksum: 2B50648D9DE62DF50A4C44F7CD9AEC6F;1024.
+(rerunfilecheck)             Checksum: 0489865AF7FBAE3EC3DA4F51EDE2BE04;1278.
  ) 
 Here is how much of TeX's memory you used:
- 10681 strings out of 480502
- 159843 string characters out of 5897829
- 465355 words of memory out of 5000000
- 28134 multiletter control sequences out of 15000+600000
+ 10687 strings out of 480502
+ 160296 string characters out of 5897829
+ 474525 words of memory out of 5000000
+ 28142 multiletter control sequences out of 15000+600000
  451284 words of font info for 73 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 60i,6n,66p,418b,354s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 60i,8n,66p,372b,393s stack positions out of 5000i,500n,10000p,200000b,80000s
 {c:/Users/USUARIO/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ma
 thit.enc}{c:/Users/USUARIO/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/l
 m/lm-mathsy.enc}{c:/Users/USUARIO/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/
@@ -683,10 +788,10 @@ lmsy7.pfb><c:/Users/USUARIO/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/publ
 ic/lm/lmtk10.pfb><c:/Users/USUARIO/AppData/Roaming/TinyTeX/texmf-dist/fonts/typ
 e1/public/lm/lmtt10.pfb><c:/Users/USUARIO/AppData/Roaming/TinyTeX/texmf-dist/fo
 nts/type1/public/lm/lmtti10.pfb>
-Output written on report.pdf (14 pages, 4579260 bytes).
+Output written on report.pdf (8 pages, 4902669 bytes).
 PDF statistics:
- 241 PDF objects out of 1000 (max. 8388607)
- 181 compressed objects within 2 object streams
- 35 named destinations out of 1000 (max. 500000)
- 87 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 230 PDF objects out of 1000 (max. 8388607)
+ 174 compressed objects within 2 object streams
+ 32 named destinations out of 1000 (max. 500000)
+ 100 words of extra memory for PDF output out of 10000 (max. 10000000)
 

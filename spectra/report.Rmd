@@ -5,6 +5,8 @@ date: "6/16/2021"
 output:
     pdf_document
 fig_caption: yes
+classoption:
+- twocolumn
 ---
 
 # Introduction
@@ -22,7 +24,9 @@ names <- list.files(pattern = '.CSV')
 
 Then, we use the function `lapply` to apply the function `read.csv` to each element of the list `names` and then save each of the `data.frames` from the files in to R.
 ```{r reading each data frame}
-spectra.list <- lapply(names, read.csv, header = F)
+spectra.list <- lapply(names, 
+                       read.csv, 
+                       header = F)
 ```
 
 Now, se can save the frequencies of incident light as a vector called `wavenumbers`. The code `spectra.list[[1]][1]` selects the first element of the list `spectra.list` using the index operator for lists `[[1]]`, which is a `data.frame`. Then, we select the first column of that `data.frame` using the index operator `[1]`:
@@ -43,7 +47,9 @@ spectra.list2 <- lapply(spectra.list, '[', 2)
 In order to make data easier to manipulate, we can transform the list of columns called `spectra.list2` into a `data.frame` as follows:
 
 ```{r converting list of df to one df}
-spectra.df <- as.data.frame(t(as.data.frame(spectra.list2)))
+spectra.df <- as.data.frame(
+  t(as.data.frame(spectra.list2))
+  )
 ```
 
 the object `spectra.df` has 318 rows, i.e. 318 spectra from different samples and 1869 columns, or infrared frequencies.
@@ -63,7 +69,7 @@ colnames(spectra.df) <- wavenumbers
 Since the names of the sample right now have the following structure:
 
 ```{r checking names}
-head(names)
+head(names[1:3])
 ```
 
 
@@ -78,8 +84,10 @@ The regular expression for this replacement is built as follows:
 That is described before allows us to tell `R` that we want to replace the last 4 characters in each name by nothing, or `''`.
 
 ```{r correcting names length}
-names2 <- gsub('.{4}$', '', rownames(spectra.df))
-head(names2)
+names2 <- gsub('.{4}$', 
+               '', 
+               rownames(spectra.df))
+head(names2[1:4])
 ```
 There are some samples that have longer names, such as:
 
@@ -89,8 +97,12 @@ head(names2[292:318])
 We can also save just the information that is useful for displaying in tables and plots:
 
 ```{r correcting names length 2}
-names2[292:318] <- gsub('.{41}$', '', rownames(spectra.df)[292:318])
-head(names2[292:318])
+names2[292:318] <- gsub('.{41}$', 
+                        '',
+                        rownames(
+                          spectra.df
+                          )[292:318])
+head(names2[292:318])[1:4]
 ```
 Finally, we assign the curated names to our data frame, `spectra.df`
 
@@ -107,7 +119,7 @@ Knowing that we have already the names of the samples, it would be handy if we u
 
 ```{r creating factor for coloring replicas}
 cols <- factor(gsub('.{2}$', '', names2))
-head(cols)
+str(cols)
 ```
 If we use the factor `cols`, we can plot three replicas of one sample using the same color
 
@@ -135,7 +147,10 @@ box()
 axis(1)
 axis(2)
 title(main = '',
-      xlab = expression(paste('Wave number (cm'^'-1',')')),
+      xlab = expression(
+        paste('Wave number (cm'^'-1',
+              ')')
+        ),
       ylab ='absorbance (a.u.)')
 ```
 
@@ -176,7 +191,10 @@ box()
 axis(1)
 axis(2)
 title(main = 'raw spectra - ROI',
-      xlab = expression(paste('Wave number (cm'^'-1',')')),
+      xlab = expression(
+        paste('Wave number (cm'^'-1',
+              ')'
+              )),
       ylab ='absorbance (a.u.)')
 
 ```
@@ -211,14 +229,18 @@ The regular expression that we will use this time is `(?=.*<search>)` where `<se
 This will find any element for the vector `rownames(spectra.df)` that matches with the character in `search vector`. For example, if we search for the first sample, `search.vector[1]` which is sample `125`:
 
 ```{r first sample name}
-as.character(search.vector[1]) # the name of the first sample
+as.character(search.vector[1]) # the name of 
+#the first sample
 ```
 The search will tell us the positions in `rownames(spectra.df)` where where we can find the character `'125'` 
 
 ```{r regex for means example}
  which(
    grepl(
-     paste0('(?=.*',as.character(search.vector[1]),')'),
+     paste0('(?=.*',
+            as.character(search.vector[1]),
+            ')'
+            ),
      rownames(spectra.df),
      perl=T
      ) 
@@ -238,7 +260,9 @@ for (i in 1:106){
 
   index[[i]] <- which(
     grepl(
-      paste0('(?=.*',as.character(search.vector[i]),')'),
+      paste0('(?=.*',
+             as.character(search.vector[i])
+             ,')'),
                        rownames(spectra.df),
                        perl=T
                        )
@@ -344,7 +368,10 @@ box()
 axis(1)
 axis(2)
 title(main = '',
-      xlab = expression(paste('Wave number (cm'^'-1',')')),
+      xlab = expression(
+        paste('Wave number (cm'^'-1',
+              ')')
+        ),
       ylab ='absorbance (a.u.)')
 ```
 
@@ -366,8 +393,11 @@ We create an object that can be identified and manipulated by the functions of `
 ```{r saving spectra into hyperSpec object }
 spc <- new('hyperSpec', # The class of the object
            spc= mean, # the spectra matrix
-           wavelength = wavenumbers1) # independent variable, whether wave number 
-#or wave length
+           wavelength = wavenumbers1
+ # independent variable, whether wave number 
+#or wave length          
+           ) 
+
 
 ```
 
@@ -375,8 +405,10 @@ then in an object called `bend`,  we can save the result of `wl.eval` applied to
 
 ```{r calculation of bend reference spectra}
 bend <- 0.1 * wl.eval(spc,
-                      function (x) x^6+x^5+x^4+x^3+x^2,
-                      normalize.wl = normalize01)
+                      function (x) 
+                      x^6+x^5+x^4+x^3+x^2,
+                      normalize.wl = 
+                        normalize01)
 
 ```
 
@@ -389,7 +421,9 @@ bend <- 0.1 * wl.eval(spc,
 Now we can use the `rubberband` method to estimate the baseline. Setting the noise to $1\cdot10^{-4}$ allows us to take advantage of the low noise presented for this spectra. (a noise of `noise=4` sets an interval of 2 times standard deviations).
 
 ```{r baseline calculation}
-bl <- spc.rubberband(spc+bend, noise = 1e-4, df = 20)-bend
+bl <- spc.rubberband(spc+bend,
+                     noise = 1e-4, 
+                     df = 20)-bend
 ```
 
 The base-line correction method selected for this work is one of many, and tuning the correction parameters can be subject to a design of experiments, using as a response variable a quality measure of the analysis that is going to be performed after the correction. For example $Q^2$ for PCA, or $R_{adj}$ and $RMSEP_{CV}$ for multiple linear regression models as suggested by [hovde 2010](https://doi.org/10.1366/000370210792434350). 
@@ -399,14 +433,18 @@ Now, we can visualize the results of these baseline corrections.
 First, the spectra before correction and the estimated baseline 'reference spectra':
 
 ```{r baseline plot 1, fig.cap="\\label{fig:figs}Mean spectra and rubberband baseline"}
-labels (spc, ".wavelength") <- expression(paste('Wave number (cm'^'-1',')'))
-labels (spc, "spc") <- expression(paste('Absorbance (a.u.)'))
+labels (spc, ".wavelength") <-
+  expression(paste(
+    'Wave number (cm'^'-1',
+    ')'))
+labels (spc, "spc") <- 
+  expression(paste('Absorbance (a.u.)'))
 
 plot(spc, wl.reverse = TRUE)
 plot(bl, add=TRUE, col=2,wl.reverse = TRUE)
 ``` 
 
-And the hearth of the rubberband method, the bending of the spectra to add support points in the convex part of the spectra:
+And the heart of the rubberband method, the bending of the spectra to add support points in the convex part of the spectra:
 
 ```{r baseline plot 2 bend, fig.cap="\\label{fig:figs}bent mean spectra and bent baseline"}
 
@@ -420,8 +458,10 @@ Then, the corrected spectra, which is calculated by substracting the baseline `b
 
 ```{r baseline plot 3 corrected, fig.cap="\\label{fig:figs}baseline corrected mean spectra"}
 spc3 <- spc - bl
-spc3 <- spc3 + (min(spc3)*-1)# We add the minimum value
-#which is negative to have only positive values
+spc3 <- spc3 + (min(spc3)*-1)
+# We add the minimum value
+#which is negative to have only positive 
+#values
 plot(spc3,wl.reverse = TRUE)
 
 ```
@@ -438,131 +478,40 @@ Up to this point, we have calculated the mean spectra and corrected the base-lin
 
 # multiplicative scatter correction (MSC)
 
-Since This is a popular pre-treatment [Rinnan 2009]()                       
-<!-- ```{r} -->
-<!-- library(pls) -->
-<!-- correctedMSC <- msc(as.matrix(corrected)) -->
+Since This is a popular pre-treatment [(Rinnan 2009](https://www.sciencedirect.com/science/article/abs/pii/S0165993609001629), [Wu 2018)](https://www.sciencedirect.com/science/article/abs/pii/S0168169917309687) we tried to use it in this study.   
 
 
+```{r MSC correction, message=FALSE}
+library(pls)
+correctedMSC <- msc(as.matrix(mean))
+```
 
-<!-- for (i in 1:length(rownames(correctedMSC))){ -->
+```{r MSC correction plot, fig.cap="\\label{fig:figs}MSC correction of mean spectra "}
 
-<!--   plot(as.numeric(colnames(correctedMSC)),  -->
-<!--      correctedMSC[i,], -->
-<!--      xlab = '', -->
-<!--      ylab = '', -->
-<!--      axes = F, -->
-<!--      type = 'l', -->
-<!--      xlim = c(1700,400), -->
-<!--      ylim = c(0,0.06)) -->
-<!--   par(new = T) -->
-<!-- } -->
-<!-- box() -->
-<!-- axis(1) -->
-<!-- axis(2) -->
-<!-- title(main = '', -->
-<!--       xlab = expression(paste('Wave number (cm'^'-1',')')), -->
-<!--       ylab = 'Absorbance (a.u.)') -->
-<!-- ``` -->
+for (i in 1:length(rownames(correctedMSC))){
 
-<!-- ```{r ,echo = FALSE} -->
-<!-- # par(mfrow = c(2,2)) -->
-<!-- #  -->
-<!-- # for(i in  1:length(rownames(spectra.df))){ -->
-<!-- #    -->
-<!-- #   plot(wavenumbers, -->
-<!-- #     spectra.df[i,], -->
-<!-- #     axes = F, -->
-<!-- #     xlab = '',  -->
-<!-- #     ylab = '', -->
-<!-- #     xlim = c(4000, 400), -->
-<!-- #     ylim= c(0,0.2), -->
-<!-- #     type = 'l', -->
-<!-- #     col =cols[i] -->
-<!-- #  -->
-<!-- #   ) -->
-<!-- #   par(new = T) -->
-<!-- # } -->
-<!-- #  -->
-<!-- # box() -->
-<!-- # axis(1) -->
-<!-- # axis(2) -->
-<!-- # title(main = 'raw spectra full range', -->
-<!-- #       xlab = expression(paste('Wave number (cm'^'-1',')')), -->
-<!-- #       ylab ='absorbance (a.u.)') -->
-<!-- #  -->
-<!-- # for(i in  1:length(rownames(range1))){ -->
-<!-- #    -->
-<!-- #   plot(wavenumbers1, -->
-<!-- #     range1[i,], -->
-<!-- #     axes = F, -->
-<!-- #     xlab = '',  -->
-<!-- #     ylab = '', -->
-<!-- #     xlim = c(1700, 400), -->
-<!-- #     ylim= c(0,0.2), -->
-<!-- #     type = 'l', -->
-<!-- #     col =cols[i] -->
-<!-- #  -->
-<!-- #   ) -->
-<!-- #   par(new = T) -->
-<!-- # } -->
-<!-- #  -->
-<!-- # box() -->
-<!-- # axis(1) -->
-<!-- # axis(2) -->
-<!-- # title(main = 'raw spectra - ROI', -->
-<!-- #       xlab = expression(paste('Wave number (cm'^'-1',')')), -->
-<!-- #       ylab ='absorbance (a.u.)') -->
-<!-- #  -->
-<!-- #  -->
-<!-- # for(i in  1:length(rownames(mean))){ -->
-<!-- #    -->
-<!-- #   plot(wavenumbers1, -->
-<!-- #     mean[i,], -->
-<!-- #     axes = F, -->
-<!-- #     xlab = '',  -->
-<!-- #     ylab = '', -->
-<!-- #     xlim = c(1700, 400), -->
-<!-- #     ylim= c(0,0.2), -->
-<!-- #     type = 'l', -->
-<!-- #     col =cols.means[i] -->
-<!-- #  -->
-<!-- #   ) -->
-<!-- #   par(new = T) -->
-<!-- # } -->
-<!-- #  -->
-<!-- # box() -->
-<!-- # axis(1) -->
-<!-- # axis(2) -->
-<!-- # title(main = 'averaged spectra', -->
-<!-- #       xlab = expression(paste('Wave number (cm'^'-1',')')), -->
-<!-- #       ylab ='absorbance (a.u.)') -->
-<!-- #  -->
-<!-- # for(i in  1:length(rownames(mean))){ -->
-<!-- #    -->
-<!-- #   plot(wavenumbers1, -->
-<!-- #     corrected[i,], -->
-<!-- #     axes = F, -->
-<!-- #     xlab = '',  -->
-<!-- #     ylab = '', -->
-<!-- #     xlim = c(1700, 400), -->
-<!-- #     ylim= c(0,0.1), -->
-<!-- #     type = 'l', -->
-<!-- #     col =cols.means[i] -->
-<!-- #  -->
-<!-- #   ) -->
-<!-- #   par(new = T) -->
-<!-- # } -->
-<!-- #  -->
-<!-- # box() -->
-<!-- # axis(1) -->
-<!-- # axis(2) -->
-<!-- # title(main = 'corrected spectra', -->
-<!-- #       xlab = expression(paste('Wave number (cm'^'-1',')')), -->
-<!-- #       ylab ='absorbance (a.u.)') -->
+  plot(as.numeric(colnames(correctedMSC)),
+     correctedMSC[i,],
+     xlab = '',
+     ylab = '',
+     axes = F,
+     type = 'l',
+     xlim = c(1700,400),
+     ylim = c(0,0.12),
+     col = cols[i])
+  par(new = T)
+}
+box()
+axis(1)
+axis(2)
+title(main = '',
+      xlab = expression(paste(
+        'Wave number (cm'^'-1',
+        ')')),
+      ylab = 'Absorbance (a.u.)')
+```
 
-<!-- ``` -->
-
+Since no noise reduction was identified, this option was dismissed for the moment.
 
 <!-- # metadata -->
 
