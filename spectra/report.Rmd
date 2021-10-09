@@ -60,7 +60,6 @@ Since the function `t()` transforms `data.frame` class objects into `matrix` cla
 rownames(spectra.df) <- names
 colnames(spectra.df) <- wavenumbers
 # gsub('.{6}$', '', names)
-
 ```
 
 ## Tidying up the `data.frame`
@@ -117,7 +116,7 @@ Since we have joined several spectra from different samples, we can try to visua
 
 Knowing that we have already the names of the samples, it would be handy if we used a factor that helped us to differentiate replicas of experiments:
 
-```{r creating factor for coloring replicas}
+```{r creating factor for coloring replicas, attr.source="style='display:inline-block;'", collapse=TRUE}
 cols <- factor(gsub('.{2}$', '', names2))
 str(cols)
 ```
@@ -467,7 +466,7 @@ plot(spc3,wl.reverse = TRUE)
 ```
 
 Now, we can extract the corrected spectra from the `hyperSpec` object and save it as a `data.frame` to handle the information in an easier way later.
-```{r}
+```{r saving the corrected spectra as a data frame}
 corrected1  <- as.data.frame(spc3[1:106])
 corrected <- as.data.frame(corrected1[,1])
 corrected <- corrected + (min(corrected)*-1) # shifting upwards to prevent negative values
@@ -513,79 +512,132 @@ title(main = '',
 
 Since no noise reduction was identified, this option was dismissed for the moment.
 
-<!-- # metadata -->
+# metadata
 
 
-<!-- First, we load the metadata table, created from the data table 'Datos_para_colombia.xlsx': -->
+First, we load the metadata table, created from the data table 'Datos_para_colombia.xlsx' available [here](https://github.com/pipoelpipas/trigo-2021/blob/main/Lignina/Datos%20para%20Colombia.xlsx):
 
-<!-- ```{r} -->
-<!-- library(readxl) -->
-<!-- metadata <- read_excel("metadata.xlsx") -->
-<!-- which(is.na(metadata$sample)) -->
-<!-- ``` -->
+```{r reading metadata table}
+library(readxl)
+metadata <- read_excel("metadata.xlsx")
+```
+
+The object called metadata is a data.frame and it has 88 rows and columns as it is. The rows vary with samples and the columns with variables. The variables in the columns are:
+
+```{r printing the column names of metadata matrix}
+colnames(metadata)
+```
+where:
+
+* `sample`: Contains the alpha numeric ID given to each sample. *class=numeric*.
+* `class`:  The group of the experiment from where the sample comes from *class=character*.
+* `N %`: The nitrogen percent quantified.  *class=numeric*.
+* `C %`: The nitrogen percent quantified. *class=numeric*.
+* `Si`: Silicon quantified by ICP-OES *class=numeric*.
+* `Ca`: Calcium quantified by ICP-OES *class=character*.
+* `Mg`: magnesium quantified by ICP-OES *class=character*.
+* `P`: Phosphorous quantified by ICP-OES *class=character*.
+
+Since the raw data is not debugged (as the majority of experimental raw data sometimes are) we can tidy up this table as far as we can using `R`.
+
+First we can search if there is any row of the `metadata` that has its label or ID missing using the column `sample`:
+
+```{r checking for NA in metadata}
+which(is.na(metadata$sample))
+```
+The row 17 has an NA or blank space in the column `sample`. we can proceed to remove this row:
 
 
-<!-- ```{r} -->
-<!-- metadata <- metadata[-c(17),] -->
-<!-- which(is.na(metadata$sample)) -->
-<!-- ``` -->
-
-<!-- ## matching samples that have metadata with samples with spectra -->
-
-<!-- ```{r} -->
-
-<!-- positions <- vector('list', 87) # the same sizeas metadata$sample -->
-
-<!-- for (i in 1:87){ -->
-
-<!-- positions[[i]] <- which(grepl(paste0('(?=.*',as.character(metadata$sample[i]),')'),rownames(corrected), perl=T))  -->
-<!-- } -->
+```{r }
+metadata <- metadata[-c(17),]
+which(is.na(metadata$sample))
+```
+`integer(0)` means that once we have deleted row 17, there are no blank spaces whatsoever.
 
 
-<!-- ``` -->
+## matching samples that have metadata with samples with spectra
 
-<!-- In the list `positions` we know where can we find the corrected mean spectra for each sample identified in `metadata$sample`. For instance, for `metadata$sample[1]`: -->
 
-<!-- ```{r} -->
-<!-- metadata$sample[1] -->
-<!-- ``` -->
-<!-- we have in `positions`, where can we find the spectra for sample 125: -->
+We can now try to find where in the rows of `corrected` are the samples listed in `metadata$sample`. Doing this we will know which sample that has quantification and classification data, also has spectra available and where it is.
 
-<!-- ```{r} -->
-<!-- rownames(corrected)[positions[[1]]] -->
-<!-- ``` -->
+```{r}
+
+positions <- vector('list', 87) # the same sizeas metadata$sample
+
+for (i in 1:87){
+
+positions[[i]] <- which(
+                       grepl(
+                              paste0('(?=.*',
+                                     as.character(metadata$sample[i]),
+                                     ')'),
+                              rownames(corrected), 
+                              perl=T
+                             )
+                       )
+}
+
+
+```
+
+In `positions`, an object of *class=list* we save in each position where in the data frame `corrected` the current sample is. For instance:
+
+```{r}
+metadata$sample[1] 
+```
+
+
+```{r}
+positions[[1]]
+```
+```{r}
+rownames(corrected)[positions[[1]]]
+```
+In the last chunk we print the name of the spectra, `rownames(corrected)`, that is selected by the indexing list `positions[[1]]` which is `125`, the same sample at the first row of `metadata`. 
+
+This seems a little bit obvious but in the raw data there are several spectra rows that have not matching quantification data, or vice versa, there are several samples that have quantification information but have no spectra available.
+
+Since nowwhe know where in the spectral matrix is each sample of the `metadata` data set, we can add a new column that relates where is each sample of `metadata` in the `corrected` matrix:
+
 <!-- Now, we can create a new column in metadata, to state which sample has spectra: -->
 
-<!-- ```{r} -->
-<!-- for(i in 1:length(metadata$sample)) { -->
+```{r matching for metadata$sample and rownames$corrected selected by  positions[[i]]}
+for(i in 1:length(metadata$sample)) {
 
-<!--   if(length(positions[[i]]) == 1){ -->
+  if(length(positions[[i]]) == 1){
 
-<!--     metadata$spectra[i] <- rownames(corrected)[positions[[i]]] -->
-<!--   }else{ -->
-<!--     metadata$spectra[i] <- NA -->
-<!--   } -->
+    metadata$spectra[i] <- rownames(corrected)[positions[[i]]]
+  }else{
+    metadata$spectra[i] <- NA
+  }
 
-<!-- } -->
+}
+```
 
-<!-- compare <- data.frame(metadata = metadata$sample, spectra = metadata$spectra) -->
-<!-- ``` -->
+Now we can compare if the indexing tool `positions` is doing its job. Creating the `data.frame` called `compare` we list side to side the names of `metadata` samples and the names of `corrected samples`
 
-<!-- Also we can add an index column for when we need to call spectra from `corrected` -->
-<!-- Now we know what we have of each sample, as far as composition and spectra are concerned. -->
+```{r comparing metadata$samples and rownames(corrected)}
+compare <- data.frame(metadata = metadata$sample, spectra = metadata$spectra)
+head(compare)
+```
 
-<!-- ```{r} -->
-<!-- for(i in 1:length(metadata$sample)) { -->
 
-<!--   if(length(positions[[i]]) == 1){ -->
+Since now we know where in `corrected` is each spectra for each sample from `metadata`, we can add this information to the `metadata` table:
 
-<!--     metadata$spectra.index[i] <- positions[[i]] -->
-<!--   }else{ -->
-<!--     metadata$spectra.index[i] <- NA -->
-<!--   } -->
+```{radding the index number for metadata samples in corrected}
+for(i in 1:length(metadata$sample)) {
 
-<!-- } -->
-<!-- ``` -->
+  if(length(positions[[i]]) == 1){
+
+    metadata$spectra.index[i] <- positions[[i]]
+  }else{
+    metadata$spectra.index[i] <- NA
+  }
+
+}
+```
+
+This is an analogue process to that used for saving the names of the spectra contained in `corrected`. The difference is that now in the column `metadata$spectra.index` we have exactly where the sample of the current row, is in the rows of the `corrected` matrix.
 
 <!-- # Leaves selection -->
 <!-- ## Selection of samples -->
