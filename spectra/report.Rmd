@@ -8,6 +8,53 @@ fig_caption: yes
 classoption:
 - twocolumn
 ---
+```{r defining graphical functions, echo = F}
+rgl_init <- function(new.device = FALSE, bg = "white", width = 640) { 
+  if( new.device | rgl.cur() == 0 ) {
+    rgl.open()
+    par3d(windowRect = 50 + c( 0, 0, width, width ) )
+    rgl.bg(color = bg )
+  }
+  rgl.clear(type = c("shapes", "bboxdeco"))
+  rgl.viewpoint(theta = 15, phi = 20, zoom = 0.7)
+}
+rgl_add_axes <- function(x, y, z, axis.col = "black",#91.72  7.59  0.63 => 99.94
+                xlab = "PC1 - 91.72 %", ylab="PC2 -7.59 %", zlab="PC3 - 0.63 %", show.plane = FALSE, 
+                show.bbox = TRUE, bbox.col = c("white","black"))
+  { 
+  
+  lim <- function(x){c(-max(abs(x)), max(abs(x))) * 1.1}
+  # Add axes
+  xlim <- lim(x); ylim <- lim(y); zlim <- lim(z)
+  rgl.lines(xlim, c(0, 0), c(0, 0), color = axis.col)
+  rgl.lines(c(0, 0), ylim, c(0, 0), color = axis.col)
+  rgl.lines(c(0, 0), c(0, 0), zlim, color = axis.col)
+  
+   # Add a point at the end of each axes to specify the direction
+   axes <- rbind(c(xlim[2], 0, 0), c(0, ylim[2], 0), 
+                 c(0, 0, zlim[2]))
+   rgl.points(axes, color = axis.col, size = 3)
+  
+  # Add axis labels
+  rgl.texts(axes, text = c(xlab, ylab, zlab), color = axis.col,
+             adj = c(0.5, -0.8), size = 2)
+  
+  # # Add plane
+  # if(show.plane) 
+  #   xlim <- xlim/1.1; zlim <- zlim /1.1
+  #   rgl.quads( x = rep(xlim, each = 2), y = c(0, 0, 0, 0),
+  #            z = c(zlim[1], zlim[2], zlim[2], zlim[1]))
+  
+  # Add bounding box decoration
+  if(show.bbox){
+    rgl.bbox(color=c(bbox.col[1],bbox.col[2]), alpha = 0.5, 
+          emission=bbox.col[1], specular=bbox.col[1], shininess=5, 
+          xlen = 3, ylen = 3, zlen = 3) 
+  }
+}
+
+```
+
 
 # Introduction
 
@@ -704,16 +751,83 @@ df1 <- spectra.class
 names.class <- paste(metadata.class2$class, rownames(spectra.class))
 
 rownames(df1) <- names.class
+logdf <- log10(df1[,1:676] + 1)
+rownames(logdf) <- names.class
 library(factoextra)
 
 
-res.hk <-hkmeans(df1, 
+hClust1 <- hclust(dist(logdf))
+plot(hClust1)
+res.hk <-hkmeans(logdf, 
                  5,
                  hc.metric =  'euclidean')
 
 fviz_dend(res.hk, cex = 0.5, palette = "jco", 
           rect = TRUE, rect_border = "jco", rect_fill = TRUE)
 ```
+
+
+
+```{r}
+colspca <- vector('character', nrow(df1))
+
+
+
+for(i in 1:nrow(df1)){
+  if( grepl(
+    paste0('(?=.*',
+           'L',
+           ')'),
+    metadata.class2$class[i],perl = T)){colspca[i] <- 'black'}else{
+      if(grepl(
+    paste0('(?=.*',
+           'R',
+           ')'),
+    metadata.class2$class[i],perl = T)){colspca[i] <- 'red'}else{colspca[i] <- 'white'}
+    }
+}
+
+pcaall <- prcomp(spectra.class)
+
+vp <- (pcaall$sdev)^2
+
+variance <- round(vp/sum(vp)*100,2)
+
+coord <- pcaall$x
+
+plot(coord[,1],
+     coord[,2], 
+     col=colspca,
+     xlab="PC1 - 40.74 %",
+     ylab= "PC2 - 16.46 %",
+
+     pch=19
+     )
+abline(v=0, h=0, lty=2)
+ text(coord[,1],coord[,2], rownames(coord), cex=0.4, pos=1)
+ 
+ 
+```
+
+```{r setup, echo=FALSE}
+library(rgl)
+knitr::knit_hooks$set(webgl = hook_webgl)
+```
+
+```{r , webgl=TRUE, results='hide'}
+library(rgl)
+x <- coord[,1]
+y <- coord[,2]
+z <- coord[,3]
+rgl_init()         
+r3dDefaults$windowRect <- c(0,50, 1200, 1200) 
+rgl.spheres(x, y, z, r = 0.002, color = colspca) 
+# text3d(x,y,z, rownames(coord), pos=3, col="black")
+rgl_add_axes(x, y, z, show.bbox = FALSE)
+aspect3d(1,1,1)
+
+```
+
 
 
 # Leaves selection
