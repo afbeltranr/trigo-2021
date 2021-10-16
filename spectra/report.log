@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2021/W32TeX) (preloaded format=pdflatex 2021.8.24)  8 OCT 2021 22:26
+This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2021/W32TeX) (preloaded format=pdflatex 2021.8.24)  10 OCT 2021 22:49
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -432,6 +432,9 @@ LaTeX Warning: Label `fig:figs' multiply defined.
 
 LaTeX Warning: Label `fig:figs' multiply defined.
 
+
+LaTeX Warning: Label `fig:figs' multiply defined.
+
 )
 \openout1 = `report.aux'.
 
@@ -622,7 +625,7 @@ LaTeX Font Info:    Font shape `T1/lmtt/bx/n' in size <10> not available
 LaTeX Font Warning: Font shape `T1/lmtt/bx/it' in size <10> not available
 (Font)              Font shape `T1/lmtt/b/sl' tried instead on input line 314.
 
-<report_files/figure-latex/raw data plot-1.pdf, id=63, 469.755pt x 325.215pt>
+<report_files/figure-latex/raw data plot-1.pdf, id=79, 469.755pt x 325.215pt>
 File: report_files/figure-latex/raw data plot-1.pdf Graphic file (type pdf)
 <use report_files/figure-latex/raw data plot-1.pdf>
 Package pdftex.def Info: report_files/figure-latex/raw data plot-1.pdf  used on
@@ -635,7 +638,7 @@ LaTeX Font Info:    External font `lmex10' loaded for size
 LaTeX Font Info:    External font `lmex10' loaded for size
 (Font)              <5> on input line 373.
 [2]
-<report_files/figure-latex/ROI plot-1.pdf, id=74, 469.755pt x 325.215pt>
+<report_files/figure-latex/ROI plot-1.pdf, id=90, 469.755pt x 325.215pt>
 File: report_files/figure-latex/ROI plot-1.pdf Graphic file (type pdf)
 <use report_files/figure-latex/ROI plot-1.pdf>
 Package pdftex.def Info: report_files/figure-latex/ROI plot-1.pdf  used on inpu
@@ -706,7 +709,7 @@ Underfull \hbox (badness 2846) in paragraph at lines 661--665
 \T1/lmtt/m/n/10 range1[index[[1]][2],1]\T1/lmr/m/n/10 , or rows 1, 2, and
  []
 
-<report_files/figure-latex/plotting the mean-1.pdf, id=101, 469.755pt x 325.215
+<report_files/figure-latex/plotting the mean-1.pdf, id=117, 469.755pt x 325.215
 pt>
 File: report_files/figure-latex/plotting the mean-1.pdf Graphic file (type pdf)
 
@@ -715,7 +718,7 @@ Package pdftex.def Info: report_files/figure-latex/plotting the mean-1.pdf  use
 d on input line 730.
 (pdftex.def)             Requested size: 229.87375pt x 159.14336pt.
 [5]
-<report_files/figure-latex/baseline plot 1-1.pdf, id=110, 469.755pt x 325.215pt
+<report_files/figure-latex/baseline plot 1-1.pdf, id=126, 469.755pt x 325.215pt
 >
 File: report_files/figure-latex/baseline plot 1-1.pdf Graphic file (type pdf)
 <use report_files/figure-latex/baseline plot 1-1.pdf>
@@ -724,7 +727,7 @@ on input line 840.
 (pdftex.def)             Requested size: 229.87375pt x 159.14336pt.
 [6 <./report_files/figure-latex/plotting the mean-1.pdf> <./report_files/figure
 -latex/baseline plot 1-1.pdf>]
-<report_files/figure-latex/baseline plot 2 bend-1.pdf, id=129, 469.755pt x 325.
+<report_files/figure-latex/baseline plot 2 bend-1.pdf, id=145, 469.755pt x 325.
 215pt>
 File: report_files/figure-latex/baseline plot 2 bend-1.pdf Graphic file (type p
 df)
@@ -732,7 +735,7 @@ df)
 Package pdftex.def Info: report_files/figure-latex/baseline plot 2 bend-1.pdf  
 used on input line 857.
 (pdftex.def)             Requested size: 229.87375pt x 159.14336pt.
-<report_files/figure-latex/baseline plot 3 corrected-1.pdf, id=130, 469.755pt x
+<report_files/figure-latex/baseline plot 3 corrected-1.pdf, id=146, 469.755pt x
  325.215pt>
 File: report_files/figure-latex/baseline plot 3 corrected-1.pdf Graphic file (t
 ype pdf)
@@ -740,7 +743,7 @@ ype pdf)
 Package pdftex.def Info: report_files/figure-latex/baseline plot 3 corrected-1.
 pdf  used on input line 877.
 (pdftex.def)             Requested size: 229.87375pt x 159.14336pt.
-<report_files/figure-latex/MSC correction plot-1.pdf, id=133, 469.755pt x 325.2
+<report_files/figure-latex/MSC correction plot-1.pdf, id=149, 469.755pt x 325.2
 15pt>
 File: report_files/figure-latex/MSC correction plot-1.pdf Graphic file (type pd
 f)
@@ -802,37 +805,104 @@ Underfull \hbox (badness 1199) in paragraph at lines 1038--1042
  []
 
 [8 <./report_files/figure-latex/MSC correction plot-1.pdf>]
-Overfull \hbox (58.87166pt too wide) in paragraph at lines 1127--1127
+Overfull \hbox (58.87166pt too wide) in paragraph at lines 1128--1128
 []\T1/lmtt/m/n/10 ## Warning: Unknown or uninitialised column: `spectra`.[] 
  []
 
 
-Overfull \hbox (16.87178pt too wide) in paragraph at lines 1166--1166
-[]    \T1/lmtt/m/n/10 metadata$spectra.index[i] <- positions[[i]][] 
+Overfull \hbox (90.37157pt too wide) in paragraph at lines 1176--1176
+[]\T1/lmtt/m/n/10 ## Warning: Unknown or uninitialised column: `spectra.index`.
+[] 
  []
 
 
-Underfull \hbox (badness 2285) in paragraph at lines 1168--1173
+Underfull \hbox (badness 2285) in paragraph at lines 1178--1183
 []\T1/lmr/m/n/10 This is an ana-logue pro-cess to that used for
  []
 
 
-Underfull \hbox (badness 2556) in paragraph at lines 1168--1173
+Underfull \hbox (badness 2556) in paragraph at lines 1178--1183
 \T1/lmr/m/n/10 sav-ing the names of the spec-tra con-tained in
  []
 
-[9] (./report.aux)
+[9]
+Overfull \hbox (184.87129pt too wide) in paragraph at lines 1219--1219
+[]\T1/lmtt/m/n/10 ##  [1]  4  5  6 11 12 13 20 21 22 30 31 32 42 43 44 54 55 56
+ 69 70 71 72 73 74[] 
+ []
+
+
+Overfull \hbox (247.87111pt too wide) in paragraph at lines 1241--1241
+[]\T1/lmtt/m/n/10 ##   sample class  `N %` `C %`     Si Ca                 Mg  
+   P     spectra spectra.index[] 
+ []
+
+
+Overfull \hbox (247.87111pt too wide) in paragraph at lines 1241--1241
+[]\T1/lmtt/m/n/10 ##    <dbl> <chr>  <dbl> <dbl>  <dbl> <chr>              <chr
+>  <chr> <chr>           <int>[] 
+ []
+
+
+Overfull \hbox (247.87111pt too wide) in paragraph at lines 1241--1241
+[]\T1/lmtt/m/n/10 ## 1    128 W L -   2.05  44.6  2698. 4743.0200000000004 876.
+45 666.~ 128                 4[] 
+ []
+
+
+Overfull \hbox (247.87111pt too wide) in paragraph at lines 1241--1241
+[]\T1/lmtt/m/n/10 ## 2    129 W L +   2.68  44.4  5348. 4726.84            752.
+08 683.~ 129                 5[] 
+ []
+
+
+Overfull \hbox (247.87111pt too wide) in paragraph at lines 1241--1241
+[]\T1/lmtt/m/n/10 ## 3    130 W L ++  3.03  44.4  6683. 4738.43            857.
+63 1053~ 130                 6[] 
+ []
+
+
+Overfull \hbox (247.87111pt too wide) in paragraph at lines 1241--1241
+[]\T1/lmtt/m/n/10 ## 4    135 W L -   2.53  43.4 13842. 4508.18            898.
+48 768.~ 135                10[] 
+ []
+
+
+Overfull \hbox (247.87111pt too wide) in paragraph at lines 1241--1241
+[]\T1/lmtt/m/n/10 ## 5    136 W L +   1.86  43.4 13444. 3006.45            720.
+26 221.~ 136                11[] 
+ []
+
+
+Overfull \hbox (247.87111pt too wide) in paragraph at lines 1241--1241
+[]\T1/lmtt/m/n/10 ## 6    137 W L ++  2.19  40.1 41893. 3396.71            738.
+38 276.~ 137                12[] 
+ []
+
+[10]
+<report_files/figure-latex/leaves mean and corrected spectra plot-1.pdf, id=194
+, 469.755pt x 325.215pt>
+File: report_files/figure-latex/leaves mean and corrected spectra plot-1.pdf Gr
+aphic file (type pdf)
+<use report_files/figure-latex/leaves mean and corrected spectra plot-1.pdf>
+Package pdftex.def Info: report_files/figure-latex/leaves mean and corrected sp
+ectra plot-1.pdf  used on input line 1377.
+(pdftex.def)             Requested size: 229.87375pt x 159.14336pt.
+[11
+
+ <./report_files/figure-latex/leaves mean and corrected spectra plot-1.pdf>] (.
+/report.aux)
 
 LaTeX Warning: There were multiply-defined labels.
 
 Package rerunfilecheck Info: File `report.out' has not changed.
-(rerunfilecheck)             Checksum: 68F5FE28687E2A45D5607BECF039DC7D;1747.
+(rerunfilecheck)             Checksum: 82A9FC32E838A431E4B57186A48F18DC;2473.
  ) 
 Here is how much of TeX's memory you used:
- 10701 strings out of 480502
- 160554 string characters out of 5897829
- 474645 words of memory out of 5000000
- 28149 multiletter control sequences out of 15000+600000
+ 10727 strings out of 480502
+ 161395 string characters out of 5897829
+ 480861 words of memory out of 5000000
+ 28163 multiletter control sequences out of 15000+600000
  455867 words of font info for 75 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  60i,8n,66p,428b,393s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -858,10 +928,10 @@ e1/public/lm/lmtk10.pfb><c:/Users/USUARIO/AppData/Roaming/TinyTeX/texmf-dist/fo
 nts/type1/public/lm/lmtko10.pfb><c:/Users/USUARIO/AppData/Roaming/TinyTeX/texmf
 -dist/fonts/type1/public/lm/lmtt10.pfb><c:/Users/USUARIO/AppData/Roaming/TinyTe
 X/texmf-dist/fonts/type1/public/lm/lmtti10.pfb>
-Output written on report.pdf (9 pages, 4958128 bytes).
+Output written on report.pdf (11 pages, 5109349 bytes).
 PDF statistics:
- 258 PDF objects out of 1000 (max. 8388607)
- 197 compressed objects within 2 object streams
- 37 named destinations out of 1000 (max. 500000)
- 116 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 295 PDF objects out of 1000 (max. 8388607)
+ 229 compressed objects within 3 object streams
+ 48 named destinations out of 1000 (max. 500000)
+ 153 words of extra memory for PDF output out of 10000 (max. 10000000)
 

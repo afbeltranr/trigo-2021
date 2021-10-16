@@ -597,7 +597,7 @@ In the last chunk we print the name of the spectra, `rownames(corrected)`, that 
 
 This seems a little bit obvious but in the raw data there are several spectra rows that have not matching quantification data, or vice versa, there are several samples that have quantification information but have no spectra available.
 
-Since nowwhe know where in the spectral matrix is each sample of the `metadata` data set, we can add a new column that relates where is each sample of `metadata` in the `corrected` matrix:
+Since now whe know where in the spectral matrix is each sample of the `metadata` data set, we can add a new column that relates where is each sample of `metadata` in the `corrected` matrix:
 
 <!-- Now, we can create a new column in metadata, to state which sample has spectra: -->
 
@@ -606,7 +606,8 @@ for(i in 1:length(metadata$sample)) {
 
   if(length(positions[[i]]) == 1){
 
-    metadata$spectra[i] <- rownames(corrected)[positions[[i]]]
+    metadata$spectra[i] <- 
+      rownames(corrected)[positions[[i]]]
   }else{
     metadata$spectra[i] <- NA
   }
@@ -617,14 +618,17 @@ for(i in 1:length(metadata$sample)) {
 Now we can compare if the indexing tool `positions` is doing its job. Creating the `data.frame` called `compare` we list side to side the names of `metadata` samples and the names of `corrected samples`
 
 ```{r comparing metadata$samples and rownames(corrected)}
-compare <- data.frame(metadata = metadata$sample, spectra = metadata$spectra)
+compare <- data.frame(metadata = 
+                        metadata$sample, 
+                      spectra = 
+                        metadata$spectra)
 head(compare)
 ```
 
 
 Since now we know where in `corrected` is each spectra for each sample from `metadata`, we can add this information to the `metadata` table:
 
-```{radding the index number for metadata samples in corrected}
+```{r searching the index number for metadata samples in corrected}
 for(i in 1:length(metadata$sample)) {
 
   if(length(positions[[i]]) == 1){
@@ -639,99 +643,204 @@ for(i in 1:length(metadata$sample)) {
 
 This is an analogue process to that used for saving the names of the spectra contained in `corrected`. The difference is that now in the column `metadata$spectra.index` we have exactly where the sample of the current row, is in the rows of the `corrected` matrix.
 
-<!-- # Leaves selection -->
-<!-- ## Selection of samples -->
 
-<!-- prior work indicates that leave samples presented more variability thus it is worth it to subset a table with these samples: -->
+# Exploratory Data analysis
 
-<!-- First, we ask `R` where can we find leave samples in metadata: -->
+# Hierarchical clustering
 
-<!-- ```{r} -->
-<!-- leaves.index <- which(grepl(paste0('(?=.*','L',')'),metadata$class,perl = T)) -->
-<!-- leaves.index -->
-<!-- ``` -->
-<!-- Now that we know, we can separate these samples in a new  data set -->
+Hierarchical clustering can be used to measure multidimensional distances between objects, or samples. If the objective is to use this analysis we have to first tidy up the data and prepare it for the analysis.
 
-<!-- ```{r} -->
-<!-- metadata.leaves <- metadata[leaves.index,] -->
-<!-- head(metadata.leaves) -->
-<!-- ``` -->
+First, we can search for missing values in the classification column:
+
+```{r}
+which(is.na(metadata$class))
+```
+Now, once is known that samples in rows 7 and 26 have no classification, we can create a new data table without these
+
+```{r}
 
 
-<!-- ## Silicon quantification in leaves samples -->
+metadata.class <- metadata[-c( which(is.na(metadata$class))),]
 
-<!-- Now, we can delete the rows (samples) that have no spectra, or silicon content. -->
+which(is.na(metadata.class$class))
 
-<!-- ```{r} -->
-<!-- which(is.na(metadata.leaves$Si)) -->
-<!-- which(is.na(metadata.leaves$spectra)) -->
-<!-- ``` -->
-<!-- ```{r} -->
-<!-- metadata.leaves$sample[11] -->
-<!-- ``` -->
-<!-- Now we can delete the sample `164`, since it does not have silicon content nor spectra. -->
+```
 
-<!-- ```{r} -->
-<!-- metadata.leaves.Si <- metadata.leaves[-c(11),] -->
-<!-- ``` -->
+Once the samples that have no classification information have been removed, it is useful to check if there is any missing spectrum for the remaining samples:
 
-<!-- Then, we can extrat the silicon content to a vector called `leavesSi`: -->
+```{r}
+which(is.na(metadata.class$spectra.index))
+```
+Since these samples have no spectra, they can be also removed as follows:
 
-<!-- ```{r} -->
-<!-- LeavesSi <- cbind(metadata.leaves.Si$sample,metadata.leaves.Si$Si) -->
-<!-- ``` -->
+```{r}
+metadata.class2 <- metadata.class[-c(which(is.na(metadata.class$spectra.index)) ),]
+which(is.na(metadata.class2$spectra.index))
+```
 
-<!-- And we can create a table with corrected mean spectra for this samples: -->
+The next thing needed for the analysis is the spectra.
+It is important that each classification matches each spectra:
 
-<!-- ```{r} -->
 
-<!-- win.graph() -->
-<!-- leavesSiSpectra <- corrected[metadata.leaves.Si$spectra.index,] -->
-<!-- leavesSiSpectraRaw <- mean[metadata.leaves.Si$spectra.index,]  -->
+```{r}
+spectra.class <- corrected[metadata.class2$spectra.index,]
+```
 
-<!-- par(mfrow = c(1,2)) -->
+Then we can compare if we have the same samples in both tables:
 
-<!-- for (i in 1:length(rownames(leavesSiSpectraRaw ))){ -->
+```{r}
+compare.class <- data.frame(classification = metadata.class2$sample,
+                            spectra= rownames(spectra.class))
+head(compare.class)
 
-<!--   plot(as.numeric(colnames(leavesSiSpectraRaw )),  -->
-<!--      leavesSiSpectraRaw [i,], -->
-<!--      xlab = '', -->
-<!--      ylab = '', -->
-<!--      axes = F, -->
-<!--      type = 'l', -->
-<!--      xlim = c(1700,400), -->
-<!--      ylim = c(0,0.1)) -->
-<!--   par(new = T) -->
-<!-- } -->
-<!-- box() -->
-<!-- axis(1) -->
-<!-- axis(2) -->
-<!-- title(main = '', -->
-<!--       xlab = expression(paste('Wave number (cm'^'-1',')')), -->
-<!--       ylab = 'Absorbance (a.u.)') -->
+```
 
-<!-- par(new = F) -->
 
-<!-- for (i in 1:length(rownames(leavesSiSpectra))){ -->
 
-<!--   plot(as.numeric(colnames(leavesSiSpectra)),  -->
-<!--      leavesSiSpectra[i,], -->
-<!--      xlab = '', -->
-<!--      ylab = '', -->
-<!--      axes = F, -->
-<!--      type = 'l', -->
-<!--      xlim = c(1700,400), -->
-<!--      ylim = c(0,0.1)) -->
-<!--   par(new = T) -->
-<!-- } -->
-<!-- box() -->
-<!-- axis(1) -->
-<!-- axis(2) -->
-<!-- title(main = '', -->
-<!--       xlab = expression(paste('Wave number (cm'^'-1',')')), -->
-<!--       ylab = 'Absorbance (a.u.)') -->
+```{r}
 
-<!-- ``` -->
+df1 <- spectra.class
+
+names.class <- paste(metadata.class2$class, rownames(spectra.class))
+
+rownames(df1) <- names.class
+library(factoextra)
+
+
+res.hk <-hkmeans(df1, 
+                 5,
+                 hc.metric =  'euclidean')
+
+fviz_dend(res.hk, cex = 0.5, palette = "jco", 
+          rect = TRUE, rect_border = "jco", rect_fill = TRUE)
+```
+
+
+# Leaves selection
+## Selection of samples
+
+prior work (PCA applied to the same spectra, with different pre-treatment) indicates that leave samples presented more variability. thus, it is worth it to subset a table with these samples:
+
+First, we ask `R` where can we find leave samples in metadata:
+
+Again, regular expressions can be used. This time, the function `grepl` will find every element in the column `metadata$class` that has the letter L, i.e. every sample from wheat leaves.
+
+We create, as before, an object that has the information of where the samples that match the query (leave samples) are in the `metadata` table:
+```{r creatin an index vector for leaves samples}
+leaves.index <- which(
+  grepl(
+    paste0('(?=.*',
+           'L',
+           ')'),
+    metadata$class,perl = T))
+leaves.index
+```
+Since now we know exactly where the leaves samples are, we can subset the `metadata` table into a new `data.frame`:
+
+
+```{r}
+metadata.leaves <- metadata[leaves.index,]
+
+```
+
+
+## Silicon quantification in leaves samples
+
+Since information about silicon content is needed, those rows that have no silicon content can be deleted.
+
+
+```{r checking for NA in leaves}
+which(is.na(metadata.leaves$Si))
+which(is.na(metadata.leaves$spectra))
+```
+position 11 has NA both in silicon content and in index of spectra:
+```{r printing position 11 in leaves}
+metadata.leaves$sample[11]
+```
+Since sample 164 neither has silicon content nor spectra, it can be deleted:
+
+```{r deleting sample 164}
+metadata.leaves.Si <- metadata.leaves[-c(11),]
+```
+
+Then, we can extract the silicon content to a vector called `leavesSi`:
+
+```{r creating vector with silicon content for leaves}
+LeavesSi <- cbind(metadata.leaves.Si$sample,metadata.leaves.Si$Si)
+```
+
+And we can create a table with corrected mean spectra for this samples:
+
+```{r subsetting corrected for leaves samples that have silicon content}
+
+leavesSiSpectra <- corrected[metadata.leaves.Si$spectra.index,]
+leavesSiSpectraRaw <- mean[metadata.leaves.Si$spectra.index,]
+```
+
+```{r leaves mean and corrected spectra plot,  fig.cap="\\label{fig:figs}Mean and corrected spectra for leaves samples"}
+par(mfrow = c(1,2))
+
+for (i in 1:length(
+                    rownames(leavesSiSpectraRaw )
+                    )
+     ){
+
+  plot(as.numeric(
+                  colnames(leavesSiSpectraRaw )
+                  ),
+     leavesSiSpectraRaw [i,],
+     xlab = '',
+     ylab = '',
+     axes = F,
+     type = 'l',
+     xlim = c(1700,400),
+     ylim = c(0,0.1))
+  par(new = T)
+}
+box()
+axis(1)
+axis(2)
+title(main = '',
+      xlab = expression(
+                        paste(
+                       'Wave number (cm'^'-1',
+                              ')'
+                              )
+                        ),
+      ylab = 'Absorbance (a.u.)')
+
+par(new = F)
+
+for (i in 1:length(
+                   rownames(leavesSiSpectra)
+                   )
+     ){
+
+  plot(as.numeric(
+                  colnames(leavesSiSpectra)
+                  ),
+     leavesSiSpectra[i,],
+     xlab = '',
+     ylab = '',
+     axes = F,
+     type = 'l',
+     xlim = c(1700,400),
+     ylim = c(0,0.1))
+  par(new = T)
+}
+box()
+axis(1)
+axis(2)
+title(main = '',
+      xlab = expression(
+                        paste(
+                       'Wave number (cm'^'-1',
+                              ')'
+                              )
+                        ),
+      ylab = 'Absorbance (a.u.)')
+
+```
 
 
 <!-- ## Covariance matrix -->
@@ -781,23 +890,88 @@ This is an analogue process to that used for saving the names of the spectra con
 <!-- ``` -->
 
 
-<!-- ## Silicon concentration -->
+## Silicon concentration
 
-<!-- we have to create a `data.frame` in order to use the `plsr` function available in the `pls` package. -->
+we have to create a `data.frame` to use the `plsr` function available in the `pls` package.
 
-<!-- ```{r} -->
+```{r transforming leavesSiSpectra to a matrix}
 
-<!-- leavesSiSpectra <- as.matrix(leavesSiSpectra) -->
-<!-- SiTable <- data.frame(Si = I(metadata.leaves.Si$Si),spectra = I(leavesSiSpectra) ) -->
-<!-- nuevoRango <-   leavesSiSpectra[,c(261:676)] -->
-<!-- colnames( leavesSiSpectra[,c(261,676)]) -->
-<!-- ``` -->
+leavesSiSpectra <- as.matrix(leavesSiSpectra)
+SiTable <- data.frame(Si = I(metadata.leaves.Si$Si),spectra = I(leavesSiSpectra) )
+newRange <-   leavesSiSpectra[,c(261:676)]
+colnames( leavesSiSpectra[,c(261,676)])
+```
 
-<!-- ## model -->
+## modelling
+
+
+```{r}
+library(mdatools)
+
+LeavesPLS <- pls(newRange,
+                 SiTable$Si,
+                 10,
+                
+                 cv =1)
+
+```
+
+
+```{r}
+summary(LeavesPLS)
+```
+```{r}
+summary(LeavesPLS$res$cal)
+```
+
+```{r}
+
+plot(LeavesPLS)
+```
+
+
+
+```{r}
+win.graph()
+par(mfrow=c(2,2))
+plotXVariance(LeavesPLS)
+plotXCumVariance(LeavesPLS)
+plotYVariance(LeavesPLS)
+plotYCumVariance(LeavesPLS)
+
+```
+
+# genetic algorithm 
+
+```{r}
+library(plsVarSel)
+gaVarSel <- ga_pls(SiTable$Si, newRange, GA.threshold = 10, iters = 5, popSize = 100)
+
+
+```
+
+
+```{r}
+gaLeavesPLS <-pls(newRange[,unlist(gaVarSel)],
+                 SiTable$Si,
+                 10,
+                
+                 cv =1)
+```
+
+```{r}
+win.graph()
+plot(gaLeavesPLS)
+```
+
+
+
+<!-- We can use the `plsr` function available in the `pls` package, as follows: -->
 
 <!-- ```{r} -->
 <!-- library(pls) -->
-<!-- SiPLS <- plsr(SiTable$Si~ msc(nuevoRango),  -->
+
+<!-- SiPLS <- plsr(SiTable$Si~ newRange, -->
 <!--               ncomp = 10, -->
 <!--               data = SiTable, -->
 <!--               validation = 'LOO') -->
