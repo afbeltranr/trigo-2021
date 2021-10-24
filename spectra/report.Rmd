@@ -571,7 +571,8 @@ metadata <- read_excel("metadata.xlsx")
 
 The object called metadata is a data.frame and it has 88 rows and columns as it is. The rows vary with samples and the columns with variables. The variables in the columns are:
 
-```{r printing the column names of metadata matrix}
+```{r printing the column names of metadata matrix, collapse=TRUE}
+options(width = 30)
 colnames(metadata)
 ```
 where:
@@ -614,12 +615,13 @@ positions <- vector('list', 87) # the same sizeas metadata$sample
 for (i in 1:87){
 
 positions[[i]] <- which(
-                       grepl(
-                              paste0('(?=.*',
-                                     as.character(metadata$sample[i]),
-                                     ')'),
-                              rownames(corrected), 
-                              perl=T
+                  grepl(
+                  paste0('(?=.*',
+                  as.character(
+                    metadata$sample[i]),
+                        ')'),
+                  rownames(corrected), 
+                 perl=T
                              )
                        )
 }
@@ -809,24 +811,24 @@ abline(v=0, h=0, lty=2)
  
 ```
 
-```{r setup, echo=FALSE}
-library(rgl)
-knitr::knit_hooks$set(webgl = hook_webgl)
-```
+<!-- ```{r setup, echo=FALSE} -->
+<!-- library(rgl) -->
+<!-- knitr::knit_hooks$set(webgl = hook_webgl) -->
+<!-- ``` -->
 
-```{r , webgl=TRUE, results='hide'}
-library(rgl)
-x <- coord[,1]
-y <- coord[,2]
-z <- coord[,3]
-rgl_init()         
-r3dDefaults$windowRect <- c(0,50, 1200, 1200) 
-rgl.spheres(x, y, z, r = 0.002, color = colspca) 
-# text3d(x,y,z, rownames(coord), pos=3, col="black")
-rgl_add_axes(x, y, z, show.bbox = FALSE)
-aspect3d(1,1,1)
+<!-- ```{r , webgl=TRUE, results='hide'} -->
+<!-- library(rgl) -->
+<!-- x <- coord[,1] -->
+<!-- y <- coord[,2] -->
+<!-- z <- coord[,3] -->
+<!-- rgl_init()          -->
+<!-- r3dDefaults$windowRect <- c(0,50, 1200, 1200)  -->
+<!-- rgl.spheres(x, y, z, r = 0.002, color = colspca)  -->
+<!-- # text3d(x,y,z, rownames(coord), pos=3, col="black") -->
+<!-- rgl_add_axes(x, y, z, show.bbox = FALSE) -->
+<!-- aspect3d(1,1,1) -->
 
-```
+<!-- ``` -->
 
 
 
@@ -1003,13 +1005,10 @@ title(main = '',
 <!-- box() -->
 <!-- ``` -->
 
-
 ## Silicon concentration
-
 we have to create a `data.frame` to use the `plsr` function available in the `pls` package.
 
 ```{r transforming leavesSiSpectra to a matrix}
-
 leavesSiSpectra <- as.matrix(leavesSiSpectra)
 SiTable <- data.frame(Si = I(metadata.leaves.Si$Si),spectra = I(leavesSiSpectra) )
 newRange <-   leavesSiSpectra[,c(261:676)]
@@ -1018,11 +1017,13 @@ colnames( leavesSiSpectra[,c(261,676)])
 
 ## modelling
 
+The package `mdatools` can be used to perform the pls modelling with this data.
+
 
 ```{r}
 library(mdatools)
 
-LeavesPLS <- pls(newRange,
+LeavesPLS <- pls(leavesSiSpectra,
                  SiTable$Si,
                  10,
                 
@@ -1030,6 +1031,7 @@ LeavesPLS <- pls(newRange,
 
 ```
 
+Then, we can check for 
 
 ```{r}
 summary(LeavesPLS)
@@ -1046,7 +1048,7 @@ plot(LeavesPLS)
 
 
 ```{r}
-win.graph()
+
 par(mfrow=c(2,2))
 plotXVariance(LeavesPLS)
 plotXCumVariance(LeavesPLS)
@@ -1055,30 +1057,34 @@ plotYCumVariance(LeavesPLS)
 
 ```
 
-# genetic algorithm 
+<!-- # genetic algorithm  -->
 
-```{r}
-library(plsVarSel)
-gaVarSel <- ga_pls(SiTable$Si, newRange, GA.threshold = 10, iters = 5, popSize = 100)
-
-
-```
-
-
-```{r}
-gaLeavesPLS <-pls(newRange[,unlist(gaVarSel)],
-                 SiTable$Si,
-                 10,
-                
-                 cv =1)
-```
-
-```{r}
-win.graph()
-plot(gaLeavesPLS)
-```
+<!-- ```{r} -->
+<!-- library(plsVarSel) -->
+<!-- gaVarSel <- ga_pls(SiTable$Si,  -->
+<!--                    leavesSiSpectra,  -->
+<!--                    GA.threshold = 10,  -->
+<!--                    iters = 5,  -->
+<!--                    popSize = 100) -->
 
 
+<!-- ``` -->
+
+
+<!-- ```{r} -->
+<!-- gaLeavesPLS <-pls(newRange[,unlist(gaVarSel)], -->
+<!--                  SiTable$Si, -->
+<!--                  10, -->
+
+<!--                  cv =1) -->
+<!-- ``` -->
+
+<!-- ```{r} -->
+
+<!-- plot(gaLeavesPLS) -->
+<!-- ``` -->
+
+<!-- there is no enhancement of the model using the function `gapls` -->
 
 <!-- We can use the `plsr` function available in the `pls` package, as follows: -->
 
@@ -1112,43 +1118,57 @@ plot(gaLeavesPLS)
 <!-- ``` -->
 
 
-<!-- ## Variable selection -->
+## Variable selection
 
-<!-- ```{r} -->
-<!-- library(subselect) -->
-<!-- Hmat <- lmHmat(leavesSiSpectra,metadata.leaves.Si$Si) -->
-<!-- gen <- genetic(Hmat$mat, kmin =4, kmax = 12, H= Hmat$H, r =1, crit = 'CCR12', force = T) -->
-<!-- ``` -->
-
-
+```{r gen selected , cache= T}
+library(subselect)
+Hmat <- lmHmat(leavesSiSpectra,metadata.leaves.Si$Si)
+gen <- genetic(Hmat$mat, kmin =5, kmax = 16, H= Hmat$H, r =1, crit = 'CCR12', force = T)
+```
 
 
-<!-- ```{r} -->
-<!-- win.graph() -->
-<!-- par(mfrow=c(3,3)) -->
-<!-- for(j in 1:nrow(gen$bestsets)){ -->
-<!-- for (i in 1:length(rownames(leavesSiSpectra))){ -->
-<!-- plot(as.numeric(colnames(leavesSiSpectra)), -->
-<!-- leavesSiSpectra[i,], -->
-<!-- xlab = '', -->
-<!-- ylab = '', -->
-<!-- axes = F, -->
-<!-- type = 'l', -->
-<!-- xlim = c(1700,400), -->
-<!-- ylim = c(0,0.06)) -->
-<!-- par(new = T) -->
-<!-- } -->
-<!-- box() -->
-<!-- axis(1) -->
-<!-- axis(2) -->
-<!-- title(main = paste(as.character(c(4:15)[j]),'variables'), -->
-<!-- xlab = expression(paste('Wave number (cm'^'-1',')')), -->
-<!-- ylab = 'Absorbance (a.u.)') -->
-<!-- abline(v = as.numeric(colnames(leavesSiSpectra)[gen$bestsets[j,]]), -->
-<!-- col = 2, -->
-<!-- lty = 2) -->
-<!-- } -->
-<!-- ```   -->
+```{r PLS with gen selected variables }
+library(mdatools)
+
+LeavesPLS <- pls(leavesSiSpectra[,gen$bestsets[6,]],
+                 SiTable$Si,
+                 10,
+                 cv =1)
+
+plot(LeavesPLS)
+
+```
+
+```{r}
+
+```
+
+```{r}
+win.graph()
+par(mfrow=c(3,3))
+for(j in 1:nrow(gen$bestsets)){
+for (i in 1:length(rownames(leavesSiSpectra))){
+plot(as.numeric(colnames(leavesSiSpectra)),
+leavesSiSpectra[i,],
+xlab = '',
+ylab = '',
+axes = F,
+type = 'l',
+xlim = c(1700,400),
+ylim = c(0,0.06))
+par(new = T)
+}
+box()
+axis(1)
+axis(2)
+title(main = paste(as.character(c(4:15)[j]),'variables'),
+xlab = expression(paste('Wave number (cm'^'-1',')')),
+ylab = 'Absorbance (a.u.)')
+abline(v = as.numeric(colnames(leavesSiSpectra)[gen$bestsets[j,]]),
+col = 2,
+lty = 2)
+}
+```
 
 
 <!-- # Multiple OLS with new variables  -->
