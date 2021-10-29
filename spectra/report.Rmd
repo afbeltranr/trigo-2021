@@ -164,8 +164,9 @@ Since we have joined several spectra from different samples, we can try to visua
 Knowing that we have already the names of the samples, it would be handy if we used a factor that helped us to differentiate replicas of experiments:
 
 ```{r creating factor for coloring replicas, attr.source="style='display:inline-block;'", collapse=TRUE}
+options(width = 30)
 cols <- factor(gsub('.{2}$', '', names2))
-str(cols)
+head(cols)
 ```
 If we use the factor `cols`, we can plot three replicas of one sample using the same color
 
@@ -254,6 +255,7 @@ Since each sample has three replicated spectra, we can calculate the mean of eac
 * First, we create a vector to tell R which samples to look for. Using the function `unique()` we extract the unique values without taking their repetitions:
 
 ```{r search vector}
+options(width = 30)
 search.vector <- unique(unlist(cols))
 head(search.vector)
 ```
@@ -516,7 +518,8 @@ Now, we can extract the corrected spectra from the `hyperSpec` object and save i
 ```{r saving the corrected spectra as a data frame}
 corrected1  <- as.data.frame(spc3[1:106])
 corrected <- as.data.frame(corrected1[,1])
-corrected <- corrected + (min(corrected)*-1) # shifting upwards to prevent negative values
+corrected <- corrected + (min(corrected)*-1) 
+# shifting upwards to prevent negative values
 ```
 
 Up to this point, we have calculated the mean spectra and corrected the base-line of each spectrum. 
@@ -610,7 +613,8 @@ We can now try to find where in the rows of `corrected` are the samples listed i
 
 ```{r}
 
-positions <- vector('list', 87) # the same sizeas metadata$sample
+positions <- vector('list', 87) 
+# the same sizeas metadata$sample
 
 for (i in 1:87){
 
@@ -650,7 +654,7 @@ Since now whe know where in the spectral matrix is each sample of the `metadata`
 
 <!-- Now, we can create a new column in metadata, to state which sample has spectra: -->
 
-```{r matching for metadata$sample and rownames$corrected selected by  positions[[i]]}
+```{r matching for metadata$sample and rownames$corrected selected by  positions[[i]], message=F}
 for(i in 1:length(metadata$sample)) {
 
   if(length(positions[[i]]) == 1){
@@ -677,7 +681,7 @@ head(compare)
 
 Since now we know where in `corrected` is each spectra for each sample from `metadata`, we can add this information to the `metadata` table:
 
-```{r searching the index number for metadata samples in corrected}
+```{r searching the index number for metadata samples in corrected, message = F}
 for(i in 1:length(metadata$sample)) {
 
   if(length(positions[[i]]) == 1){
@@ -709,7 +713,9 @@ Now, once is known that samples in rows 7 and 26 have no classification, we can 
 ```{r}
 
 
-metadata.class <- metadata[-c( which(is.na(metadata$class))),]
+metadata.class <- metadata[
+  -c( which(
+    is.na(metadata$class))),]
 
 which(is.na(metadata.class$class))
 
@@ -723,7 +729,12 @@ which(is.na(metadata.class$spectra.index))
 Since these samples have no spectra, they can be also removed as follows:
 
 ```{r}
-metadata.class2 <- metadata.class[-c(which(is.na(metadata.class$spectra.index)) ),]
+metadata.class2 <- 
+  metadata.class[
+    -c(which
+       (is.na(
+         metadata.class$spectra.index)) ),]
+
 which(is.na(metadata.class2$spectra.index))
 ```
 
@@ -732,40 +743,52 @@ It is important that each classification matches each spectra:
 
 
 ```{r}
-spectra.class <- corrected[metadata.class2$spectra.index,]
+spectra.class <- corrected[
+  metadata.class2$spectra.index,]
 ```
 
 Then we can compare if we have the same samples in both tables:
 
 ```{r}
-compare.class <- data.frame(classification = metadata.class2$sample,
-                            spectra= rownames(spectra.class))
+compare.class <- data.frame(
+  classification = metadata.class2$sample,
+  spectra= rownames(spectra.class))
 head(compare.class)
 
 ```
 
 
 
-```{r}
+```{r tidying up the data frame for hclust}
 
 df1 <- spectra.class
 
-names.class <- paste(metadata.class2$class, rownames(spectra.class))
+names.class <- 
+  paste(metadata.class2$class, rownames(
+    spectra.class))
 
 rownames(df1) <- names.class
 logdf <- log10(df1[,1:676] + 1)
 rownames(logdf) <- names.class
-library(factoextra)
-
-
 hClust1 <- hclust(dist(logdf))
 plot(hClust1)
+```
+
+```{r hkmeans calculation, message = F}
+library(factoextra)
+
 res.hk <-hkmeans(logdf, 
                  5,
-                 hc.metric =  'euclidean')
+                 hc.metric =  'minkowski')
+```
 
-fviz_dend(res.hk, cex = 0.5, palette = "jco", 
-          rect = TRUE, rect_border = "jco", rect_fill = TRUE)
+```{r dendrogram visualization ggplot2, message =F, warning=FALSE}
+fviz_dend(res.hk,
+          cex = 0.5,
+          palette = "jco", 
+          rect = TRUE, 
+          rect_border = "jco", 
+          rect_fill = TRUE)
 ```
 
 
@@ -780,12 +803,15 @@ for(i in 1:nrow(df1)){
     paste0('(?=.*',
            'L',
            ')'),
-    metadata.class2$class[i],perl = T)){colspca[i] <- 'black'}else{
+    metadata.class2$class[i],perl = T))
+    {colspca[i] <- 'black'}else{
       if(grepl(
     paste0('(?=.*',
            'R',
            ')'),
-    metadata.class2$class[i],perl = T)){colspca[i] <- 'red'}else{colspca[i] <- 'white'}
+    metadata.class2$class[i],perl = T))
+      {colspca[i] <- 'red'}
+      else{colspca[i] <- 'white'}
     }
 }
 
@@ -806,7 +832,11 @@ plot(coord[,1],
      pch=19
      )
 abline(v=0, h=0, lty=2)
- text(coord[,1],coord[,2], rownames(coord), cex=0.4, pos=1)
+ text(coord[,1],
+      coord[,2],
+      rownames(coord),
+      cex=0.4,
+      pos=1)
  
  
 ```
@@ -876,13 +906,17 @@ metadata.leaves$sample[11]
 Since sample 164 neither has silicon content nor spectra, it can be deleted:
 
 ```{r deleting sample 164}
-metadata.leaves.Si <- metadata.leaves[-c(11),]
+metadata.leaves.Si <- 
+  metadata.leaves[-c(11),]
 ```
 
 Then, we can extract the silicon content to a vector called `leavesSi`:
 
 ```{r creating vector with silicon content for leaves}
-LeavesSi <- cbind(metadata.leaves.Si$sample,metadata.leaves.Si$Si)
+LeavesSi <- 
+  cbind(
+    metadata.leaves.Si$sample,
+    metadata.leaves.Si$Si)
 ```
 
 And we can create a table with corrected mean spectra for this samples:
@@ -897,12 +931,12 @@ leavesSiSpectraRaw <- mean[metadata.leaves.Si$spectra.index,]
 par(mfrow = c(1,2))
 
 for (i in 1:length(
-                    rownames(leavesSiSpectraRaw )
+rownames(leavesSiSpectraRaw )
                     )
      ){
 
   plot(as.numeric(
-                  colnames(leavesSiSpectraRaw )
+       colnames(leavesSiSpectraRaw )
                   ),
      leavesSiSpectraRaw [i,],
      xlab = '',
@@ -1009,9 +1043,13 @@ title(main = '',
 we have to create a `data.frame` to use the `plsr` function available in the `pls` package.
 
 ```{r transforming leavesSiSpectra to a matrix}
-leavesSiSpectra <- as.matrix(leavesSiSpectra)
-SiTable <- data.frame(Si = I(metadata.leaves.Si$Si),spectra = I(leavesSiSpectra) )
-newRange <-   leavesSiSpectra[,c(261:676)]
+leavesSiSpectra <- 
+  as.matrix(leavesSiSpectra)
+SiTable <-
+  data.frame(Si = I(metadata.leaves.Si$Si),
+             spectra = I(leavesSiSpectra) )
+newRange <-   
+  leavesSiSpectra[,c(261:676)]
 colnames( leavesSiSpectra[,c(261,676)])
 ```
 
@@ -1020,7 +1058,7 @@ colnames( leavesSiSpectra[,c(261,676)])
 The package `mdatools` can be used to perform the pls modelling with this data.
 
 
-```{r}
+```{r, message = F}
 library(mdatools)
 
 LeavesPLS <- pls(leavesSiSpectra,
@@ -1122,29 +1160,19 @@ plotYCumVariance(LeavesPLS)
 
 ```{r gen selected , cache= T}
 library(subselect)
-Hmat <- lmHmat(leavesSiSpectra,metadata.leaves.Si$Si)
-gen <- genetic(Hmat$mat, kmin =5, kmax = 16, H= Hmat$H, r =1, crit = 'CCR12', force = T)
+Hmat <- lmHmat(leavesSiSpectra,
+               metadata.leaves.Si$Si)
+gen <- genetic(Hmat$mat,
+               kmin =5, 
+               kmax = 16,
+               H= Hmat$H,
+               r =1, 
+               crit = 'CCR12', 
+               force = T)
 ```
 
 
-```{r PLS with gen selected variables }
-library(mdatools)
-
-LeavesPLS <- pls(leavesSiSpectra[,gen$bestsets[6,]],
-                 SiTable$Si,
-                 10,
-                 cv =1)
-
-plot(LeavesPLS)
-
-```
-
-```{r}
-
-```
-
-```{r}
-win.graph()
+```{r selected variables plot}
 par(mfrow=c(3,3))
 for(j in 1:nrow(gen$bestsets)){
 for (i in 1:length(rownames(leavesSiSpectra))){
@@ -1161,14 +1189,39 @@ par(new = T)
 box()
 axis(1)
 axis(2)
-title(main = paste(as.character(c(4:15)[j]),'variables'),
-xlab = expression(paste('Wave number (cm'^'-1',')')),
+title(main = paste(
+  as.character(c(4:15)[j]),
+  'variables'),
+xlab = expression(
+  paste('Wave number (cm'^'-1',')')),
 ylab = 'Absorbance (a.u.)')
-abline(v = as.numeric(colnames(leavesSiSpectra)[gen$bestsets[j,]]),
+abline(v = as.numeric(
+  colnames(
+    leavesSiSpectra
+    )[gen$bestsets[j,]]),
 col = 2,
 lty = 2)
 }
 ```
+
+
+```{r PLS with gen selected variables }
+library(mdatools)
+
+LeavesPLS <-
+  pls(leavesSiSpectra[,gen$bestsets[4,]],
+                 SiTable$Si,
+                 10,
+                 cv =1)
+
+plot(LeavesPLS)
+
+```
+
+```{r}
+summary(LeavesPLS)
+```
+
 
 
 <!-- # Multiple OLS with new variables  -->

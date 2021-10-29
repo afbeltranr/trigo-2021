@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2021/W32TeX) (preloaded format=pdflatex 2021.10.21)  23 OCT 2021 22:09
+This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2021/W32TeX) (preloaded format=pdflatex 2021.10.21)  24 OCT 2021 08:41
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -620,92 +620,80 @@ Overfull \hbox (32.62173pt too wide) in paragraph at lines 271--271
  []
 
 LaTeX Font Info:    Font shape `T1/lmtt/bx/n' in size <10> not available
-(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 314.
+(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 315.
 
 LaTeX Font Warning: Font shape `T1/lmtt/bx/it' in size <10> not available
-(Font)              Font shape `T1/lmtt/b/sl' tried instead on input line 314.
+(Font)              Font shape `T1/lmtt/b/sl' tried instead on input line 315.
 
 <report_files/figure-latex/raw data plot-1.pdf, id=95, 469.755pt x 325.215pt>
 File: report_files/figure-latex/raw data plot-1.pdf Graphic file (type pdf)
 <use report_files/figure-latex/raw data plot-1.pdf>
 Package pdftex.def Info: report_files/figure-latex/raw data plot-1.pdf  used on
- input line 356.
+ input line 358.
 (pdftex.def)             Requested size: 229.87375pt x 159.14336pt.
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10> on input line 373.
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <7> on input line 373.
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <5> on input line 373.
 [2]
-<report_files/figure-latex/ROI plot-1.pdf, id=106, 469.755pt x 325.215pt>
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <10> on input line 375.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <7> on input line 375.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <5> on input line 375.
+<report_files/figure-latex/ROI plot-1.pdf, id=105, 469.755pt x 325.215pt>
 File: report_files/figure-latex/ROI plot-1.pdf Graphic file (type pdf)
 <use report_files/figure-latex/ROI plot-1.pdf>
 Package pdftex.def Info: report_files/figure-latex/ROI plot-1.pdf  used on inpu
-t line 428.
+t line 430.
 (pdftex.def)             Requested size: 229.87375pt x 159.14336pt.
-
-Overfull \hbox (195.37126pt too wide) in paragraph at lines 456--456
-[]\T1/lmtt/m/n/10 ## 106 Levels: 125 126 127 128 129 130 132 133 134 135 136 13
-7 138 139 140 ... P9[] 
- []
-
 [3 <./report_files/figure-latex/raw data plot-1.pdf> <./report_files/figure-lat
 ex/ROI plot-1.pdf>]
-Underfull \hbox (badness 10000) in paragraph at lines 481--485
+Underfull \hbox (badness 10000) in paragraph at lines 484--488
 []\T1/lmr/m/n/10 This will find any el-e-ment for the vec-tor
  []
 
 
-Underfull \hbox (badness 4981) in paragraph at lines 481--485
+Underfull \hbox (badness 4981) in paragraph at lines 484--488
 \T1/lmtt/m/n/10 rownames(spectra.df) \T1/lmr/m/n/10 that matches with the
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 502--505
+Underfull \hbox (badness 10000) in paragraph at lines 505--508
 []\T1/lmr/m/n/10 The search will tell us the po-si-tions in
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 502--505
+Underfull \hbox (badness 10000) in paragraph at lines 505--508
 \T1/lmtt/m/n/10 rownames(spectra.df) \T1/lmr/m/n/10 where where we can
  []
 
 
-Overfull \hbox (195.37126pt too wide) in paragraph at lines 565--565
-[]\T1/lmtt/m/n/10 ## 106 Levels: 125 126 127 128 129 130 132 133 134 135 136 13
-7 138 139 140 ... P9[] 
- []
-
-
-Underfull \hbox (badness 1715) in paragraph at lines 606--612
+Underfull \hbox (badness 1715) in paragraph at lines 609--615
 \T1/lmr/m/n/10 wave num-ber, one af-ter an-other, in each it-er-
  []
 
 
-Underfull \hbox (badness 1406) in paragraph at lines 606--612
+Underfull \hbox (badness 1406) in paragraph at lines 609--615
 \T1/lmr/m/n/10 a-tion of the loop, or each time \T1/lmtt/m/n/10 j \T1/lmr/m/n/1
 0 changes its
  []
 
 [4]
-Underfull \hbox (badness 10000) in paragraph at lines 661--665
+Underfull \hbox (badness 10000) in paragraph at lines 664--668
 []\T1/lmr/m/n/10 So the cal-cu-la-tion will be ap-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 661--665
+Underfull \hbox (badness 10000) in paragraph at lines 664--668
 \T1/lmr/m/n/10 plied to \T1/lmtt/m/n/10 range1[index[[1]][1],1]\T1/lmr/m/n/10 ,
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 661--665
+Underfull \hbox (badness 10000) in paragraph at lines 664--668
 \T1/lmtt/m/n/10 range1[index[[1]][2],1] \T1/lmr/m/n/10 and
  []
 
 
-Underfull \hbox (badness 2846) in paragraph at lines 661--665
+Underfull \hbox (badness 2846) in paragraph at lines 664--668
 \T1/lmtt/m/n/10 range1[index[[1]][2],1]\T1/lmr/m/n/10 , or rows 1, 2, and
  []
 
@@ -715,7 +703,7 @@ File: report_files/figure-latex/plotting the mean-1.pdf Graphic file (type pdf)
 
 <use report_files/figure-latex/plotting the mean-1.pdf>
 Package pdftex.def Info: report_files/figure-latex/plotting the mean-1.pdf  use
-d on input line 730.
+d on input line 733.
 (pdftex.def)             Requested size: 229.87375pt x 159.14336pt.
 [5]
 <report_files/figure-latex/baseline plot 1-1.pdf, id=142, 469.755pt x 325.215pt
@@ -723,7 +711,7 @@ d on input line 730.
 File: report_files/figure-latex/baseline plot 1-1.pdf Graphic file (type pdf)
 <use report_files/figure-latex/baseline plot 1-1.pdf>
 Package pdftex.def Info: report_files/figure-latex/baseline plot 1-1.pdf  used 
-on input line 840.
+on input line 843.
 (pdftex.def)             Requested size: 229.87375pt x 159.14336pt.
 [6 <./report_files/figure-latex/plotting the mean-1.pdf> <./report_files/figure
 -latex/baseline plot 1-1.pdf>]
@@ -733,7 +721,7 @@ File: report_files/figure-latex/baseline plot 2 bend-1.pdf Graphic file (type p
 df)
 <use report_files/figure-latex/baseline plot 2 bend-1.pdf>
 Package pdftex.def Info: report_files/figure-latex/baseline plot 2 bend-1.pdf  
-used on input line 857.
+used on input line 860.
 (pdftex.def)             Requested size: 229.87375pt x 159.14336pt.
 <report_files/figure-latex/baseline plot 3 corrected-1.pdf, id=162, 469.755pt x
  325.215pt>
@@ -741,7 +729,7 @@ File: report_files/figure-latex/baseline plot 3 corrected-1.pdf Graphic file (t
 ype pdf)
 <use report_files/figure-latex/baseline plot 3 corrected-1.pdf>
 Package pdftex.def Info: report_files/figure-latex/baseline plot 3 corrected-1.
-pdf  used on input line 877.
+pdf  used on input line 880.
 (pdftex.def)             Requested size: 229.87375pt x 159.14336pt.
 <report_files/figure-latex/MSC correction plot-1.pdf, id=165, 469.755pt x 325.2
 15pt>
@@ -749,170 +737,177 @@ File: report_files/figure-latex/MSC correction plot-1.pdf Graphic file (type pd
 f)
 <use report_files/figure-latex/MSC correction plot-1.pdf>
 Package pdftex.def Info: report_files/figure-latex/MSC correction plot-1.pdf  u
-sed on input line 941.
+sed on input line 945.
 (pdftex.def)             Requested size: 229.87375pt x 159.14336pt.
 [7 <./report_files/figure-latex/baseline plot 2 bend-1.pdf> <./report_files/fig
 ure-latex/baseline plot 3 corrected-1.pdf>]
-Underfull \hbox (badness 10000) in paragraph at lines 987--989
+Underfull \hbox (badness 10000) in paragraph at lines 991--993
 []\T1/lmtt/m/n/10 N %\T1/lmr/m/n/10 : The ni-tro-gen per-cent quan-ti-fied.
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 989--991
+Underfull \hbox (badness 10000) in paragraph at lines 993--995
 []\T1/lmtt/m/n/10 C %\T1/lmr/m/n/10 : The ni-tro-gen per-cent quan-ti-fied.
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 991--993
+Underfull \hbox (badness 10000) in paragraph at lines 995--997
 []\T1/lmtt/m/n/10 Si\T1/lmr/m/n/10 : Sil-i-con quan-ti-fied by ICP-OES
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 993--995
+Underfull \hbox (badness 10000) in paragraph at lines 997--999
 []\T1/lmtt/m/n/10 Ca\T1/lmr/m/n/10 : Cal-cium quan-ti-fied by ICP-OES
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 995--997
+Underfull \hbox (badness 10000) in paragraph at lines 999--1001
 []\T1/lmtt/m/n/10 Mg\T1/lmr/m/n/10 : mag-ne-sium quan-ti-fied by ICP-OES
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 997--998
+Underfull \hbox (badness 10000) in paragraph at lines 1001--1002
 []\T1/lmtt/m/n/10 P\T1/lmr/m/n/10 : Phos-pho-rous quan-ti-fied by ICP-OES
  []
 
 
-Underfull \hbox (badness 3118) in paragraph at lines 1038--1042
+Underfull \hbox (badness 3118) in paragraph at lines 1042--1046
 \T1/lmr/m/n/10 We can now try to find where in the rows
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1038--1042
+Underfull \hbox (badness 10000) in paragraph at lines 1042--1046
 \T1/lmr/m/n/10 of \T1/lmtt/m/n/10 corrected \T1/lmr/m/n/10 are the sam-ples lis
 ted in
  []
 
 
-Underfull \hbox (badness 1199) in paragraph at lines 1038--1042
+Underfull \hbox (badness 1199) in paragraph at lines 1042--1046
 \T1/lmr/m/n/10 sam-ple that has quan-tifi-ca-tion and clas-si-fi-ca-tion
  []
 
 [8 <./report_files/figure-latex/MSC correction plot-1.pdf>]
-Underfull \hbox (badness 2285) in paragraph at lines 1183--1188
+Underfull \hbox (badness 2285) in paragraph at lines 1188--1193
 []\T1/lmr/m/n/10 This is an ana-logue pro-cess to that used for
  []
 
 
-Underfull \hbox (badness 2556) in paragraph at lines 1183--1188
+Underfull \hbox (badness 2556) in paragraph at lines 1188--1193
 \T1/lmr/m/n/10 sav-ing the names of the spec-tra con-tained in
  []
 
 [9]
-Overfull \hbox (237.37114pt too wide) in paragraph at lines 1299--1299
-[]\T1/lmtt/m/n/10 ## Welcome! Want to learn more? See two factoextra-related bo
-oks at https://goo.gl/ve3WBa[] 
- []
-
-<report_files/figure-latex/unnamed-chunk-12-1.pdf, id=205, 469.755pt x 325.215p
-t>
-File: report_files/figure-latex/unnamed-chunk-12-1.pdf Graphic file (type pdf)
-<use report_files/figure-latex/unnamed-chunk-12-1.pdf>
-Package pdftex.def Info: report_files/figure-latex/unnamed-chunk-12-1.pdf  used
- on input line 1308.
+<report_files/figure-latex/tidying up the data frame for hclust-1.pdf, id=205, 
+469.755pt x 325.215pt>
+File: report_files/figure-latex/tidying up the data frame for hclust-1.pdf Grap
+hic file (type pdf)
+<use report_files/figure-latex/tidying up the data frame for hclust-1.pdf>
+Package pdftex.def Info: report_files/figure-latex/tidying up the data frame fo
+r hclust-1.pdf  used on input line 1314.
 (pdftex.def)             Requested size: 229.87375pt x 159.14336pt.
-<report_files/figure-latex/unnamed-chunk-12-2.pdf, id=206, 469.755pt x 325.215p
-t>
-File: report_files/figure-latex/unnamed-chunk-12-2.pdf Graphic file (type pdf)
-<use report_files/figure-latex/unnamed-chunk-12-2.pdf>
-Package pdftex.def Info: report_files/figure-latex/unnamed-chunk-12-2.pdf  used
- on input line 1328.
-(pdftex.def)             Requested size: 229.87375pt x 159.14336pt.
-[10 <./report_files/figure-latex/unnamed-chunk-12-1.pdf> <./report_files/figure
--latex/unnamed-chunk-12-2.pdf>]
-<report_files/figure-latex/unnamed-chunk-13-1.pdf, id=225, 469.755pt x 325.215p
-t>
-File: report_files/figure-latex/unnamed-chunk-13-1.pdf Graphic file (type pdf)
-<use report_files/figure-latex/unnamed-chunk-13-1.pdf>
-Package pdftex.def Info: report_files/figure-latex/unnamed-chunk-13-1.pdf  used
- on input line 1371.
+<report_files/figure-latex/dendrogram visualization ggplot2-1.pdf, id=206, 469.
+755pt x 325.215pt>
+File: report_files/figure-latex/dendrogram visualization ggplot2-1.pdf Graphic 
+file (type pdf)
+<use report_files/figure-latex/dendrogram visualization ggplot2-1.pdf>
+Package pdftex.def Info: report_files/figure-latex/dendrogram visualization ggp
+lot2-1.pdf  used on input line 1337.
 (pdftex.def)             Requested size: 229.87375pt x 159.14336pt.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[11 <./report_files/figure-latex/unnamed-chunk-13-1.pdf>]
-<report_files/figure-latex/leaves mean and corrected spectra plot-1.pdf, id=238
+[10 <./report_files/figure-latex/tidying up the data frame for hclust-1.pdf>]
+Underfull \vbox (badness 7238) detected at line 1385
+ []
+
+
+Underfull \vbox (badness 4193) has occurred while \output is active []
+
+<report_files/figure-latex/unnamed-chunk-12-1.pdf, id=217, 469.755pt x 325.215p
+t>
+File: report_files/figure-latex/unnamed-chunk-12-1.pdf Graphic file (type pdf)
+<use report_files/figure-latex/unnamed-chunk-12-1.pdf>
+Package pdftex.def Info: report_files/figure-latex/unnamed-chunk-12-1.pdf  used
+ on input line 1387.
+(pdftex.def)             Requested size: 229.87375pt x 159.14336pt.
+[11 <./report_files/figure-latex/dendrogram visualization ggplot2-1.pdf> <./rep
+ort_files/figure-latex/unnamed-chunk-12-1.pdf>]
+Underfull \vbox (badness 10000) detected at line 1571
+ []
+
+
+Underfull \vbox (badness 10000) detected at line 1571
+ []
+
+[12]
+<report_files/figure-latex/leaves mean and corrected spectra plot-1.pdf, id=242
 , 469.755pt x 325.215pt>
 File: report_files/figure-latex/leaves mean and corrected spectra plot-1.pdf Gr
 aphic file (type pdf)
 <use report_files/figure-latex/leaves mean and corrected spectra plot-1.pdf>
 Package pdftex.def Info: report_files/figure-latex/leaves mean and corrected sp
-ectra plot-1.pdf  used on input line 1555.
+ectra plot-1.pdf  used on input line 1575.
 (pdftex.def)             Requested size: 229.87375pt x 159.14336pt.
 
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-[12 <./report_files/figure-latex/leaves mean and corrected spectra plot-1.pdf>]
-
-Overfull \hbox (48.37169pt too wide) in paragraph at lines 1599--1599
-[]\T1/lmtt/m/n/10 ## The following object is masked from 'package:pls':[] 
- []
-
-
-Overfull \hbox (22.12177pt too wide) in paragraph at lines 1695--1695
+Overfull \hbox (22.12177pt too wide) in paragraph at lines 1704--1704
 []\T1/lmtt/m/n/10 ## PLS regression results (class plsres) summary[] 
  []
 
-[13]
-<report_files/figure-latex/unnamed-chunk-18-1.pdf, id=255, 469.755pt x 325.215p
+[13 <./report_files/figure-latex/leaves mean and corrected spectra plot-1.pdf>]
+<report_files/figure-latex/unnamed-chunk-17-1.pdf, id=255, 469.755pt x 325.215p
+t>
+File: report_files/figure-latex/unnamed-chunk-17-1.pdf Graphic file (type pdf)
+<use report_files/figure-latex/unnamed-chunk-17-1.pdf>
+Package pdftex.def Info: report_files/figure-latex/unnamed-chunk-17-1.pdf  used
+ on input line 1712.
+(pdftex.def)             Requested size: 229.87375pt x 159.14336pt.
+<report_files/figure-latex/unnamed-chunk-18-1.pdf, id=256, 469.755pt x 325.215p
 t>
 File: report_files/figure-latex/unnamed-chunk-18-1.pdf Graphic file (type pdf)
 <use report_files/figure-latex/unnamed-chunk-18-1.pdf>
 Package pdftex.def Info: report_files/figure-latex/unnamed-chunk-18-1.pdf  used
- on input line 1703.
+ on input line 1724.
 (pdftex.def)             Requested size: 229.87375pt x 159.14336pt.
-<report_files/figure-latex/unnamed-chunk-19-1.pdf, id=256, 469.755pt x 325.215p
-t>
-File: report_files/figure-latex/unnamed-chunk-19-1.pdf Graphic file (type pdf)
-<use report_files/figure-latex/unnamed-chunk-19-1.pdf>
-Package pdftex.def Info: report_files/figure-latex/unnamed-chunk-19-1.pdf  used
- on input line 1715.
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+[14 <./report_files/figure-latex/unnamed-chunk-17-1.pdf> <./report_files/figure
+-latex/unnamed-chunk-18-1.pdf>]
+<report_files/figure-latex/selected variables plot-1.pdf, id=274, 469.755pt x 3
+25.215pt>
+File: report_files/figure-latex/selected variables plot-1.pdf Graphic file (typ
+e pdf)
+<use report_files/figure-latex/selected variables plot-1.pdf>
+Package pdftex.def Info: report_files/figure-latex/selected variables plot-1.pd
+f  used on input line 1778.
 (pdftex.def)             Requested size: 229.87375pt x 159.14336pt.
-<report_files/figure-latex/PLS with gen selected variables-1.pdf, id=257, 469.7
+<report_files/figure-latex/selected variables plot-2.pdf, id=275, 469.755pt x 3
+25.215pt>
+File: report_files/figure-latex/selected variables plot-2.pdf Graphic file (typ
+e pdf)
+<use report_files/figure-latex/selected variables plot-2.pdf>
+Package pdftex.def Info: report_files/figure-latex/selected variables plot-2.pd
+f  used on input line 1779.
+(pdftex.def)             Requested size: 229.87375pt x 159.14336pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 1778--1780
+[][]
+ []
+
+<report_files/figure-latex/PLS with gen selected variables-1.pdf, id=276, 469.7
 55pt x 325.215pt>
 File: report_files/figure-latex/PLS with gen selected variables-1.pdf Graphic f
 ile (type pdf)
 <use report_files/figure-latex/PLS with gen selected variables-1.pdf>
 Package pdftex.def Info: report_files/figure-latex/PLS with gen selected variab
-les-1.pdf  used on input line 1741.
-(pdftex.def)             Requested size: 229.87375pt x 159.14336pt.
-<report_files/figure-latex/unnamed-chunk-21-1.pdf, id=258, 469.755pt x 325.215p
-t>
-File: report_files/figure-latex/unnamed-chunk-21-1.pdf Graphic file (type pdf)
-<use report_files/figure-latex/unnamed-chunk-21-1.pdf>
-Package pdftex.def Info: report_files/figure-latex/unnamed-chunk-21-1.pdf  used
- on input line 1772.
-(pdftex.def)             Requested size: 229.87375pt x 159.14336pt.
-<report_files/figure-latex/unnamed-chunk-21-2.pdf, id=259, 469.755pt x 325.215p
-t>
-File: report_files/figure-latex/unnamed-chunk-21-2.pdf Graphic file (type pdf)
-<use report_files/figure-latex/unnamed-chunk-21-2.pdf>
-Package pdftex.def Info: report_files/figure-latex/unnamed-chunk-21-2.pdf  used
- on input line 1773.
+les-1.pdf  used on input line 1795.
 (pdftex.def)             Requested size: 229.87375pt x 159.14336pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 1772--1774
-[][]
- []
+Underfull \vbox (badness 10000) has occurred while \output is active []
 
-
-Underfull \vbox (badness 1102) has occurred while \output is active []
-
-[14 <./report_files/figure-latex/unnamed-chunk-18-1.pdf> <./report_files/figure
--latex/unnamed-chunk-19-1.pdf> <./report_files/figure-latex/PLS with gen select
-ed variables-1.pdf> <./report_files/figure-latex/unnamed-chunk-21-1.pdf>] [15
-
- <./report_files/figure-latex/unnamed-chunk-21-2.pdf>] (./report.aux)
+[15 <./report_files/figure-latex/selected variables plot-1.pdf> <./report_files
+/figure-latex/selected variables plot-2.pdf> <./report_files/figure-latex/PLS w
+ith gen selected variables-1.pdf>] (./report.aux)
 
 LaTeX Warning: There were multiply-defined labels.
 
@@ -921,12 +916,12 @@ Package rerunfilecheck Info: File `report.out' has not changed.
  ) 
 Here is how much of TeX's memory you used:
  10804 strings out of 480539
- 164668 string characters out of 5900968
- 479645 words of memory out of 5000000
+ 165026 string characters out of 5900968
+ 475645 words of memory out of 5000000
  28185 multiletter control sequences out of 15000+600000
  455867 words of font info for 75 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 60i,8n,66p,484b,393s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 60i,8n,66p,428b,467s stack positions out of 5000i,500n,10000p,200000b,80000s
 {c:/Users/USUARIO/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ec
 .enc}{c:/Users/USUARIO/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm
 -mathit.enc}{c:/Users/USUARIO/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvip
@@ -949,7 +944,7 @@ e1/public/lm/lmtk10.pfb><c:/Users/USUARIO/AppData/Roaming/TinyTeX/texmf-dist/fo
 nts/type1/public/lm/lmtko10.pfb><c:/Users/USUARIO/AppData/Roaming/TinyTeX/texmf
 -dist/fonts/type1/public/lm/lmtt10.pfb><c:/Users/USUARIO/AppData/Roaming/TinyTe
 X/texmf-dist/fonts/type1/public/lm/lmtti10.pfb>
-Output written on report.pdf (15 pages, 5879380 bytes).
+Output written on report.pdf (15 pages, 5878408 bytes).
 PDF statistics:
  392 PDF objects out of 1000 (max. 8388607)
  305 compressed objects within 4 object streams

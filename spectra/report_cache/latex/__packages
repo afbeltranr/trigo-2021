@@ -1,12 +1,5 @@
 base
-methods
-datasets
-utils
-grDevices
-graphics
-stats
 lattice
-grid
 ggplot2
 xml2
 hyperSpec
