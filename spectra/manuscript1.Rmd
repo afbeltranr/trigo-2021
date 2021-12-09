@@ -78,7 +78,7 @@ cols <- factor(gsub('.{2}$', '', names2))
 head(cols)
 ```
 
-```{r raw data plot, fig.cap="raw spectra of triplicated samples", echo = F, message = F}
+```{r raw-data-plot, fig.cap="raw spectra of triplicated samples", echo = F, message = F}
 
 for(i in  1:length(rownames(spectra.df))){
   
@@ -107,12 +107,16 @@ title(main = '',
       ylab ='absorbance (a.u.)')
 ```
 
+
+the spectra recorded from 4000 to 400 cm-1 is reported in figure \@ref(fig:raw-data-plot). Due to a background correction procedure performed using the software of the spectrometer, there is noise information around 2400 cm -1, so we can reduce the spectra to a region of interest
+
+
 ```{r ROI selection, echo = F, message = F}
 range1 <- spectra.df[,c(1:676)]
 wavenumbers1 <- wavenumbers[c(1:676)]
 ```
 
-```{r ROI plot, fig.cap="ROI spectra of triplicated samples", echo = F, message = F}
+```{r ROI-plot, fig.cap="ROI spectra of triplicated samples", echo = F, message = F}
 for(i in  1:length(rownames(range1))){
 
   plot(wavenumbers1,

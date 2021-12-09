@@ -1,0 +1,20 @@
+---
+title: "manuscript"
+author: "Andres Beltran - Yohanna Cabrera - Andres Cabrera"
+date: "December 7, 2021"
+output: 
+  bookdown::word_document2:
+      reference_docx: ESPPlantilla.docx
+bibliography: references.bib
+---
+
+```{r gg-oz-plot, fig.cap = "Life expectancy from 1952 - 2007 for Australia. Life expentancy increases steadily except from 1962 to 1969. We can safely say that our life expectancy is higher than it has ever been!"}
+
+x <- rnorm(100)
+y <- rnorm(100)
+plot(x,y)
+```
+
+Australia's life expectancy has increased a great deal over the past 50 years
+
+(See Figure \@ref(fig:gg-oz-plot))
