@@ -12,10 +12,8 @@ bibliography: references.bib
 # Introduction
 # Methods
 
-## Statistical analysis
+## Spectra preprocessing
 
-
-# Results and discussion 
 ```{r creating names list, echo = F,results='hide'}
 names <- list.files(pattern = '.CSV')
 ```
@@ -78,6 +76,10 @@ cols <- factor(gsub('.{2}$', '', names2))
 head(cols)
 ```
 
+
+The FTIR spectra of wheat samples with frequencies from 4000 cm-1 to 400 cm-1 is presented in figure \@ref(fig:raw-data-plot).
+
+
 ```{r raw-data-plot, fig.cap="raw spectra of triplicated samples", echo = F, message = F}
 
 for(i in  1:length(rownames(spectra.df))){
@@ -108,8 +110,7 @@ title(main = '',
 ```
 
 
-the spectra recorded from 4000 to 400 cm-1 is reported in figure \@ref(fig:raw-data-plot). Due to a background correction procedure performed using the software of the spectrometer, there is noise information around 2400 cm -1, so we can reduce the spectra to a region of interest
-
+ Due to a background correction procedure performed using the software of the spectrometer, there is noise information around 2400 cm -1, so the spectra was reduced to a region of interest between 1700 and 400 cm-1 which is presented in figure \@ref(fig:ROI-plot).
 
 ```{r ROI selection, echo = F, message = F}
 range1 <- spectra.df[,c(1:676)]
@@ -145,7 +146,85 @@ title(main = '',
 
 ```
 
-# Conclussion
+Three measurements were done for each sample and the calculation of the mean at each wave number was calculated. figure \@ref(fig:mean-plot) shows the results
+
+```{r calculating the mean, echo=FALSE}
+options(width = 30)
+search.vector <- unique(unlist(cols))
+index <- list(106)
+for (i in 1:106){
+
+  index[[i]] <- which(
+    grepl(
+      paste0('(?=.*',
+             as.character(search.vector[i])
+             ,')'),
+                       rownames(spectra.df),
+                       perl=T
+                       )
+                 )
+}
+mean <- matrix(ncol= ncol(range1),
+               nrow = nrow(range1)/3)
+colnames(mean) <- colnames(range1)
+rownames(mean) <- search.vector
+for(j in 1:ncol(range1)){
+
+for(i in 1:nrow(mean)){
+
+mean[i,j] <- mean(c(range1[index[[i]][1],j],
+                    range1[index[[i]][2],j],
+                    range1[index[[i]][3],j]
+                      ) )
+}
+}
+mean <- as.data.frame(mean)
+```
+
+```{r mean-plot, fig.cap="Calculated mean spectra", echo=FALSE}
+
+cols.means <- as.factor(search.vector)
+
+for(i in  1:length(rownames(mean))){
+
+  plot(wavenumbers1,
+    mean[i,],
+    axes = F,
+    xlab = '',
+    ylab = '',
+    xlim = c(1700, 400),
+    ylim= c(0,0.135309),
+    type = 'l',
+    col =cols.means[i]
+
+  )
+  par(new = T)
+}
+
+box()
+axis(1)
+axis(2)
+title(main = '',
+      xlab = expression(
+        paste('Wave number (cm'^'-1',
+              ')')
+        ),
+      ylab ='absorbance (a.u.)')
+```
+
+
+The spectra contain spectral absorption information related to chemical content of wheat samples, and also information related to noise. Since several multivariate methods try to maximize the variability information given by the variables, the rubberband base-line correction method avaliable in the package 'HyperSpec' from R was utilized to preprocess spectra. figure 
+
+
+
+
+# Results and discussion 
+
+
+
+
+
+# Conclusion
 
 # References
 
