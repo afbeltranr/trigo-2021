@@ -682,6 +682,8 @@ head(compare)
 Since now we know where in `corrected` is each spectra for each sample from `metadata`, we can add this information to the `metadata` table:
 
 ```{r searching the index number for metadata samples in corrected, message = F}
+metadata$spectra.index <- rep(0, nrow(metadata))
+
 for(i in 1:length(metadata$sample)) {
 
   if(length(positions[[i]]) == 1){
