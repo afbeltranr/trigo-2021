@@ -263,7 +263,7 @@ knitr::include_graphics(rep("baseline.png", 1))
 ```
 
 
-```{r metadata,  echo = FALSE, message = FALSE, results = FALSE}
+```{r metadata,  echo = FALSE, message = FALSE, results = FALSE, warning = FALSE}
 library(readxl)
 metadata <- read_excel("metadata.xlsx")
 metadata <- metadata[-c(17),]
@@ -283,6 +283,7 @@ positions[[i]] <- which(
                              )
                        )
 }
+
 for(i in 1:length(metadata$sample)) {
 
   if(length(positions[[i]]) == 1){
@@ -299,6 +300,7 @@ compare <- data.frame(metadata =
                       spectra = 
                         metadata$spectra)
 
+metadata$spectra.index <- rep(0, nrow(metadata))
 for(i in 1:length(metadata$sample)) {
 
   if(length(positions[[i]]) == 1){
@@ -316,11 +318,77 @@ for(i in 1:length(metadata$sample)) {
 
 ## Exploratory data analysis
 
-```{r}
+```{r  hierarchical clustering ,echo = FALSE, message = FALSE, results = FALSE}
+
+metadata.class <- metadata[
+  -c( which(
+    is.na(metadata$class))),]
+
+metadata.class2 <- 
+  metadata.class[
+    -c(which
+       (is.na(
+         metadata.class$spectra.index)) ),]
+
+spectra.class <- corrected[
+  metadata.class2$spectra.index,]
+
+
+compare.class <- data.frame(
+  classification = metadata.class2$sample,
+  spectra = rownames(spectra.class))
+
 
 ```
 
 
+```{r hclust, echo=FALSE, message=FALSE, results='hide'}
+
+df1 <- spectra.class
+
+names.class <- 
+  paste(metadata.class2$class, rownames(
+    spectra.class))
+
+rownames(df1) <- names.class
+logdf <- log10(df1[,1:676] + 1)
+rownames(logdf) <- names.class
+hClust1 <- hclust(dist(logdf))
+png('hclust1.png', width = 1920, height = 480)
+plot(hClust1)
+dev.off()
+```
+
+```{r hclustplot, echo=FALSE, message=FALSE}
+
+knitr::include_graphics(rep("hclust1.png", 1))
+
+```
+
+```{r hkmeans calculation, message = F, echo = F, results = 'hide'}
+library(factoextra)
+
+res.hk <-hkmeans(logdf, 
+                 5,
+                 hc.metric =  'minkowski')
+```
+
+```{r dendrogram visualization ggplot2, message =F, warning=FALSE, echo = F, results = 'hide'}
+png('hkmeans.png', width =  5760, height =  2880, res = 800)
+fviz_dend(res.hk,
+          cex = 0.5,
+          palette = "jco", 
+          rect = TRUE, 
+          rect_border = "jco", 
+          rect_fill = TRUE)
+dev.off()
+```
+
+```{r hkmeansplot, echo=FALSE, message=FALSE}
+
+knitr::include_graphics(rep("hkmeans.png", 1))
+
+```
 
 
 # Conclusion
