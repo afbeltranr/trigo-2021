@@ -284,6 +284,8 @@ positions[[i]] <- which(
                        )
 }
 
+metadata$spectra<- rep(0, nrow(metadata))
+
 for(i in 1:length(metadata$sample)) {
 
   if(length(positions[[i]]) == 1){
@@ -301,6 +303,7 @@ compare <- data.frame(metadata =
                         metadata$spectra)
 
 metadata$spectra.index <- rep(0, nrow(metadata))
+
 for(i in 1:length(metadata$sample)) {
 
   if(length(positions[[i]]) == 1){
@@ -359,7 +362,7 @@ plot(hClust1)
 dev.off()
 ```
 
-```{r hclustplot, echo=FALSE, message=FALSE}
+```{r hclustplot, echo=FALSE, message=FALSE, fig.cap = 'hierarchical clustering'}
 
 knitr::include_graphics(rep("hclust1.png", 1))
 
@@ -384,11 +387,87 @@ fviz_dend(res.hk,
 dev.off()
 ```
 
-```{r hkmeansplot, echo=FALSE, message=FALSE}
+```{r hkmeansplot, echo=FALSE, message=FALSE, fig.cap = 'hierarchical clustering based k means'}
 
 knitr::include_graphics(rep("hkmeans.png", 1))
 
 ```
+
+```{r pca-before-selection, echo = FALSE, message = FALSE, results='hide'}
+
+colspca <- vector('character', nrow(df1))
+
+
+
+for(i in 1:nrow(df1)){
+  if( grepl(
+    paste0('(?=.*',
+           'L',
+           ')'),
+    metadata.class2$class[i],perl = T))
+    {colspca[i] <- 'black'}else{
+      if(grepl(
+    paste0('(?=.*',
+           'R',
+           ')'),
+    metadata.class2$class[i],perl = T))
+      {colspca[i] <- 'red'}
+      else{colspca[i] <- 'green'}
+    }
+}
+
+pcaall <- prcomp(spectra.class)
+
+vp <- (pcaall$sdev)^2
+
+variance <- round(vp/sum(vp)*100,2)
+
+coord <- pcaall$x
+png('pca1.png', width =  5760, height =  2880, res = 800)
+par(mfrow = c(1,2))
+
+plot(coord[,1],
+     coord[,2],
+     col=colspca,
+     xlab="PC1 - 40.74 %",
+     ylab= "PC2 - 16.46 %",
+
+     pch=19
+     )
+abline(v=0, h=0, lty=2)
+ text(coord[,1],
+      coord[,2],
+      rownames(coord),
+      cex=0.4,
+      pos=1)
+ par(new = F)
+
+ plot(coord[,2],
+     coord[,3],
+     col=colspca,
+     xlab="PC1 - 40.74 %",
+     ylab= "PC2 - 16.46 %",
+
+     pch=19
+     )
+abline(v=0, h=0, lty=2)
+ text(coord[,2],
+      coord[,3],
+      rownames(coord),
+      cex=0.4,
+      pos=1)
+
+dev.off()
+
+```
+
+```{r pca-plot, echo=FALSE, message=FALSE}
+
+knitr::include_graphics(rep("pca1.png", 1))
+
+```
+
+
 
 
 # Conclusion

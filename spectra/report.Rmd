@@ -813,7 +813,7 @@ for(i in 1:nrow(df1)){
            ')'),
     metadata.class2$class[i],perl = T))
       {colspca[i] <- 'red'}
-      else{colspca[i] <- 'white'}
+      else{colspca[i] <- 'green'}
     }
 }
 
@@ -862,7 +862,149 @@ abline(v=0, h=0, lty=2)
 
 <!-- ``` -->
 
+# Variable selection with all samples 
 
+## tidyng up the data frame
+
+Since creating any model needs that every sample has both spectra and silicon concentration, we can delete the rows that have no silicon content information.
+
+```{r checking for Si NA in all samples}
+which(is.na(metadata$Si))
+which(is.na(metadata$spectra))
+
+missingSiAll <- unique(c(which(is.na(metadata$Si)),
+                         which(is.na(metadata$spectra))))
+missingSiAll
+metadata.si <- metadata[-c(missingSiAll),]
+```
+
+Once we have selected the samples that have both spectra and silicon content available, this data set is ready to perform modelling. Also we can show that every sample has classification information as follows:
+
+```{r checking for class NA in all samples}
+which(is.na(metadata.si$sample))
+```
+`integer(0)` means that there are not missing values for the classification column, `metadata.si$sample`.
+
+## extracting the silicon content and corresponding spectra for each sample
+
+we can create a table that relates the silicon content of each sample with their correspondent IDs:
+
+```{r creating a vector with silicon content for all samples}
+SiTable <- data.frame(sample = metadata.si$sample,
+                      Si = metadata.si$Si)
+
+```
+
+then, we can extract the corresponding spectra for each sample:
+
+```{r extracting spectra for silicon selected samples from all samples}
+
+Sispectra <- corrected[metadata.si$spectra.index,]
+SispectraRaw <- mean[metadata.si$spectra.index,]
+```
+
+## selection of variables
+
+```{r selection of variables for all samples, cache = T}
+
+library(subselect)
+
+Hmat <- lmHmat(Sispectra, metadata.si$Si)
+system.time(
+gen <- genetic(Hmat$mat,
+               kmin = 5,
+               kmax = 16,
+               H = Hmat$H,
+               r = 1,
+               crit = 'CCR12',
+               force = T
+               )
+)
+
+```
+
+```{r selected variables plot for all samples}
+# par(mfrow=c(4,3))
+# for(j in 1:nrow(gen$bestsets)){
+# for (i in 1:length(rownames(Sispectra))){
+# plot(as.numeric(colnames(Sispectra)),
+# Sispectra[i,],
+# xlab = '',
+# ylab = '',
+# axes = F,
+# type = 'l',
+# xlim = c(1700,400),
+# ylim = c(0,0.06))
+# par(new = T)
+# }
+# box()
+# axis(1)
+# axis(2)
+# title(main = paste(
+#   as.character(c(5:16)[j]),
+#   'variables'),
+# xlab = expression(
+#   paste('Wave number (cm'^'-1',')')),
+# ylab = 'Absorbance (a.u.)')
+# abline(v = as.numeric(
+#   colnames(
+#     Sispectra
+#     )[gen$bestsets[j,]]),
+# col = 2,
+# lty = 2)
+# }
+```
+
+```{r PCA with selected variables}
+
+selectedpca <- prcomp(Sispectra[,gen$bestsets[8,]])
+
+selectedVp <- (selectedpca$sdev)^2
+
+selectedVariance <- round(vp/sum(vp)*100,2)
+
+oord <- pcaall$x
+
+plot(coord[,1],
+     coord[,2], 
+     col=colspca,
+     xlab="PC1 - 71.88 %",
+     ylab= "PC2 - 13.51 %",
+
+     pch=19
+     )
+abline(v=0, h=0, lty=2)
+ text(coord[,1],
+      coord[,2],
+      metadata.si$sample,
+      cex=0.4,
+      pos=1)
+```
+
+
+```{r calculating PLS with mdatools}
+library(mdatools)
+
+wheatPLS <-
+  pls(Sispectra[,gen$bestsets[8,]],
+                 SiTable$Si,
+                 10,
+                 cv =1)
+
+plot(wheatPLS)
+```
+
+```{r calculating PLS with PLSR}
+Sispectra <- as.matrix(Sispectra)
+AllPLSSiTable <- data.frame(I(SiTable$Si),I(Sispectra))
+library(pls) # Se asegura de cargar la libraría necesaria para realizar los cálculos de pls.
+SiAllPLSplsr <- plsr(SiTable.Si~Sispectra[,gen$bestsets[8,]],ncomp=10,data=AllPLSSiTable,validation="LOO",scale=F) # Realiza el "pls" a los datos previamente acondicionados.
+predictedvalues <- predict(SiAllPLSplsr,ncomp = 2,newdata = Sispectra[,gen$bestsets[8,]])
+plot(SiTable$Si, predictedvalues [,1,1],main="") # Si
+model <- lm(predictedvalues~SiTable$Si)
+abline(a= 9113.6429,b=0.3607,col=2)
+
+```
 
 # Leaves selection
 ## Selection of samples
@@ -929,7 +1071,7 @@ leavesSiSpectra <- corrected[metadata.leaves.Si$spectra.index,]
 leavesSiSpectraRaw <- mean[metadata.leaves.Si$spectra.index,]
 ```
 
-```{r leaves mean and corrected spectra plot,  fig.cap="\\label{fig:figs}Mean and corrected spectra for leaves samples"}
+```{r leaves mean and corrected spectra plot,  fig.cap="Mean and corrected spectra for leaves samples"}
 par(mfrow = c(1,2))
 
 for (i in 1:length(
@@ -993,6 +1135,8 @@ title(main = '',
       ylab = 'Absorbance (a.u.)')
 
 ```
+
+
 
 
 <!-- ## Covariance matrix -->

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2021/W32TeX) (preloaded format=pdflatex 2021.10.21)  24 OCT 2021 08:41
+This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2021/W32TeX) (preloaded format=pdflatex 2021.10.21)  14 DEC 2021 14:15
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -165,27 +165,27 @@ Package: textcomp 2020/02/02 v2.0n Standard LaTeX package
 )
 (c:/Users/USUARIO/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/xcolor/xcolor.st
 y
-Package: xcolor 2016/05/11 v2.12 LaTeX color extensions (UK)
+Package: xcolor 2021/10/31 v2.13 LaTeX color extensions (UK)
 
 (c:/Users/USUARIO/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/graphics-cfg/col
 or.cfg
 File: color.cfg 2016/01/02 v1.6 sample color configuration
 )
-Package xcolor Info: Driver file: pdftex.def on input line 225.
+Package xcolor Info: Driver file: pdftex.def on input line 227.
 
 (c:/Users/USUARIO/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/graphics-def/pdf
 tex.def
 File: pdftex.def 2020/10/05 v1.2a Graphics/color driver for pdftex
 )
-Package xcolor Info: Model `cmy' substituted by `cmy0' on input line 1348.
-Package xcolor Info: Model `hsb' substituted by `rgb' on input line 1352.
-Package xcolor Info: Model `RGB' extended on input line 1364.
-Package xcolor Info: Model `HTML' substituted by `rgb' on input line 1366.
-Package xcolor Info: Model `Hsb' substituted by `hsb' on input line 1367.
-Package xcolor Info: Model `tHsb' substituted by `hsb' on input line 1368.
-Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1369.
-Package xcolor Info: Model `Gray' substituted by `gray' on input line 1370.
-Package xcolor Info: Model `wave' substituted by `hsb' on input line 1371.
+Package xcolor Info: Model `cmy' substituted by `cmy0' on input line 1352.
+Package xcolor Info: Model `hsb' substituted by `rgb' on input line 1356.
+Package xcolor Info: Model `RGB' extended on input line 1368.
+Package xcolor Info: Model `HTML' substituted by `rgb' on input line 1370.
+Package xcolor Info: Model `Hsb' substituted by `hsb' on input line 1371.
+Package xcolor Info: Model `tHsb' substituted by `hsb' on input line 1372.
+Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1373.
+Package xcolor Info: Model `Gray' substituted by `gray' on input line 1374.
+Package xcolor Info: Model `wave' substituted by `hsb' on input line 1375.
 )
 (c:/Users/USUARIO/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/hyperref/hyperre
 f.sty
@@ -432,9 +432,6 @@ LaTeX Warning: Label `fig:figs' multiply defined.
 
 LaTeX Warning: Label `fig:figs' multiply defined.
 
-
-LaTeX Warning: Label `fig:figs' multiply defined.
-
 )
 \openout1 = `report.aux'.
 
@@ -625,7 +622,7 @@ LaTeX Font Info:    Font shape `T1/lmtt/bx/n' in size <10> not available
 LaTeX Font Warning: Font shape `T1/lmtt/bx/it' in size <10> not available
 (Font)              Font shape `T1/lmtt/b/sl' tried instead on input line 315.
 
-<report_files/figure-latex/raw data plot-1.pdf, id=95, 469.755pt x 325.215pt>
+<report_files/figure-latex/raw data plot-1.pdf, id=111, 469.755pt x 325.215pt>
 File: report_files/figure-latex/raw data plot-1.pdf Graphic file (type pdf)
 <use report_files/figure-latex/raw data plot-1.pdf>
 Package pdftex.def Info: report_files/figure-latex/raw data plot-1.pdf  used on
@@ -638,7 +635,7 @@ LaTeX Font Info:    External font `lmex10' loaded for size
 (Font)              <7> on input line 375.
 LaTeX Font Info:    External font `lmex10' loaded for size
 (Font)              <5> on input line 375.
-<report_files/figure-latex/ROI plot-1.pdf, id=105, 469.755pt x 325.215pt>
+<report_files/figure-latex/ROI plot-1.pdf, id=121, 469.755pt x 325.215pt>
 File: report_files/figure-latex/ROI plot-1.pdf Graphic file (type pdf)
 <use report_files/figure-latex/ROI plot-1.pdf>
 Package pdftex.def Info: report_files/figure-latex/ROI plot-1.pdf  used on inpu
@@ -697,7 +694,7 @@ Underfull \hbox (badness 2846) in paragraph at lines 664--668
 \T1/lmtt/m/n/10 range1[index[[1]][2],1]\T1/lmr/m/n/10 , or rows 1, 2, and
  []
 
-<report_files/figure-latex/plotting the mean-1.pdf, id=133, 469.755pt x 325.215
+<report_files/figure-latex/plotting the mean-1.pdf, id=149, 469.755pt x 325.215
 pt>
 File: report_files/figure-latex/plotting the mean-1.pdf Graphic file (type pdf)
 
@@ -706,7 +703,7 @@ Package pdftex.def Info: report_files/figure-latex/plotting the mean-1.pdf  use
 d on input line 733.
 (pdftex.def)             Requested size: 229.87375pt x 159.14336pt.
 [5]
-<report_files/figure-latex/baseline plot 1-1.pdf, id=142, 469.755pt x 325.215pt
+<report_files/figure-latex/baseline plot 1-1.pdf, id=158, 469.755pt x 325.215pt
 >
 File: report_files/figure-latex/baseline plot 1-1.pdf Graphic file (type pdf)
 <use report_files/figure-latex/baseline plot 1-1.pdf>
@@ -715,7 +712,7 @@ on input line 843.
 (pdftex.def)             Requested size: 229.87375pt x 159.14336pt.
 [6 <./report_files/figure-latex/plotting the mean-1.pdf> <./report_files/figure
 -latex/baseline plot 1-1.pdf>]
-<report_files/figure-latex/baseline plot 2 bend-1.pdf, id=161, 469.755pt x 325.
+<report_files/figure-latex/baseline plot 2 bend-1.pdf, id=178, 469.755pt x 325.
 215pt>
 File: report_files/figure-latex/baseline plot 2 bend-1.pdf Graphic file (type p
 df)
@@ -723,7 +720,7 @@ df)
 Package pdftex.def Info: report_files/figure-latex/baseline plot 2 bend-1.pdf  
 used on input line 860.
 (pdftex.def)             Requested size: 229.87375pt x 159.14336pt.
-<report_files/figure-latex/baseline plot 3 corrected-1.pdf, id=162, 469.755pt x
+<report_files/figure-latex/baseline plot 3 corrected-1.pdf, id=179, 469.755pt x
  325.215pt>
 File: report_files/figure-latex/baseline plot 3 corrected-1.pdf Graphic file (t
 ype pdf)
@@ -731,7 +728,7 @@ ype pdf)
 Package pdftex.def Info: report_files/figure-latex/baseline plot 3 corrected-1.
 pdf  used on input line 880.
 (pdftex.def)             Requested size: 229.87375pt x 159.14336pt.
-<report_files/figure-latex/MSC correction plot-1.pdf, id=165, 469.755pt x 325.2
+<report_files/figure-latex/MSC correction plot-1.pdf, id=182, 469.755pt x 325.2
 15pt>
 File: report_files/figure-latex/MSC correction plot-1.pdf Graphic file (type pd
 f)
@@ -787,141 +784,160 @@ Underfull \hbox (badness 1199) in paragraph at lines 1042--1046
  []
 
 [8 <./report_files/figure-latex/MSC correction plot-1.pdf>]
-Underfull \hbox (badness 2285) in paragraph at lines 1188--1193
+Underfull \hbox (badness 2285) in paragraph at lines 1184--1189
 []\T1/lmr/m/n/10 This is an ana-logue pro-cess to that used for
  []
 
 
-Underfull \hbox (badness 2556) in paragraph at lines 1188--1193
+Underfull \hbox (badness 2556) in paragraph at lines 1184--1189
 \T1/lmr/m/n/10 sav-ing the names of the spec-tra con-tained in
  []
 
 [9]
-<report_files/figure-latex/tidying up the data frame for hclust-1.pdf, id=205, 
+<report_files/figure-latex/tidying up the data frame for hclust-1.pdf, id=220, 
 469.755pt x 325.215pt>
 File: report_files/figure-latex/tidying up the data frame for hclust-1.pdf Grap
 hic file (type pdf)
 <use report_files/figure-latex/tidying up the data frame for hclust-1.pdf>
 Package pdftex.def Info: report_files/figure-latex/tidying up the data frame fo
-r hclust-1.pdf  used on input line 1314.
+r hclust-1.pdf  used on input line 1310.
 (pdftex.def)             Requested size: 229.87375pt x 159.14336pt.
-<report_files/figure-latex/dendrogram visualization ggplot2-1.pdf, id=206, 469.
+<report_files/figure-latex/dendrogram visualization ggplot2-1.pdf, id=221, 469.
 755pt x 325.215pt>
 File: report_files/figure-latex/dendrogram visualization ggplot2-1.pdf Graphic 
 file (type pdf)
 <use report_files/figure-latex/dendrogram visualization ggplot2-1.pdf>
 Package pdftex.def Info: report_files/figure-latex/dendrogram visualization ggp
-lot2-1.pdf  used on input line 1337.
+lot2-1.pdf  used on input line 1333.
 (pdftex.def)             Requested size: 229.87375pt x 159.14336pt.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 [10 <./report_files/figure-latex/tidying up the data frame for hclust-1.pdf>]
-Underfull \vbox (badness 7238) detected at line 1385
+Underfull \vbox (badness 7238) detected at line 1381
  []
 
 
 Underfull \vbox (badness 4193) has occurred while \output is active []
 
-<report_files/figure-latex/unnamed-chunk-12-1.pdf, id=217, 469.755pt x 325.215p
+<report_files/figure-latex/unnamed-chunk-12-1.pdf, id=232, 469.755pt x 325.215p
 t>
 File: report_files/figure-latex/unnamed-chunk-12-1.pdf Graphic file (type pdf)
 <use report_files/figure-latex/unnamed-chunk-12-1.pdf>
 Package pdftex.def Info: report_files/figure-latex/unnamed-chunk-12-1.pdf  used
- on input line 1387.
+ on input line 1383.
 (pdftex.def)             Requested size: 229.87375pt x 159.14336pt.
 [11 <./report_files/figure-latex/dendrogram visualization ggplot2-1.pdf> <./rep
 ort_files/figure-latex/unnamed-chunk-12-1.pdf>]
-Underfull \vbox (badness 10000) detected at line 1571
- []
+<report_files/figure-latex/PCA with selected variables-1.pdf, id=252, 469.755pt
+ x 325.215pt>
+File: report_files/figure-latex/PCA with selected variables-1.pdf Graphic file 
+(type pdf)
+<use report_files/figure-latex/PCA with selected variables-1.pdf>
+Package pdftex.def Info: report_files/figure-latex/PCA with selected variables-
+1.pdf  used on input line 1563.
+(pdftex.def)             Requested size: 229.87375pt x 159.14336pt.
 
-
-Underfull \vbox (badness 10000) detected at line 1571
- []
+Underfull \vbox (badness 10000) has occurred while \output is active []
 
 [12]
-<report_files/figure-latex/leaves mean and corrected spectra plot-1.pdf, id=242
+Overfull \hbox (48.37169pt too wide) in paragraph at lines 1580--1580
+[]\T1/lmtt/m/n/10 ## The following object is masked from 'package:pls':[] 
+ []
+
+<report_files/figure-latex/calculating PLS with mdatools-1.pdf, id=259, 469.755
+pt x 325.215pt>
+File: report_files/figure-latex/calculating PLS with mdatools-1.pdf Graphic fil
+e (type pdf)
+<use report_files/figure-latex/calculating PLS with mdatools-1.pdf>
+Package pdftex.def Info: report_files/figure-latex/calculating PLS with mdatool
+s-1.pdf  used on input line 1594.
+(pdftex.def)             Requested size: 229.87375pt x 159.14336pt.
+[13 <./report_files/figure-latex/PCA with selected variables-1.pdf> <./report_f
+iles/figure-latex/calculating PLS with mdatools-1.pdf>]
+<report_files/figure-latex/leaves mean and corrected spectra plot-1.pdf, id=279
 , 469.755pt x 325.215pt>
 File: report_files/figure-latex/leaves mean and corrected spectra plot-1.pdf Gr
 aphic file (type pdf)
 <use report_files/figure-latex/leaves mean and corrected spectra plot-1.pdf>
 Package pdftex.def Info: report_files/figure-latex/leaves mean and corrected sp
-ectra plot-1.pdf  used on input line 1575.
-(pdftex.def)             Requested size: 229.87375pt x 159.14336pt.
-
-Overfull \hbox (22.12177pt too wide) in paragraph at lines 1704--1704
-[]\T1/lmtt/m/n/10 ## PLS regression results (class plsres) summary[] 
- []
-
-[13 <./report_files/figure-latex/leaves mean and corrected spectra plot-1.pdf>]
-<report_files/figure-latex/unnamed-chunk-17-1.pdf, id=255, 469.755pt x 325.215p
-t>
-File: report_files/figure-latex/unnamed-chunk-17-1.pdf Graphic file (type pdf)
-<use report_files/figure-latex/unnamed-chunk-17-1.pdf>
-Package pdftex.def Info: report_files/figure-latex/unnamed-chunk-17-1.pdf  used
- on input line 1712.
-(pdftex.def)             Requested size: 229.87375pt x 159.14336pt.
-<report_files/figure-latex/unnamed-chunk-18-1.pdf, id=256, 469.755pt x 325.215p
-t>
-File: report_files/figure-latex/unnamed-chunk-18-1.pdf Graphic file (type pdf)
-<use report_files/figure-latex/unnamed-chunk-18-1.pdf>
-Package pdftex.def Info: report_files/figure-latex/unnamed-chunk-18-1.pdf  used
- on input line 1724.
+ectra plot-1.pdf  used on input line 1782.
 (pdftex.def)             Requested size: 229.87375pt x 159.14336pt.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[14 <./report_files/figure-latex/unnamed-chunk-17-1.pdf> <./report_files/figure
--latex/unnamed-chunk-18-1.pdf>]
-<report_files/figure-latex/selected variables plot-1.pdf, id=274, 469.755pt x 3
+[14 <./report_files/figure-latex/leaves mean and corrected spectra plot-1.pdf>]
+
+Overfull \hbox (22.12177pt too wide) in paragraph at lines 1911--1911
+[]\T1/lmtt/m/n/10 ## PLS regression results (class plsres) summary[] 
+ []
+
+[15]
+<report_files/figure-latex/unnamed-chunk-17-1.pdf, id=297, 469.755pt x 325.215p
+t>
+File: report_files/figure-latex/unnamed-chunk-17-1.pdf Graphic file (type pdf)
+<use report_files/figure-latex/unnamed-chunk-17-1.pdf>
+Package pdftex.def Info: report_files/figure-latex/unnamed-chunk-17-1.pdf  used
+ on input line 1919.
+(pdftex.def)             Requested size: 229.87375pt x 159.14336pt.
+<report_files/figure-latex/unnamed-chunk-18-1.pdf, id=298, 469.755pt x 325.215p
+t>
+File: report_files/figure-latex/unnamed-chunk-18-1.pdf Graphic file (type pdf)
+<use report_files/figure-latex/unnamed-chunk-18-1.pdf>
+Package pdftex.def Info: report_files/figure-latex/unnamed-chunk-18-1.pdf  used
+ on input line 1931.
+(pdftex.def)             Requested size: 229.87375pt x 159.14336pt.
+<report_files/figure-latex/selected variables plot-1.pdf, id=299, 469.755pt x 3
 25.215pt>
 File: report_files/figure-latex/selected variables plot-1.pdf Graphic file (typ
 e pdf)
 <use report_files/figure-latex/selected variables plot-1.pdf>
 Package pdftex.def Info: report_files/figure-latex/selected variables plot-1.pd
-f  used on input line 1778.
+f  used on input line 1985.
 (pdftex.def)             Requested size: 229.87375pt x 159.14336pt.
-<report_files/figure-latex/selected variables plot-2.pdf, id=275, 469.755pt x 3
+<report_files/figure-latex/selected variables plot-2.pdf, id=300, 469.755pt x 3
 25.215pt>
 File: report_files/figure-latex/selected variables plot-2.pdf Graphic file (typ
 e pdf)
 <use report_files/figure-latex/selected variables plot-2.pdf>
 Package pdftex.def Info: report_files/figure-latex/selected variables plot-2.pd
-f  used on input line 1779.
+f  used on input line 1986.
 (pdftex.def)             Requested size: 229.87375pt x 159.14336pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 1778--1780
+Underfull \hbox (badness 10000) in paragraph at lines 1985--1987
 [][]
  []
 
-<report_files/figure-latex/PLS with gen selected variables-1.pdf, id=276, 469.7
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+[16 <./report_files/figure-latex/unnamed-chunk-17-1.pdf> <./report_files/figure
+-latex/unnamed-chunk-18-1.pdf> <./report_files/figure-latex/selected variables 
+plot-1.pdf>]
+<report_files/figure-latex/PLS with gen selected variables-1.pdf, id=324, 469.7
 55pt x 325.215pt>
 File: report_files/figure-latex/PLS with gen selected variables-1.pdf Graphic f
 ile (type pdf)
 <use report_files/figure-latex/PLS with gen selected variables-1.pdf>
 Package pdftex.def Info: report_files/figure-latex/PLS with gen selected variab
-les-1.pdf  used on input line 1795.
+les-1.pdf  used on input line 2002.
 (pdftex.def)             Requested size: 229.87375pt x 159.14336pt.
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-[15 <./report_files/figure-latex/selected variables plot-1.pdf> <./report_files
-/figure-latex/selected variables plot-2.pdf> <./report_files/figure-latex/PLS w
-ith gen selected variables-1.pdf>] (./report.aux)
+[17 <./report_files/figure-latex/selected variables plot-2.pdf> <./report_files
+/figure-latex/PLS with gen selected variables-1.pdf>] (./report.aux)
 
 LaTeX Warning: There were multiply-defined labels.
 
 Package rerunfilecheck Info: File `report.out' has not changed.
-(rerunfilecheck)             Checksum: 2C0BB8991CBEFB5E08E36058945B83BF;3066.
+(rerunfilecheck)             Checksum: 4322F06D7B1471F68A3F378E89A58F0A;4105.
  ) 
 Here is how much of TeX's memory you used:
- 10804 strings out of 480539
- 165026 string characters out of 5900968
- 475645 words of memory out of 5000000
- 28185 multiletter control sequences out of 15000+600000
+ 10832 strings out of 480539
+ 166325 string characters out of 5900968
+ 479020 words of memory out of 5000000
+ 28201 multiletter control sequences out of 15000+600000
  455867 words of font info for 75 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 60i,8n,66p,428b,467s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 60i,8n,66p,487b,393s stack positions out of 5000i,500n,10000p,200000b,80000s
 {c:/Users/USUARIO/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ec
 .enc}{c:/Users/USUARIO/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm
 -mathit.enc}{c:/Users/USUARIO/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvip
@@ -944,10 +960,10 @@ e1/public/lm/lmtk10.pfb><c:/Users/USUARIO/AppData/Roaming/TinyTeX/texmf-dist/fo
 nts/type1/public/lm/lmtko10.pfb><c:/Users/USUARIO/AppData/Roaming/TinyTeX/texmf
 -dist/fonts/type1/public/lm/lmtt10.pfb><c:/Users/USUARIO/AppData/Roaming/TinyTe
 X/texmf-dist/fonts/type1/public/lm/lmtti10.pfb>
-Output written on report.pdf (15 pages, 5878408 bytes).
+Output written on report.pdf (17 pages, 5914503 bytes).
 PDF statistics:
- 392 PDF objects out of 1000 (max. 8388607)
- 305 compressed objects within 4 object streams
- 60 named destinations out of 1000 (max. 500000)
- 225 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 435 PDF objects out of 1000 (max. 8388607)
+ 342 compressed objects within 4 object streams
+ 70 named destinations out of 1000 (max. 500000)
+ 267 words of extra memory for PDF output out of 10000 (max. 10000000)
 
