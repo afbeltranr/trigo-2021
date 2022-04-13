@@ -1,29 +1,20 @@
-
-means1 <- mean[metadata.leaves.Si$spectra.index,]
-
-## Promedios
-tiff('./plots/means.tiff',
+# mean spectra full range plot
+tiff('./plots/meansFullRange.tiff',
      width = 4320,
      height = 3240, 
      res = 800
 )
-win.graph()
 
-tiff('./plots/baselineCorrection.tiff',
-     width = 12960,
-     height = 3240, 
-     res = 800)
-
-par(mfrow = c(1,3))
-for(i in  1:length(rownames(means1))){
+# par(mfrow = c(1,3))
+for(i in  1:length(rownames(spectra.df))){
   
-  plot(wavenumbers1,
-       means1[i,],
+  plot(wavenumbers,
+       spectra.df[i,],
        axes = F,
        xlab = '', 
        ylab = '',
-       xlim = c(1700, 445),
-       ylim= c(0,0.105),
+       xlim = c(4000, 445),
+       ylim= c(-0.005,0.12),
        type = 'l',
        col =cols.means[i]
        
@@ -32,13 +23,96 @@ for(i in  1:length(rownames(means1))){
 }
 
 
-axis(1, at = c(1700, 1500, 1300, 1100, 900, 700, 500))
+axis(1, at =  rev(seq(500,4500,200)))
 axis(2)
 box()
 title(main = '',
       xlab = expression(paste('Wave number (cm'^'-1',')')),
       ylab ='Absorbance (a.u.)')
+
+dev.off()
+
+
+## mean spectra ROI
+tiff('./plots/means.tiff',
+     width = 4320,
+     height = 3240, 
+     res = 800
+)
+for(i in  1:length(rownames(mean))){
   
+  plot(wavenumbers1,
+       mean[i,],
+       axes = F,
+       xlab = '',
+       ylab = '',
+       xlim = c(1700, 400),
+       ylim= c(0,0.135309),
+       type = 'l',
+       col =cols.means[i]
+       
+  )
+  par(new = T)
+}
+
+box()
+axis(1)
+axis(2)
+title(main = '',
+      xlab = expression(
+        paste('Wave number (cm'^'-1',
+              ')')
+      ),
+      ylab ='absorbance (a.u.)')
+
+dev.off()
+
+## Mean spectra ROI leaves samples with Si content
+
+tiff('./plots/meansLeavesSi.tiff',
+     width = 4320,
+     height = 3240, 
+     res = 800
+)
+
+means1 <- mean[metadata.leaves.Si$spectra.index,]
+
+for(i in  1:length(rownames(means1 ))){
+  
+  plot(wavenumbers1,
+       means1 [i,],
+       axes = F,
+       xlab = '', 
+       ylab = '',
+       xlim = c(1700, 445),
+       ylim= c(-0.005,0.12),
+       type = 'l',
+       col =cols.means[i]
+       
+  )
+  par(new = T)
+}
+
+
+axis(1, at =  rev(seq(500,1700,200)))
+axis(2)
+box()
+title(main = '',
+      xlab = expression(paste('Wave number (cm'^'-1',')')),
+      ylab ='Absorbance (a.u.)')
+
+dev.off()
+
+
+
+# baseline correction for leaves samples with silicon content
+
+tiff('./plots/baselineCorrection.tiff',
+     width = 4320,
+     height = 3240, 
+     res = 800)
+
+
 
 plot(spc[metadata.leaves.Si$spectra.index], 
      wl.reverse = TRUE)
