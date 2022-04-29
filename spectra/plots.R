@@ -221,17 +221,17 @@ box(main = '',
 ## Seleccion de variables
 
 
- tiff('./plots/VarSelectionCalLines.tiff',
+ # tiff('./plots/VarSelectionCalLines.tiff',
+ # 
+ #      width = 10000,
+ #      height = 12960,
+ #      res = 1500
+ # )
 
-      width = 10000,
-      height = 12960,
-      res = 1500
- )
-
-# win.graph()
+ win.graph()
 
 
-par(mfcol=c(3,2))
+par(mfrow=c(2,3))
 
 for(j in c(0,1,2)){
   for (i in 1:length(rownames(leavesSiSpectra))){
@@ -263,12 +263,15 @@ for(j in c(0,1,2)){
          cex = 1,
          font = 4
         )
+  
 }
 
 ## Curvas de calibracion
 
+
+# par(mfrow = c(1,3))
 for(i in c(0,1,2)){
-  plot(predX8Var,
+  plot(ActualSi,
        listOfPredictions1[[(4*i)+1]],
        xlab="Actual Si (mg/kg)" ,
        ylab="Predicted Si (mg/kg)",
@@ -296,44 +299,39 @@ for(i in c(0,1,2)){
        cex= 1.2,
        font = 4
   )
-  
+par(new=F)
 }
 
 
-dev.off()
+# dev.off()
 
 
 
 
 ## Model residuals
-tiff('./plots/REsiduals.tiff',
-     width = 5760,
-     height = 3240, 
-     res = 800
-)
+# tiff('./plots/REsiduals.tiff',
+#      width = 5760,
+#      height = 3240, 
+#      res = 800
+# )
+
+win.graph()
+
+library(ggplot2)
+library(gridExtra)
+
 dp1 <- ggplot(ResidualsTable, aes(x=Variables, y= Residuals, fill=Variables)) + 
   geom_violin(trim=FALSE)+
   geom_boxplot(width=0.1, fill='white')+
-  labs(title="",x="# of variables selected", y = "Residuals (mg/kg)")
-dp1 + scale_fill_brewer(palette="Greens") + theme_minimal()
-dev.off()
-## Cross validation RMSEP
+  labs(title="",x="# of variables selected", y = "Residuals (mg/kg)") +
+    scale_fill_brewer(palette="Greens") + theme_minimal()
 
-library(ggplot2)
-  tiff('./plots/CVRMSEP.tiff',
-       width = 8640,
-       height = 4860, 
-       res = 1200
-       )
-  # svg('./plots/CVRMSEP.svg',
-  #     width = 11.88,
-  #     height = 6.37,
-  #     pointsize = 15)
-  library(ggplot2)
+
   dp <- ggplot(RMSEPTable, aes(x=variables, y=RMSEP, fill=variables)) + 
     geom_violin(trim=FALSE)+
     geom_boxplot(width=0.1, fill='white')+
-    labs(title=" ",x="# of variables selected", y = "RMSE (n = 1000, mg/kg)")
-  dp + scale_fill_brewer(palette="Blues") + theme_light()
+    labs(title=" ",x="# of variables selected", y = "RMSE (n = 1000, mg/kg)") +
+  scale_fill_brewer(palette="Blues") + theme_light()
   
-  dev.off()
+grid.arrange(dp1,dp)
+  

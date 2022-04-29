@@ -1370,252 +1370,222 @@ summary(LeavesPLS)
 
 
 
-<!-- # Multiple OLS with new variables  -->
+# Multiple OLS with new variables
 
-<!-- We can try and predict the silicon content in each sample using each of the models created by using que X matrix as the selected frequencies by the genetic algorithm: -->
+We can try and predict the silicon content in each sample using each of the models created by using que X matrix as the selected frequencies by the genetic algorithm:
 
-<!-- ```{r} -->
-<!-- listOfPredictions1 <- vector('list', length = nrow(gen$bestsets)) -->
+First we create empty lists in which we will save in each slot, each result of each model we will build.
 
-<!-- listOfModels1 <- vector('list', length = nrow(gen$bestsets))  -->
-<!-- ``` -->
+```{r}
+listOfPredictions1 <- vector('list', length = nrow(gen$bestsets))
 
+listOfModels1 <- vector('list', length = nrow(gen$bestsets))
+```
 
-<!-- ```{r} -->
+then through a for loop, we can build each model, sub-setting just the columns (variables) described by `gen$bestsets`
 
-<!-- for(i in 1:nrow(gen$bestsets)){ -->
+```{r}
 
+for(i in 1:nrow(gen$bestsets)){
 
-<!--   listOfModels1[[i]] <- lm(metadata.leaves.Si$Si ~ leavesSiSpectra[,gen$bestsets[i,]], y = T, x = T) -->
 
-<!-- } -->
-<!-- ``` -->
+  listOfModels1[[i]] <- lm(metadata.leaves.Si$Si ~ leavesSiSpectra[,gen$bestsets[i,]], y = T, x = T)
 
+}
+```
 
-<!-- ```{r} -->
+Then, we use the function `predict` to make predictions using each model and the absorbance at the selected frequencies as predictors, to predict the silicon content in each sample:
+```{r}
 
+for(i in 1:nrow(gen$bestsets)){
 
-<!-- for(i in 1:nrow(gen$bestsets)){ -->
 
+  listOfPredictions1[[i]] <- predict(listOfModels1[[i]],  newdata = as.data.frame(leavesSiSpectra[,gen$bestsets[i,]]))
 
-<!--   listOfPredictions1[[i]] <- predict(listOfModels1[[i]],  newdata = as.data.frame(leavesSiSpectra[,gen$bestsets[i,]])) -->
+}
+```
 
-<!-- } -->
-<!-- ``` -->
 
+```{r}
+ActualSi <- SiTable$Si
+```
 
 
-<!-- ```{r} -->
 
-<!-- for(i in 1:nrow(gen$bestsets)){ -->
+```{r}
+win.graph()
+for(i in 1:nrow(gen$bestsets)){
+plot(ActualSi,
+	 listOfPredictions1[[i]],
+	 xlab="Actual Si (ppm)" ,
+ 	 ylab="Predicted Si (ppm)",
+ 	 pch=17,
+ 	 cex=1.2,
+ 	 col="darkorchid4",
+ 	 cex.lab=1
 
+ 	 )
+abline(a=0  , b=1, col=1, lty=1, lwd=2)
 
-<!--   listOfPredictions1[[i]] <- predict(listOfModels1[[i]],  newdata = as.data.frame(leavesSiSpectra[,gen$bestsets[i,]])) -->
+readline('press enter')
+par(new = F)
+}
+```
+## Residuals
 
-<!-- } -->
-<!-- ``` -->
+```{r}
+residualsT <- c(listOfModels1[[1]]$residuals,
+               listOfModels1[[2]]$residuals,
+               listOfModels1[[3]]$residuals,
+               listOfModels1[[4]]$residuals,
+               listOfModels1[[5]]$residuals,
+               listOfModels1[[6]]$residuals,
+               listOfModels1[[7]]$residuals,
+               listOfModels1[[8]]$residuals,
+               listOfModels1[[9]]$residuals)
 
+VariablesResiduals <- c(rep(4,23),
+                        rep(5,23),
+                        rep(6,23),
+                        rep(7,23),
+                        rep(8,23),
+                        rep(9,23),
+                        rep(10,23),
+                        rep(11,23),
+                        rep(12,23)
+                      )
 
-<!-- ```{r} -->
-<!-- win.graph() -->
-<!-- for(i in 1:nrow(gen$bestsets)){ -->
-<!-- plot(predX8Var, -->
-<!-- 	 listOfPredictions1[[i]], -->
-<!-- 	 xlab="Actual Si (ppm)" , -->
-<!--  	 ylab="Predicted Si (ppm)", -->
-<!--  	 pch=17, -->
-<!--  	 cex=1.2, -->
-<!--  	 col="darkorchid4", -->
-<!--  	 cex.lab=1 -->
+ResidualsTable <- data.frame(Residuals = residualsT, Variables = VariablesResiduals)
 
-<!--  	 ) -->
-<!-- abline(a=0  , b=1, col=1, lty=1, lwd=2) -->
+ResidualsTable$Variables <- as.factor(ResidualsTable$Variables)
+dp1 <- ggplot(ResidualsTable, aes(x=Variables, y= Residuals, fill=Variables)) +
+  geom_violin(trim=FALSE)+
+  geom_boxplot(width=0.1, fill='white')+
+  labs(title="",x="# of variables selected", y = "Residuals (mg/kg)")
+dp1 + scale_fill_brewer(palette="Greens") + theme_minimal()
 
-<!-- readline('dale') -->
-<!-- par(new = F) -->
-<!-- } -->
-<!-- ``` -->
-<!-- ## Residuals -->
+```
+# Significance of models
 
-<!-- ```{r} -->
-<!-- residualsT <- c(listOfModels1[[1]]$residuals, -->
-<!--                listOfModels1[[2]]$residuals, -->
-<!--                listOfModels1[[3]]$residuals, -->
-<!--                listOfModels1[[4]]$residuals, -->
-<!--                listOfModels1[[5]]$residuals, -->
-<!--                listOfModels1[[6]]$residuals, -->
-<!--                listOfModels1[[7]]$residuals, -->
-<!--                listOfModels1[[8]]$residuals, -->
-<!--                listOfModels1[[9]]$residuals) -->
+```{r}
+win.graph()
 
-<!-- VariablesResiduals <- c(rep(1,23), -->
-<!--                         rep(2,23), -->
-<!--                         rep(3,23), -->
-<!--                         rep(4,23), -->
-<!--                         rep(5,23), -->
-<!--                         rep(6,23), -->
-<!--                         rep(7,23), -->
-<!--                         rep(8,23), -->
-<!--                         rep(9,23) -->
-<!--                       ) -->
+pValTable <- data.frame(matrix(nrow = 9, ncol = 12))
 
-<!-- ResidualsTable <- data.frame(Residuals = residualsT, Variables = VariablesResiduals) -->
 
-<!-- ResidualsTable$Variables <- as.factor(ResidualsTable$Variables) -->
-<!-- dp1 <- ggplot(ResidualsTable, aes(x=Variables, y= Residuals, fill=Variables)) +  -->
-<!--   geom_violin(trim=FALSE)+ -->
-<!--   geom_boxplot(width=0.1, fill='white')+ -->
-<!--   labs(title="",x="# of variables selected", y = "Residuals (mg/kg)") -->
-<!-- dp1 + scale_fill_brewer(palette="Greens") + theme_minimal() -->
+summary(listOfModels1[[1]])$coefficients[,4]
+win.graph()
+par(mfrow = c(3,3))
+for(i in 1:9){
+   barplot(summary(listOfModels1[[i]])$coefficients[,4],
 
-<!-- ``` -->
-<!-- # Significance of models -->
+          horiz = T,
+          names.arg = c('intercept', colnames(leavesSiSpectra[,gen$bestsets[i,]])))
+  abline(v = 0.05, lty =2)
 
-<!-- ```{r} -->
-<!-- win.graph() -->
+}
 
-<!-- pValTable <- data.frame(matrix(nrow = 9, nrow = 12)) -->
+```
 
 
-<!-- summary(listOfModels1[[1]])$coefficients[,4] -->
-<!-- win.graph() -->
-<!-- par(mfrow = c(3,3)) -->
-<!-- for(i in 1:9){ -->
-<!--    barplot(summary(listOfModels1[[i]])$coefficients[,4], -->
+## cross validation for MOLS and selected variables
 
-<!--           horiz = T, -->
-<!--           names.arg = c('intercept', colnames(leavesSiSpectra[,gen$bestsets[i,]]))) -->
-<!--   abline(v = 0.05, lty =2) -->
 
-<!-- } -->
 
-<!-- ``` -->
 
+```{r}
+library(tidyverse)
+library(caret)
 
-<!-- ```{r} -->
-<!-- summary(mols) -->
-<!-- ``` -->
+# First we create a list of tables with the best subsets selected by the genetic algorithm
 
-<!-- ```{r} -->
-<!-- predictions8Var <- predict(mols,  newdata = as.data.frame(leavesSiSpectra[,gen$bestsets[4,]])) -->
-<!--  n -->
-<!-- predY8var <- predictions8Var -->
+listOfTables <- vector('list', nrow(gen$bestsets))
 
-<!-- table8bar <- data.frame(I( predX8Var),I(predY8var)) -->
+listOfModels <- vector('list', nrow(gen$bestsets))
 
-<!-- lm.C <- lm(predX8Var~predY8var) -->
+listOfRMSEP <- vector('list', nrow(gen$bestsets))
 
-<!-- plot(predX8Var, -->
-<!-- 	 predY8var, -->
-<!-- 	 xlab="Actual Si (ppm)" , -->
-<!--  	 ylab="Predicted Si (ppm)", -->
-<!--  	 pch=17, -->
-<!--  	 cex=1.2, -->
-<!--  	 col="darkorchid4", -->
-<!--  	 cex.lab=1 -->
-<!--  	 ) -->
-<!-- abline(a=0  , b=1, col=1, lty=1, lwd=2) -->
-<!-- # legend("topleft", recta.restado, pch=pch ,col=colfin, cex=1) -->
+system.time(
+for(i in 1:nrow(gen$bestsets)){
 
-<!-- ``` -->
-<!-- ## cross validation for MOLS and selected variables -->
+ listOfTables[[i]] <- cbind(Si  = metadata.leaves.Si$Si, as.data.frame(leavesSiSpectra[,gen$bestsets[i,]]))
 
 
+ # setting seed to generate a
+# reproducible random sampling
+set.seed(125)
 
+# defining training control as
+# repeated cross-validation and
+# value of K is 10 and repetition is 100 times
 
-<!-- ```{r} -->
-<!-- library(tidyverse) -->
-<!-- library(caret) -->
+train_control <- trainControl(method = "repeatedcv",
+                            number = 10, repeats = 100)
 
-<!-- # First we create a list of tables with the best subsets selected by the genetic algorithm -->
+# training the model by assigning sales column
+# as target variable and rest other column
+# as independent variable
 
-<!-- listOfTables <- vector('list', nrow(gen$bestsets)) -->
+listOfModels[[i]] <- train(Si ~.,
+                       data = listOfTables[[i]],
+                       method = "lm",
+                      trControl = train_control)
 
-<!-- listOfModels <- vector('list', nrow(gen$bestsets)) -->
 
-<!-- listOfRMSEP <- vector('list', nrow(gen$bestsets)) -->
+listOfRMSEP[[i]] <- listOfModels[[i]]$resample$RMSE
 
-<!-- system.time( -->
-<!-- for(i in 1:nrow(gen$bestsets)){ -->
+}
 
-<!--  listOfTables[[i]] <- cbind(Si  = metadata.leaves.Si$Si, as.data.frame(leavesSiSpectra[,gen$bestsets[i,]])) -->
+)
 
+RMSEP <- c(listOfRMSEP[[1]],listOfRMSEP[[2]],listOfRMSEP[[3]],listOfRMSEP[[4]],listOfRMSEP[[5]],listOfRMSEP[[6]],listOfRMSEP[[7]],listOfRMSEP[[8]],listOfRMSEP[[9]])
 
-<!--  # setting seed to generate a -->
-<!-- # reproducible random sampling -->
-<!-- set.seed(125) -->
 
-<!-- # defining training control as -->
-<!-- # repeated cross-validation and -->
-<!-- # value of K is 10 and repetition is 100 times -->
 
-<!-- train_control <- trainControl(method = "repeatedcv", -->
-<!--                             number = 10, repeats = 100) -->
+RMSEPTable <- data.frame(RMSEP = RMSEP, variables = c(rep(4,1000),rep(5,1000),rep(6,1000),rep(7,1000),rep(8,1000),rep(9,1000),rep(10,1000),rep(11,1000),rep(12,1000)))
 
-<!-- # training the model by assigning sales column -->
-<!-- # as target variable and rest other column -->
-<!-- # as independent variable -->
+RMSEPTable$variables <- as.factor(RMSEPTable$variables)
 
-<!-- listOfModels[[i]] <- train(Si ~.,  -->
-<!--                        data = listOfTables[[i]], -->
-<!--                        method = "lm", -->
-<!--                       trControl = train_control) -->
 
+# # R program to implement
+# # repeated K-fold cross-validation
+#
+# # setting seed to generate a
+# # reproducible random sampling
+# set.seed(125)
+#
+# # defining training control as
+# # repeated cross-validation and
+# # value of K is 10 and repetation is 3 times
+# train_control <- trainControl(method = "repeatedcv",
+#                             number = 10, repeats = 3)
+#
+# # training the model by assigning sales column
+# # as target variable and rest other column
+# # as independent variable
+# model <- train(Si ~., data = marketing,
+#                method = "lm",
+#                trControl = train_control)
+#
+# # printing model performance metrics
+# # along with other details
+# print(model)
+```
 
-<!-- listOfRMSEP[[i]] <- listOfModels[[i]]$resample$RMSE -->
 
-<!-- } -->
 
-<!-- ) -->
+```{r cross validation graph}
 
-<!-- RMSEP <- c(listOfRMSEP[[1]],listOfRMSEP[[2]],listOfRMSEP[[3]],listOfRMSEP[[4]],listOfRMSEP[[5]],listOfRMSEP[[6]],listOfRMSEP[[7]],listOfRMSEP[[8]],listOfRMSEP[[9]]) -->
 
+dp <- ggplot(RMSEPTable, aes(x=variables, y=RMSEP, fill=variables)) +
+  geom_violin(trim=FALSE)+
+  geom_boxplot(width=0.1, fill='white')+
+  labs(title="CVRMSE vs # of variables ",x="# of variables selected", y = "RMSE (n = 1000)")
+dp + scale_fill_brewer(palette="Blues") + theme_minimal()
 
 
-<!-- RMSEPTable <- data.frame(RMSEP = RMSEP, variables = c(rep(4,1000),rep(5,1000),rep(6,1000),rep(7,1000),rep(8,1000),rep(9,1000),rep(10,1000),rep(11,1000),rep(12,1000))) -->
 
-<!-- RMSEPTable$variables <- as.factor(RMSEPTable$variables) -->
-
-
-<!-- # # R program to implement -->
-<!-- # # repeated K-fold cross-validation -->
-<!-- #   -->
-<!-- # # setting seed to generate a -->
-<!-- # # reproducible random sampling -->
-<!-- # set.seed(125) -->
-<!-- #   -->
-<!-- # # defining training control as -->
-<!-- # # repeated cross-validation and -->
-<!-- # # value of K is 10 and repetation is 3 times -->
-<!-- # train_control <- trainControl(method = "repeatedcv", -->
-<!-- #                             number = 10, repeats = 3) -->
-<!-- #   -->
-<!-- # # training the model by assigning sales column -->
-<!-- # # as target variable and rest other column -->
-<!-- # # as independent variable -->
-<!-- # model <- train(Si ~., data = marketing, -->
-<!-- #                method = "lm", -->
-<!-- #                trControl = train_control) -->
-<!-- #   -->
-<!-- # # printing model performance metrics -->
-<!-- # # along with other details -->
-<!-- # print(model) -->
-<!-- ``` -->
-
-
-
-<!-- ```{r cross validation graph} -->
-
-
-<!-- dp <- ggplot(RMSEPTable, aes(x=variables, y=RMSEP, fill=variables)) +  -->
-<!--   geom_violin(trim=FALSE)+ -->
-<!--   geom_boxplot(width=0.1, fill='white')+ -->
-<!--   labs(title="CVRMSE vs # of variables ",x="# of variables selected", y = "RMSE (n = 1000)") -->
-<!-- dp + scale_fill_brewer(palette="Blues") + theme_minimal() -->
-
-
-
-<!-- ``` -->
+```
 
 <!-- # NIST Apple Leaves Reference material infrared spectra -->
 
