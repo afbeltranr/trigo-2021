@@ -173,7 +173,7 @@ If we use the factor `cols`, we can plot three replicas of one sample using the 
 Now, we can use a loop to plot each one of the rows of our `data.frame`: 
 
 ```{r raw data plot, fig.cap="\\label{fig:figs}raw spectra of triplicated samples"}
-
+win.graph()
 for(i in  1:length(rownames(spectra.df))){
   
   plot(wavenumbers,
@@ -199,6 +199,7 @@ title(main = '',
               ')')
         ),
       ylab ='absorbance (a.u.)')
+abline(v = 3327)
 ```
 
 As we can see in Figure \ref{fig:figs} In the range between 2500 and 2000 cm-1 variability due to experimental noise and background correction is present. In order to use multivariate methods and extract the chemical information from the dataset, we can select a region of interest (ROI) in which we take into account characteristic bands for molecules which concentration can be different between samples, such as silicon oxides, or lignin monomers.
