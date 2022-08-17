@@ -2,8 +2,7 @@
 title: "The structure and interaction of silica in plant cell walls: Data analysis report"
 author: "Felipe Beltran"
 date: "6/16/2021"
-output:
-    pdf_document
+output: rmdformats::downcute
 fig_caption: yes
 classoption:
 - twocolumn
