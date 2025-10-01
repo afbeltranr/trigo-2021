@@ -57,38 +57,61 @@ rgl_add_axes <- function(x, y, z, axis.col = "black",#91.72  7.59  0.63 => 99.94
 
 # Introduction
 
-In this document we will save all data manipulation and analysis related to the infrared spectra from the project: **The structure and interaction of silica in plant cell walls**
+This document presents the prepare and process stages of the data analysis process,for spectroscopic data from the project **The structure and interaction of silica in plant cell walls** as well as exploratory data analysis results, as well as modelling using genetic feature selection algorithms and multiple ordinary least squares regression (MOLS).  
 
 
-# Loading data into `R`
+# Prepare 
+## Loading data into `R`
 
-First, we create an object called `names`, which is a `list`, in which we will save the names of the files with the `.CSV` extension contained in [this](https://github.com/pipoelpipas/trigo-2021/tree/main/spectra) folder.
+An object called `names` is created, which is a `list`, in which the names of the files in the current directory which have the `.CSV` extension will be saved:
 
 ```{r creating names list}
 names <- list.files(pattern = '.CSV')
 ```
 
-Then, we use the function `lapply` to apply the function `read.csv` to each element of the list `names` and then save each of the `data.frames` from the files in to R.
+
+A function useful to import data from `.CSV` files is the function `read.csv`. It takes the data inside the original files and stores it in a `data.frame` object inside `R`.
+
+Since in this case, each file represents one measurement, reading and storing 318 files, one at a time is time consuming.
+
+To solve this, the function `lapply` can be used, which applies the same function to each item of a `list`. The `data.frame` that comes from each file, will be saved in each individual position of the new list: `spectra.list`.
+
 ```{r reading each data frame}
 spectra.list <- lapply(names, 
                        read.csv, 
                        header = F)
 ```
 
-Now, se can save the frequencies of incident light as a vector called `wavenumbers`. The code `spectra.list[[1]][1]` selects the first element of the list `spectra.list` using the index operator for lists `[[1]]`, which is a `data.frame`. Then, we select the first column of that `data.frame` using the index operator `[1]`:
+## Creating a table with all samples information
+
+Since all samples have their corresponding infrared spectra, samples can be considered as **subjects**, and frequencies as **features**. Since all samples share the same features, displaying these features inside the data table only once is enough.
+
+The frequencies of incident light are saved in a new vector called `wavenumbers`. 
+
+The following code: `spectra.list[[1]][1]` selects the first element of the list `spectra.list` using the index operator for lists `[[1]]`. Inside this first position of the list there is a `data.frame`. the first column of that `data.frame` is then selected using the index operator `[1]`:
 
 
 ```{r extracting wave numbers}
 wavenumbers <- unlist(spectra.list[[1]][1])
 ```
 
+
 The object `wavenumbers` has 1 row and 1869 columns, each column is one of the frequencies used by the spectrometer in the experiment.
 
-As we did previously, we can use again the function `lapply` to apply the index operator `[` and select ONLY the second column of each `data.frame` that has inside the absorbance at each frequency.
+The following code selects only the second column of each `data.frame` and saves it inside each slot of the list `spectra.list2`
 
 ```{r extracting just absorbances}
 spectra.list2 <- lapply(spectra.list, '[', 2)
 ```
+
+
+the function `lapply(spectra.list, '[', 2)` uses three arguments:
+
+* `spectra.list` a list of objects to which a function or operator will be applied.
+* `[` the index operator, which selects a specific column.
+* `2` the column to be selected.
+
+the second column of each `data.frame` contains information about the absorbance at each frequency.
 
 In order to make data easier to manipulate, we can transform the list of columns called `spectra.list2` into a `data.frame` as follows:
 
@@ -100,7 +123,9 @@ spectra.df <- as.data.frame(
 
 the object `spectra.df` has 318 rows, i.e. 318 spectra from different samples and 1869 columns, or infrared frequencies.
 
-Since the function `t()` transforms `data.frame` class objects into `matrix` class objects, we have to assign again to `spectra.df` (a matrix) the corresponding column and row names:
+in order to have each sample in each row, the function `t()` was used. It transposes the data frame, converting rows into columns and columns into rows.
+
+Since the function `t()` transforms `data.frame` class objects into `matrix` class objects, we have to assign again to `spectra.df` (a matrix) the corresponding column and row names: 
 
 ```{r assigning names 1}
 rownames(spectra.df) <- names
@@ -116,7 +141,6 @@ Since the names of the sample right now have the following structure:
 ```{r checking names}
 head(names[1:3])
 ```
-
 
 We can get rid of the unnecessary characters in the names of the samples, such as the extension and other symbols such as `"` or `.`. For that we can use the function `gsub()` and `regex` or regular expressions in order to replace these symbols for nothing, or `''`.
 
@@ -149,14 +173,15 @@ names2[292:318] <- gsub('.{41}$',
                           )[292:318])
 head(names2[292:318])[1:4]
 ```
-Finally, we assign the curated names to our data frame, `spectra.df`
+Finally, we assign the cleaned names to our data frame, `spectra.df`
 
 ```{r assigning corrected names}
 rownames(spectra.df) <- names2
 ```
 
 
-# Plotting intial data
+# Exploratory Data analysis
+## Plotting intial data
 
 Since we have joined several spectra from different samples, we can try to visualize what we are dealing with. 
 
@@ -172,8 +197,8 @@ If we use the factor `cols`, we can plot three replicas of one sample using the 
 Now, we can use a loop to plot each one of the rows of our `data.frame`: 
 
 ```{r raw data plot, fig.cap="\\label{fig:figs}raw spectra of triplicated samples"}
-win.graph()
-for(i in  1:2){
+# win.graph()
+for(i in   1:nrow(spectra.df)){
   
   plot(wavenumbers,
     spectra.df[i,],
@@ -209,7 +234,7 @@ abline(v = 1623)
 
 As we can see in Figure \ref{fig:figs} In the range between 2500 and 2000 cm-1 variability due to experimental noise and background correction is present. In order to use multivariate methods and extract the chemical information from the dataset, we can select a region of interest (ROI) in which we take into account characteristic bands for molecules which concentration can be different between samples, such as silicon oxides, or lignin monomers.
 
-# range selection
+## range selection
 
 Now, we can check for where is that ROI in our data frame. Since the frequencies are arranged along the columns, we can search for the columns that have column names between 1700 and 400 $cm^{-1}$
 
@@ -253,19 +278,19 @@ title(main = 'raw spectra - ROI',
 ```
 
 
-# mean spectra calculation
+## mean spectra calculation
 
-Since each sample has three replicated spectra, we can calculate the mean of each three samples as follows:
+Since each sample was measured three times, The mean spectra for the three measurements of each sample can be calculated as follows:
 
-
-* First, we create a vector to tell R which samples to look for. Using the function `unique()` we extract the unique values without taking their repetitions:
-
+  A vector is created, with the individual ID for each sample. The function `unique()` is used to store all ID without repetitions.
+ 
 ```{r search vector}
 options(width = 30)
 search.vector <- unique(unlist(cols))
 head(search.vector)
 ```
-Once we have the names for each sample, we can search for $\dfrac{318}{3}=106$ triads of samples. Once we know where they are, we can calculate the mean for each three replicates.
+
+Once the ID for each sample is identified and stored inside the `search.vector` it is possible to search for $\dfrac{318}{3}=106$ triads of measurements. Once their position is know, the mean spectra for each sample can be calculated.
 
 First, we create a list in which we are going to save the position of each three spectra:
 
@@ -280,7 +305,7 @@ As an example:
 
 The regular expression that we will use this time is `(?=.*<search>)` where `<search>` is replaced with the sample's name.
 
-This will find any element for the vector `rownames(spectra.df)` that matches with the character in `search vector`. For example, if we search for the first sample, `search.vector[1]` which is sample `125`:
+This will find any element for the vector `rownames(spectra.df)` that matches with the character in `search.vector`. For example, if we search for the first sample, `search.vector[1]` which is sample `125`:
 
 ```{r first sample name}
 as.character(search.vector[1]) # the name of 
@@ -349,9 +374,9 @@ rownames(mean) <- search.vector
 ```
 
 
-Then we can loop through columns indexing each wave number, one after another, in each iteration of the loop, or each time `j` changes its value. Posibles values for `j` are defined when `in 1:length(ncol(range1))`. where `ncol` gives us the number of columns of `range1` or the number of wave numbers present along the ROI.
+Then we can loop through columns indexing each wave number, one after another, in each iteration of the loop, or each time `j` changes its value. Possible values for `j` are defined at `in 1:length(ncol(range1))`. where `ncol` gives us the number of columns of `range1` or the number of wave numbers present along the ROI.
 
-At the same time, `i` takes values at each one of the numbers present between `1` and `nrow(mean)`
+At the same time, `i` takes values at each one of the numbers present between `1` and `nrow(mean)`, which is the number of samples, or 106.
 
 at step 1 in both loops, we save in the position `mean[1,1]` the resulting value when we use the function `mean()` which as default calculates the arithmetic mean (when the argument trim = 0 is given as default, the function trims a fraction of 0 observations from each end of the three observations before the means is computed.)
 
@@ -401,7 +426,7 @@ Once we have calculated the mean for each sample, we can plot the resulting mean
 ```{r plotting the mean, fig.cap="\\label{fig:figs}Calculated mean spectra"}
 
 cols.means <- as.factor(search.vector)
-win.graph()
+# win.graph()
 for(i in  1:length(rownames(mean))){
 
   plot(wavenumbers1,
@@ -409,7 +434,7 @@ for(i in  1:length(rownames(mean))){
     axes = F,
     xlab = '',
     ylab = '',
-    xlim = c(4000, 400),
+    xlim = c(1650, 400),
     ylim= c(0,0.135309),
     type = 'l',
     col =cols.means[i]
@@ -438,7 +463,7 @@ abline(v = 1650)
 
 Once we have calculated the mean estimator for each multivariate spectra, we can proceed to perform pre-treatments in order to clean the data, and extract as much as chemical information as we can.
 
-# baseline correction
+## baseline correction
 
 In this experiment we have performed an analogue to the the baseline correction described by [beleites et al. 2020](https://cran.r-project.org/web/packages/hyperSpec/vignettes/baseline.pdf):
 
@@ -531,50 +556,21 @@ Now, we can extract the corrected spectra from the `hyperSpec` object and save i
 corrected1  <- as.data.frame(spc3[1:106])
 corrected <- as.data.frame(corrected1[,1])
 corrected <- corrected + (min(corrected)*-1) 
+
 # shifting upwards to prevent negative values
 ```
 
 Up to this point, we have calculated the mean spectra and corrected the base-line of each spectrum. 
 
+it is useful to save both, the corrected and mean spectra in .csv files for further analysis:
 
-# multiplicative scatter correction (MSC)
-
-Since This is a popular pre-treatment [(Rinnan 2009](https://www.sciencedirect.com/science/article/abs/pii/S0165993609001629), [Wu 2018)](https://www.sciencedirect.com/science/article/abs/pii/S0168169917309687) we tried to use it in this study.   
-
-
-```{r MSC correction, message=FALSE}
-library(pls)
-correctedMSC <- msc(as.matrix(mean))
+```{r}
+write.csv(corrected, file = 'corrected.csv')
+write.csv(mean, file = 'mean.csv')
 ```
 
-```{r MSC correction plot, fig.cap="\\label{fig:figs}MSC correction of mean spectra "}
 
-for (i in 1:length(rownames(correctedMSC))){
-
-  plot(as.numeric(colnames(correctedMSC)),
-     correctedMSC[i,],
-     xlab = '',
-     ylab = '',
-     axes = F,
-     type = 'l',
-     xlim = c(1700,400),
-     ylim = c(0,0.12),
-     col = cols[i])
-  par(new = T)
-}
-box()
-axis(1)
-axis(2)
-title(main = '',
-      xlab = expression(paste(
-        'Wave number (cm'^'-1',
-        ')')),
-      ylab = 'Absorbance (a.u.)')
-```
-
-Since no noise reduction was identified, this option was dismissed for the moment.
-
-# metadata
+## metadata
 
 
 First, we load the metadata table, created from the data table 'Datos_para_colombia.xlsx' available [here](https://github.com/pipoelpipas/trigo-2021/blob/main/Lignina/Datos%20para%20Colombia.xlsx):
@@ -626,7 +622,7 @@ We can now try to find where in the rows of `corrected` are the samples listed i
 ```{r}
 
 positions <- vector('list', 87) 
-# the same sizeas metadata$sample
+# the same size as metadata$sample
 
 for (i in 1:87){
 
@@ -710,8 +706,52 @@ for(i in 1:length(metadata$sample)) {
 
 This is an analogue process to that used for saving the names of the spectra contained in `corrected`. The difference is that now in the column `metadata$spectra.index` we have exactly where the sample of the current row, is in the rows of the `corrected` matrix.
 
+a copy of this table can be saved for further analyisis:
 
-# Exploratory Data analysis
+```{r saving metadata table as a file}
+
+write.csv(metadata, file='metadata.csv ')
+
+```
+
+## multiplicative scatter correction (MSC)
+
+Since This is a popular pre-treatment [(Rinnan 2009](https://www.sciencedirect.com/science/article/abs/pii/S0165993609001629), [Wu 2018)](https://www.sciencedirect.com/science/article/abs/pii/S0168169917309687) we tried to use it in this study.   
+
+
+```{r MSC correction, message=FALSE}
+library(pls)
+correctedMSC <- msc(as.matrix(mean))
+```
+
+```{r MSC correction plot, fig.cap="\\label{fig:figs}MSC correction of mean spectra "}
+
+for (i in 1:length(rownames(correctedMSC))){
+
+  plot(as.numeric(colnames(correctedMSC)),
+     correctedMSC[i,],
+     xlab = '',
+     ylab = '',
+     axes = F,
+     type = 'l',
+     xlim = c(1700,400),
+     ylim = c(0,0.12),
+     col = cols[i])
+  par(new = T)
+}
+box()
+axis(1)
+axis(2)
+title(main = '',
+      xlab = expression(paste(
+        'Wave number (cm'^'-1',
+        ')')),
+      ylab = 'Absorbance (a.u.)')
+```
+
+Since no noise reduction was identified, this option was dismissed for the moment.
+
+## Exploratory Data analysis
 
 # Hierarchical clustering
 

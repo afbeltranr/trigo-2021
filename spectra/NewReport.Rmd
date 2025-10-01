@@ -1,0 +1,100 @@
+---
+title: "The structure and interaction of silica in plant cell walls: Data analysis report"
+author: "Andres Beltran"
+date: "`r Sys.Date()`"
+output: rmdformats::downcute
+fig_caption: yes
+classoption:
+- twocolumn
+---
+# Summary
+
+This document shows the proof of work of a chemical data analysis including the following steps:
+
+* [data gathering](#data-gathering): importing, sorting and merging a set of .csv files into a `data.frame`.
+* [data pre-processing](#Data-pre-processing): computing the mean of each set of triplicates, and then finding and removing the baseline.
+* [Exploratory data analysis](#Exploratory-data-analysis): Hierarchical clustering and PCA analyisis.
+* [Data modelling](#Data-modelling): Variable selection using genetic algorithms and multiple ordinary least squares.
+* [model validation](#Model-Validation): building an automated cross validation algorithm.
+
+**Data description:**: Data consists of 
+
+# Data gathering
+
+## Loading .CSV files data into `R`:
+  
+  It is usual for spectroscopic experiments to have one spectra per file, so to import them all at once, we can use `R` lists, and list loop functions like `lapply` as follows:
+   
+First, a list of all files with the `.CSV` extension within the working directory is created:
+  
+```{r creating names list}
+filenames <- list.files(pattern = '.CSV')
+length(filenames)
+```
+
+there are 318 `.CSV` files, each contains the resulting spectra of 1 replicate measurement. To import them all at once, we use the previously discussed `lapply` function:
+
+```{r importing data frames into a list}
+spectra.list <- lapply(
+                        filenames,
+                        read.csv,
+                        header=F
+                       )
+```
+
+Since all samples have their corresponding infrared spectra, samples can be considered as **subjects**, and frequencies as **features**. Since all samples share the same features, displaying these features inside the data table only once is enough.
+
+The frequencies of incident light are saved in a new vector called `wavenumbers`. 
+
+The following code: 
+`spectra.list[[1]][1]` selects the first element of the list `spectra.list` using the index operator for lists `[[1]]`. 
+Inside this first position of the list there is a `data.frame`. the first column of that `data.frame` is then selected using the index operator `[1]`:  
+
+```{r extracting wave numbers}
+wavenumbers <- unlist(spectra.list[[1]][1])
+head(wavenumbers)
+tail(wavenumbers)
+```
+The object `wavenumbers` has 1 row and 1869 columns, each column is one of the frequencies used by the spectrometer in the experiment. the range of frequency goes from 399 $cm^{-1}$ to 4000 $cm^{-1}$.
+
+Since the same set of features (frequencies of incident light) is shared between all samples, we can extract just the second column (absorbance) for all samples and save it in a table. to do this, we first must extract *just* the second column of each data-frame saved in each position of the list `spectra.list`.
+
+To do the same extraction operation, the loop function `lapply` can be used as follows:
+
+```{r extracting just absorbances}
+spectra.list2 <- lapply(spectra.list, '[', 2)
+```
+
+the function `lapply(spectra.list, '[', 2)` uses three arguments:
+
+* `spectra.list` a list of objects to which a function or operator will be applied.
+* `[` the index operator, which selects a specific column.
+* `2` the column to be selected.
+
+the second column of each `data.frame` contains information about the absorbance at each frequency.
+
+In order to make data easier to manipulate, we can transform the list of columns called `spectra.list2` into a `data.frame` as follows:
+```{r converting list of df to one df}
+spectra.df <- as.data.frame(
+  t(as.data.frame(spectra.list2))
+  )
+dim(spectra.df)
+```
+the object `spectra.df` has 318 rows, i.e. 318 spectra from different samples and 1869 columns, or infrared frequencies.
+
+in order to have each sample in each row, the function `t()` was used. It transposes the data frame, converting rows into columns and columns into rows.
+
+Since the function `t()` transforms `data.frame` class objects into `matrix` class objects, we have to assign again to `spectra.df` (a matrix) the corresponding column and row names:
+
+
+# Data pre-processing
+# Exploratory data analysis
+# Data modelling 
+# Model validation
+
+
+
+```
+ 
+```
+
